@@ -2,13 +2,20 @@
   <div class="inner">
     <a [cTooltip]="activeLabel"
        [ngClass]="{ 'disabled': disabled }"
-       class="active-flag btn {{flagConfig[activeFlag].class}}"
+       class="active-flag btn {{ flagConfig[activeFlag].class }}"
        (click)="toggleActive()">
-       {{activeFlag}}
+       {{activeFlag === 'N'? ' ' : activeFlag}}
     </a>
   </div>
   <ul>
-    <li *ngFor="let f of flags">
+    <li>
+      <button
+        type="button"
+        class="btn btn-circle btn-light"
+        (click)="selectFlag('N')">
+      </button>
+    </li>
+    <li *ngFor="let f of filteredFlags">
       <button
         type="button"
         class="btn btn-circle"

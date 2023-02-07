@@ -10,6 +10,7 @@ import { FormHourlyComponent } from './pages/form-hourly/form-hourly.component';
 import { FormDaily2Component } from './pages/form-daily2/form-daily2.component';
 
 import { FormDirtyGuard } from '../auth/guards/form-dirty.guard';
+import { FormSynopticRaComponent } from './pages/form-synoptic-ra/form-synoptic-ra.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
       {
         path: 'hourly',
         component: FormHourlyComponent,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Hourly Data'
         }
@@ -33,6 +35,7 @@ const routes: Routes = [
       {
         path: 'monthly',
         component: FormMonthlyComponent,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Monthly Data'
         }
@@ -40,6 +43,7 @@ const routes: Routes = [
       {
         path: 'hourly-wind',
         component: FormHourlyWindComponent,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Hourly Wind Data'
         }
@@ -47,20 +51,31 @@ const routes: Routes = [
       {
         path: 'daily',
         component: FormDaily2Component,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Daily Data for Whole Month'
         }
       },
       {
-        path: 'synoptic',
+        path: 'synoptic-carribiean',
         component: FormSynoptic2CaribbeanComponent,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Caribbean Synoptic Data'
         }
       },
       {
+        path: 'synoptic-2ra1',
+        component: FormSynopticRaComponent,
+        canDeactivate: [FormDirtyGuard],
+        data: {
+          title: 'Caribbean 2RA1'
+        }
+      },
+      {
         path: 'agro',
         component: FormAgro1Component,
+        canDeactivate: [FormDirtyGuard],
         data: {
           title: 'Kenya Agromet Data'
         }

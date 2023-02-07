@@ -1,6 +1,8 @@
 $light: #ebedef;
+$empty: #ecc9c9;
 $dark: #4f5d73;
 $secondary: #9da5b1;
+$danger: #e60000;
 $info: #39f;
 $warning: #f9b115;
 $text-dark: #33434b;
@@ -21,20 +23,24 @@ $text-dark: #33434b;
         line-height: 0.9rem;
         color: #fff;
 
-        &.btn-light {
+        &.btn-empty {
           color: $dark;
-          background-color: $light;
+          background-color: $empty;
         }
-        &.btn-dark {
+        &.btn-missing {
+          color: $danger;
+          background-color: $empty;
+        }
+        &.btn-trace {
           background-color: $dark;
         }
-        &.btn-info {
-          background-color: $info;
-        }
-        &.btn-secondary {
+        &.btn-estimated {
           background-color: $secondary;
         }
-        &.btn-warning {
+        &.btn-generated {
+          background-color: $info;
+        }
+        &.btn-dubious {
           background-color: $warning;
         }
       }

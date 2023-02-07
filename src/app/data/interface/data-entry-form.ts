@@ -5,7 +5,7 @@ export interface IDataEntryForm {
 
 export interface HourlyRecord {
   hour:    number;
-  value:  number;
+  value:  number | string;
   flag:   string;
 }
 
@@ -18,8 +18,13 @@ export interface HourlyWindRecord {
 }
 
 export interface MonthlyRecord {
-  month: string;
+  month: number;
   value:  number;
   flag:   string;
   period: number;
+}
+
+export interface ElementLimits {
+  lower: number;
+  upper: number;
 }

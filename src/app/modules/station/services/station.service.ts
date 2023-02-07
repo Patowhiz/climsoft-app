@@ -1,4 +1,3 @@
-import { take } from 'rxjs/operators';
 import { HttpService } from './../../../shared/services/http.service';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, catchError, of, tap } from 'rxjs';
@@ -139,7 +138,7 @@ export class StationService {
     });
   }
 
-  getStationElements(id: string): Observable<any> {
+  getStationElements(id: string | number): Observable<any> {
     return this.http.GET(`${apiPrefix}/stations/${id}/station-elements`);
   }
 

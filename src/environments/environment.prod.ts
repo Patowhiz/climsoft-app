@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
-  apiPrefix: 'http://api.opencdms.org',
+  apiPrefix: 'https://api.opencdms.org',
+  dbAPIPrefix: 'https://api.climsoft.org/',
   AUTH_KEY: 'api_key',
-  APP_MODE_COOKIE: 'app_mode'
+  APP_MODE_COOKIE: 'app_mode',
+  IDLE_TIME_IN_MINUTES: 5
 };

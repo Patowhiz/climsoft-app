@@ -1,6 +1,6 @@
 import { ConfirmationComponent } from './../../../shared/dialogs/confirmation/confirmation.component';
-import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, tap, switchMap } from 'rxjs/operators';
@@ -27,7 +27,13 @@ export class AuthService {
     return this.user$.asObservable();
   }
 
-  constructor(private router: Router, private http: HttpService, private modalService: BsModalService) { }
+  constructor(
+      private router: Router,
+      private route: ActivatedRoute,
+      private httpClient: HttpClient,
+      private http: HttpService,
+      private modalService: BsModalService
+    ) {}
 
   get isLoggedIn(): boolean {
     const tok = localStorage.getItem(environment.AUTH_KEY);
@@ -38,15 +44,30 @@ export class AuthService {
     return !helper.isTokenExpired(tok);
   }
 
-  login(cred: { email: string, password: string }): Observable<any> {
-    return this.http.POST(`auth`, cred)
+  loadDatabases() {
+    const { dbAPIPrefix } = environment;
+    return this.httpClient.post(`${dbAPIPrefix}databases`, null);
+  }
+
+  setDatabaseName(db: string) {
+    this.http.setDatabase(db);
+  }
+
+  login(cred: { username: string, password: string }): Observable<any> {
+    const payload: URLSearchParams = new URLSearchParams();
+    payload.set('grant_type', 'password');
+    payload.set('username', cred.username);
+    payload.set('password', cred.password);
+
+    return this.http.POST(`auth`, payload.toString(), { "Content-Type": "application/x-www-form-urlencoded" })
               .pipe(
                 catchError((err: HttpErrorResponse) => of({ error: err.error, status: err.status })),
                 tap((res: any) => {
                   if(res && res.access_token) {
                     const decoded: any = helper.decodeToken(res.access_token);
                     this.handleAuth(decoded.firstName, decoded.lastName, decoded.username, res.access_token, decoded.expiresIn);
-                    this.router.navigate(['/dashboard']);
+                    this.redirectUrl = this.route.snapshot.queryParams[`returnUrl`] || `/dashboard`;
+                    this.router.navigate([this.redirectUrl]);
                   }
                 })
               );

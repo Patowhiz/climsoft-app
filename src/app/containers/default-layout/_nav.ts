@@ -94,12 +94,16 @@ export const navItems: INavData[] = [
         name: 'data_entry.hourly_wind',
         url: '/data-entry/hourly-wind'
       },
+      // {
+      //   name: 'data_entry.synoptic-carribiean',
+      //   url: '/data-entry/synoptic-carribiean'
+      // },
       {
-        name: 'data_entry.synoptic',
-        url: '/data-entry/synoptic'
+        name: 'data_entry.synoptic-2ra1',
+        url: '/data-entry/synoptic-2ra1'
       },
       {
-        name: 'data_entry.agroment',
+        name: 'data_entry.agromet',
         url: '/data-entry/agro'
       }
     ]

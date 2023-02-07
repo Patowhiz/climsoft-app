@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+import { ResponseInterceptor } from './modules/auth/interceptors/response.interceptor';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
@@ -60,6 +62,7 @@ import { ErrorInterceptor } from './modules/auth/interceptors/error.interceptor'
 import { AppToastComponent } from './containers/default-layout/toast/toast.component';
 import { SplashScreenComponent } from './containers/default-layout/splash-screen/splash-screen.component';
 import { CookieService } from 'ngx-cookie-service';
+import { UserIdleModule } from 'angular-user-idle';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -88,6 +91,7 @@ const APP_CONTAINERS = [
         deps: [HttpClient]
       }
     }),
+    UserIdleModule.forRoot({idle: environment.IDLE_TIME_IN_MINUTES*60, timeout: 300 }),
 
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
@@ -125,12 +129,18 @@ const APP_CONTAINERS = [
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: HttpInterceptorService,
-    //   multi: true
-    // },
-    { provide: HTTP_INTERCEPTORS,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
       useClass: ErrorInterceptor,
       multi: true
     },

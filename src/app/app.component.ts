@@ -1,10 +1,12 @@
-import { take } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Component, OnInit, ElementRef, HostListener } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { filter, take } from 'rxjs';
 import { Title } from '@angular/platform-browser'
 import {TranslateService} from '@ngx-translate/core';
 import { IconSetService } from '@coreui/icons-angular';
 
+import { IdleService } from './shared/services/idle.service';
 import { UserService } from './modules/user/services/user.service';
 import { ResponsiveService } from './shared/services/responsive.service';
 
@@ -25,11 +27,6 @@ export class AppComponent implements OnInit {
   /* @ts-ignore */
   favIcon: HTMLLinkElement = document.querySelector('#appIcon');
 
-  @HostListener("window:resize", ['event'])
-  private onResize(e: Event) {
-    this.responsive.onResize(window.innerWidth);
-  }
-
   constructor(
     private router: Router,
     private translate: TranslateService,
@@ -37,8 +34,19 @@ export class AppComponent implements OnInit {
     private iconSetService: IconSetService,
     private wiIcons: WiIconsService,
     private responsive: ResponsiveService,
-    private userService: UserService
+    private userService: UserService,
+    private idleService: IdleService
   ) {}
+
+  @HostListener("window:resize", ['event'])
+  private onResize(e: Event) {
+    this.responsive.onResize(window.innerWidth);
+  }
+
+  @HostListener('window:focus', ['$event'])
+  private onFocus(e: Event) {
+    this.awakeAPI();
+  }
 
   ngOnInit(): void {
     this.iconSetService.icons = { ...iconSubset };
@@ -56,5 +64,30 @@ export class AppComponent implements OnInit {
       this.titleService.setTitle(isClimsoft ? 'Climsoft Weather App' : 'OpenCDMS Weather Data Management');
       this.favIcon.href = isClimsoft ? `./assets/climsoft.ico` : `/assets/opencdms.ico`;
     });
+
+    // this.initialIdleSettings();
+  }
+
+  private initialIdleSettings() {
+    const idleTimeoutInSeconds: number = environment.IDLE_TIME_IN_MINUTES * 60;
+    this.idleService.startWatching(idleTimeoutInSeconds).subscribe((val) => {
+      if(val) {
+        console.log('API is sleeing now');
+        this.idleService.refreshAPI
+        .pipe(filter(n => n > 0), take(1))
+        .subscribe(n => {
+          console.log('API is now Awake');
+          this.idleService.awake();
+        });
+      }
+    });
+  }
+
+  private awakeAPI() {
+    this.idleService.refreshAPI
+        .pipe(filter(n => n > 0), take(1))
+        .subscribe(() => {
+          console.log('Working');          
+        })
   }
 }

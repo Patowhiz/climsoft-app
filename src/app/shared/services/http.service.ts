@@ -16,30 +16,34 @@ export interface Options {
 })
 export class HttpService {
   private API_BASE = environment.apiPrefix;
+  private database: string = '';
 
   constructor(protected http: HttpClient) { }
 
   public createDefaultOptions(): Options {
-    return {
+    let defaults = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    };
+    }
+    return defaults;
   }
 
-  POST<T, R>(path: string, data: T): Observable<R> {
+  public setDatabase(db: string) {
+    this.database = db === 'climsoft' ? '' : `/${db}`;
+  }
+
+  POST<T, R>(path: string, data: T, options?: any): Observable<R> {
     return this.http
       .post<R>(
-        `${this.API_BASE}/${path}`,
+        `${this.API_BASE + this.database}/${path}`,
         data,
-        this.createDefaultOptions()
+        options ? { headers: new HttpHeaders(options) } : this.createDefaultOptions()
       );
   }
 
   PUT<T, R>(path: string, data: T): Observable<R> {
-    console.log(`${this.API_BASE}/${path}`);
-
     return this.http
       .put<R>(
-        `${this.API_BASE}/${path}`,
+        `${this.API_BASE + this.database}/${path}`,
         data,
         this.createDefaultOptions()
       );
@@ -47,14 +51,14 @@ export class HttpService {
 
   GET<T>(path: string): Observable<T> {
     return this.http.get<T>(
-      `${this.API_BASE}/${path}`,
+      `${this.API_BASE + this.database}/${path}`,
       this.createDefaultOptions()
     );
   }
 
   DELETE<R>(path: string): Observable<any> {
     return this.http.delete(
-      `${this.API_BASE}/${path}`
+      `${this.API_BASE + this.database}/${path}`
       );
   }
 
@@ -65,7 +69,7 @@ export class HttpService {
     formData.append('file', image);
 
     return this.http.post(
-      `${this.API_BASE}/${path}`,
+      `${this.API_BASE + this.database}/${path}`,
       formData,
       { reportProgress: true, observe: 'events' }
     );

@@ -73,7 +73,7 @@ export class PhysicalFeaturesService {
   }
 
   getByStation(id: string): Observable<PhysicalFeatureState | any> {
-    const url = `${apiPrefix}/physical-features?associated_With=${id}`;
+    const url = `${apiPrefix}/physical-features?associated_with=${id}`;
     return this.http.GET(url);
   }
 
@@ -111,6 +111,13 @@ export class PhysicalFeaturesService {
 
   getFeatureClasses(): Observable<PhysicalFeatureClass[]> {
     return this.http.GET(`${apiPrefix}/physical-feature-class`)
+                    .pipe(
+                      map((res: any) => res.result)
+                    );
+  }
+
+  getStationFeatureClasses(id: number): Observable<PhysicalFeatureClass[]> {
+    return this.http.GET(`${apiPrefix}/physical-feature-class?refersto=${id}`)
                     .pipe(
                       map((res: any) => res.result)
                     );

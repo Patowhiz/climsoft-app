@@ -1,3 +1,4 @@
+import { PhysicalFeatureComponent } from './../../components/physical-feature/physical-feature.component';
 import { FeatureClassesComponent } from './../../components/feature-classes/feature-classes.component';
 import { of, Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -40,20 +41,47 @@ export class PhysicalFeaturesComponent implements OnInit {
       backdrop: 'static',
       keyboard: false
     };
-    const confirmDialogRef: BsModalRef | undefined = this.modalService.show(PhysicalFeatureFormComponent, dialogConfig);
-    confirmDialogRef.content.onClose.subscribe((payload: Partial<PhysicalFeature>) => {
+    const dialogRef: BsModalRef | undefined = this.modalService.show(PhysicalFeatureFormComponent, dialogConfig);
+    dialogRef.content.onClose.subscribe((payload: Partial<PhysicalFeature>) => {
       if(payload) {
-        this.physicalFeature.addFeature(payload).subscribe();
+        this.physicalFeature.addFeature(payload).subscribe((res) => {
+          if(!res.success && res.error) {
+            dialogRef.content.error = res.message;
+          } else {
+            dialogRef.hide();
+          }
+        });
       }
     });
   }
 
-  view(f: PhysicalFeature) {
+  view(feature: PhysicalFeature) {
+    const dialogConfig: ModalOptions = {
+      initialState: { feature },
+      class: 'modal-xl'
+    };
 
+    const dialogRef: BsModalRef | undefined = this.modalService.show(PhysicalFeatureComponent, dialogConfig);
+    dialogRef.content.onClose.subscribe((data: { action: string }) => {
+      if(data.action && data.action === 'UPDATE_FEATURE') {
+        this.update(feature);
+      }
+    });
   }
 
-  update(f: PhysicalFeature) {
-
+  update(pf: PhysicalFeature) {
+    const dialogConfig: ModalOptions = {
+      initialState: { feature: pf },
+      class: 'modal-lg',
+      backdrop: 'static',
+      keyboard: false
+    };
+    const dialogRef: BsModalRef | undefined = this.modalService.show(PhysicalFeatureFormComponent, dialogConfig);
+    dialogRef.content.onClose.subscribe((payload: Partial<PhysicalFeature>) => {
+      if(payload) {
+        this.physicalFeature.updateFeature(pf, payload).subscribe();
+      }
+    });
   }
 
   remove(feat: PhysicalFeature) {
