@@ -1,0 +1,9 @@
+<mat-selection-list (selectionChange)="onChange($event)">
+    <mat-list-option
+      *ngFor="let item of hoursList"
+      [selected]="isSelected(item)"
+      [value]="item"
+    >
+      {{ item }}
+    </mat-list-option>
+  </mat-selection-list>

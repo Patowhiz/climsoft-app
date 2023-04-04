@@ -19,6 +19,11 @@ import {
 // Import routing module
 import { AppRoutingModule } from './app-routing.module';
 
+//------- other packages components -------
+import { AgGridModule } from 'ag-grid-angular';
+//--------------------------------
+
+
 // Import app component
 import { AppComponent } from './app.component';
 
@@ -63,6 +68,9 @@ import { AppToastComponent } from './containers/default-layout/toast/toast.compo
 import { SplashScreenComponent } from './containers/default-layout/splash-screen/splash-screen.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UserIdleModule } from 'angular-user-idle';
+import { WebEntryModule } from './modules/webentry/webentry.module';
+import { WebEntryBaseComponent } from './modules/webentry/web-entry-base/web-entry-base.component';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -77,7 +85,7 @@ const APP_CONTAINERS = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS],
+  declarations: [AppComponent, ...APP_CONTAINERS, WebEntryBaseComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -123,6 +131,9 @@ const APP_CONTAINERS = [
     SharedModule,
     AuthModule,
     DashboardModule,
+  WebEntryModule,
+  AgGridModule,
+    
   ],
   providers: [
     {

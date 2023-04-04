@@ -1,0 +1,8 @@
+<app-ucr-single-selector
+  [selectionLabel]="'Select month'"
+  [valueMember]="'id'"
+  [displayMember]="'name'"
+  [dataSource]="months"
+  [selectedItem]="selectedMonth"
+  (selectionChange)="onChange($event)"
+></app-ucr-single-selector>

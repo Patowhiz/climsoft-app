@@ -1,0 +1,6 @@
+<app-ucr-single-selector
+  [selectionLabel]="'Select hour'"
+  [dataSource]="hours"
+  [selectedItem]="selectedHour"
+  (selectionChange)="onChange($event)"
+></app-ucr-single-selector>

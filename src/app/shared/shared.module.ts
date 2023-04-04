@@ -56,6 +56,7 @@ import { YearSelectorComponent } from './component/year-selector/year-selector.c
 import { InfiniteLoadingComponent } from './component/infinite-loading/infinite-loading.component';
 import { StationElementSelectionComponent } from './component/station-element-selection/station-element-selection.component';
 
+
 @NgModule({
   declarations: [
     ConfirmationComponent,
@@ -114,7 +115,9 @@ import { StationElementSelectionComponent } from './component/station-element-se
     TypeaheadModule.forRoot(),
 
     NgxMaskModule.forRoot(),
-    NgxDropzoneModule
+    NgxDropzoneModule,
+
+
   ],
   exports: [
     FormsModule,

@@ -1,0 +1,93 @@
+
+.mat-card-header{
+  justify-content: space-between;
+}
+
+.mat-card-header a{
+  height: fit-content;
+}
+
+.header-btn{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.header-btn button{
+  margin-left: 5px;
+  margin-bottom: 2px;
+}
+
+.entries-form{
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0rem;
+}
+
+.entry-selectors{
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0rem;
+}
+
+.entry-selector{
+    margin-right: 3px;
+}
+
+.entry-fields{
+    margin-top: 1rem;
+    padding-top: 0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.entry-buttons {  
+  margin-top: 1rem; 
+  margin-bottom: 1rem; 
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.entry-buttons button{
+  margin: 3px;
+}
+
+.entry-navigation {  
+    margin-top: 2rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  }
+  .entry-navigation button{
+    // margin-left: 2px;
+    padding: 0px;
+    font-size: 12px;
+   }
+
+   .count-label {  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .count-label span{
+    font-size: 12px;
+    font-weight: lighter;
+    text-align: center;
+
+  }
+
+ 
+

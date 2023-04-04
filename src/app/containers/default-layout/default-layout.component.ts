@@ -3,7 +3,7 @@ import { UserService } from './../../modules/user/services/user.service';
 import { Observable, tap, switchMap, delay } from 'rxjs';
 import { Component, ViewChildren, QueryList, OnInit } from '@angular/core';
 
-import { navItems, DefaultNavItems } from './_nav';
+import { navItems, DefaultNavItems, navigationItems } from './_nav';
 import { Colors } from 'src/app/data/enum/colors';
 
 import { ToasterComponent, ToasterPlacement, INavData } from '@coreui/angular';
@@ -62,6 +62,7 @@ export class DefaultLayoutComponent implements OnInit {
         switchMap(() => this.userService.state$)
       )
       .subscribe((res) => {
+      
         this.mode = +res.preferences.mode;
         let filteredNavItems: INavData[];
         if(+res.preferences.mode === AppMode.DEFAULT)
@@ -69,18 +70,22 @@ export class DefaultLayoutComponent implements OnInit {
         else {
           filteredNavItems = navItems;
         }
-        this.translation.use(res.preferences.language);
-        this.navItems = filteredNavItems.map((ni) => {
-          if(ni.children && ni.children.length) {
-            return {
-              ...ni,
-              name: navTrans[`${ni.name}`],
-              children: ni.children.map((ch) => ({ ...ch, name: this.getNavProp(navTrans, ch.name) }))
-            };
-          } else {
-            return { ...ni, name: this.getNavProp(navTrans, ni.name) };
-          }
-        });
+          //set menu items with their translations
+        // this.translation.use(res.preferences.language);
+        // this.navItems = filteredNavItems.map((ni) => {
+        //   if(ni.children && ni.children.length) {
+        //     return {
+        //       ...ni,
+        //       name: navTrans[`${ni.name}`],
+        //       children: ni.children.map((ch) => ({ ...ch, name: this.getNavProp(navTrans, ch.name) }))
+        //     };
+        //   } else {
+        //     return { ...ni, name: this.getNavProp(navTrans, ni.name) };
+        //   }
+        // });
+
+        //set navigfation items
+        this.navItems = navigationItems;
       });
   }
 

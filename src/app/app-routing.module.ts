@@ -102,6 +102,12 @@ const routes: Routes = [
           import('./modules/data-entry/data-entry.module').then((m) => m.DataEntryModule)
       },
       {
+        path: 'webentry',
+        canActivateChild: [AuthChildrenGuard],
+        loadChildren: () =>
+          import('./modules/webentry/webentry.module').then((m) => m.WebEntryModule)
+      },
+      {
         path: 'pages',
         loadChildren: () =>
           import('./views/pages/pages.module').then((m) => m.PagesModule)

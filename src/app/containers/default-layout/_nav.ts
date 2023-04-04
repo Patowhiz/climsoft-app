@@ -1,6 +1,7 @@
 import { AppMode } from './../../data/enum/app-mode';
 import { INavData } from '@coreui/angular';
 
+//todo. deprecate
 export const navItems: INavData[] = [
   {
     name: 'dashboard',
@@ -127,3 +128,86 @@ export const navItems: INavData[] = [
 ];
 
 export const DefaultNavItems = ['Dashboard'];
+
+//-----------------------------------------------------------
+
+
+//New navigation structure
+//represents the navigation contents of the menu component
+//doesn't support translations yet
+export const navigationItems: INavData[] = [
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    iconComponent: { name: 'cil-speedometer' },
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW'
+    // }
+  },
+  {
+    name: 'Metadata',
+    //url: '/metadata',
+    iconComponent: { name: 'cil-puzzle' },
+    children: [
+      {
+        name: 'Stations',
+        url: '/stations'
+      },
+      {
+        name: 'Elements',
+        url: '/elements'
+      },
+      {
+        name: 'Station Elements',
+        url: '/station-elements'
+      },
+      {
+        name: 'Station Locations',
+        url: '/location-histories'
+      },
+      {
+        name: 'Qualifiers',
+        url: '/qualifiers'
+      },
+      {
+        name: 'Schedule Class',
+        url: '/schedule-classes'
+      },
+      {
+        name: 'Physical Features',
+        url: '/physical-features'
+      },
+      {
+        name: 'Paper Archive Definitions',
+        url: '/paper-archive-definitions'
+      }
+    ]
+  },
+  {
+    name: 'Data Entry Forms',
+    url: '/data-entry',
+    iconComponent: { name: 'cil-clipboard' },
+    // badge: {
+    //   color: 'info',
+    //   text: 'NEW'
+    // }
+  },
+  {
+    name: 'Data Entry',
+    url: '/webentry',
+    iconComponent: { name: 'cil-clipboard' },
+    badge: {
+      color: 'info',
+      text: 'NEW'
+    }
+  },
+  
+  {
+    name: 'Paper Archive',
+    url: '/paper-archives',
+    iconComponent: { name: 'cil-puzzle' },
+    // badge: { color: 'info', text: '850' }
+  },
+ 
+];

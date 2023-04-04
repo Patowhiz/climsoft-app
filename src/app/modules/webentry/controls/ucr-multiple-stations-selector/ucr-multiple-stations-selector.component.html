@@ -1,0 +1,9 @@
+<mat-selection-list (selectionChange)="onChange($event)">
+    <mat-list-option
+      *ngFor="let item of stationsList"
+      [selected]="isSelected(item)"
+      [value]="item"
+    >
+      {{ item.id + " - " + item.name }}
+    </mat-list-option>
+  </mat-selection-list>

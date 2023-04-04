@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiPrefix: 'api',
-  dbAPIPrefix: '',
+  apiPrefix: 'https://climsoft-prod.openclimate.net',
+  dbAPIPrefix: 'https://climsoft-prod.openclimate.net/',
   AUTH_KEY: 'api_key',
   APP_MODE_COOKIE: 'app_mode',
   IDLE_TIME_IN_MINUTES: 5
