@@ -36,3 +36,8 @@ $enable-rtl: true;
 
 /* Optional theme CSS */
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
+
+html, body{
+    display: block;
+    height: 100%;
+}

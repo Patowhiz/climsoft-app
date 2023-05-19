@@ -1,15 +1,19 @@
 
 import { NgModule } from '@angular/core';
 import { WebEntryRoutingModule } from './webentry-routing.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { SharedModule } from '../shared/shared.module';
 
-
+//------- other packages modules  -------
+import { AgGridModule } from 'ag-grid-angular';
+//--------------------------------
 
 //------- app forms components -------
 import { FormBuilderComponent } from './form-builder/form-builder.component';
 import { DataGridEntryComponent } from './controls/data-grid-entry/data-grid-entry.component';
 import { ViewEntryFormsComponent } from './view-entry-forms/view-entry-forms.component';
+import { FormEntryComponent } from './form-entry/form-entry.component';
+import { ImportEntryComponent } from './import-entry/import-entry.component';
+import { ValueFlagEntryComponent } from './controls/value-flag-entry/value-flag-entry.component';
 //------------------------------------
 
 //------- app controls ----------
@@ -23,31 +27,10 @@ import { UcrSingleHourSelectorComponent } from './controls/ucr-single-hour-selec
 import { UcrMultipleSelectorComponent } from './controls/ucr-multiple-selector/ucr-multiple-selector.component';
 import { UcrMultipleElementsSelectorComponent } from './controls/ucr-multiple-elements-selector/ucr-multiple-elements-selector.component';
 import { UcrTableComponent } from './controls/ucr-table/ucr-table.component';
-
-//----------------------------------
-
-//------- angular material components -------
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatButtonModule } from '@angular/material/button';
-import { MatListModule } from '@angular/material/list';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatCardModule } from '@angular/material/card';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatTabsModule} from '@angular/material/tabs';
-//--------------------------------
-
-//------- other packages components -------
-import { AgGridModule } from 'ag-grid-angular';
-import { FormEntryComponent } from './form-entry/form-entry.component';
 import { UcrMultipleStationsSelectorComponent } from './controls/ucr-multiple-stations-selector/ucr-multiple-stations-selector.component';
 import { UcrMultipleHoursSelectorComponent } from './controls/ucr-multiple-hours-selector/ucr-multiple-hours-selector.component';
 import { UcrMultipleDaysSelectorComponent } from './controls/ucr-multiple-days-selector/ucr-multiple-days-selector.component';
-import { ValueFlagEntryComponent } from './controls/value-flag-entry/value-flag-entry.component';
-//--------------------------------
+//----------------------------------
 
 
 @NgModule({
@@ -70,30 +53,14 @@ import { ValueFlagEntryComponent } from './controls/value-flag-entry/value-flag-
     UcrMultipleStationsSelectorComponent,
     UcrMultipleHoursSelectorComponent,
     UcrMultipleDaysSelectorComponent,
-    ValueFlagEntryComponent
+    ValueFlagEntryComponent,
+    ImportEntryComponent
 
   ],
   imports: [
-    CommonModule,
     WebEntryRoutingModule,
-
-    ReactiveFormsModule,
-    FormsModule,
-
-    MatFormFieldModule,
-    MatRadioModule,
-    MatButtonModule,
-    MatListModule,
-    MatGridListModule,
-    MatSelectModule,
-    MatInputModule,
-    MatTableModule,
-    MatCardModule,
-    MatStepperModule,
-    MatTabsModule,
-
+    SharedModule,
     AgGridModule
-
   ]
 })
 export class WebEntryModule { }

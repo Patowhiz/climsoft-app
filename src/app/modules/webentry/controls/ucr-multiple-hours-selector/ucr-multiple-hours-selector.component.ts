@@ -11,7 +11,7 @@ export class UcrMultipleHoursSelectorComponent implements OnInit, OnChanges {
 
   @Input() selectedElements: number[] = [];
   @Output() selectionChange = new EventEmitter<number[]>();
-  hoursList: number[] = [];
+  hoursList: any[] = [];
 
   constructor() { 
     this.hoursList = HOURSLIST;

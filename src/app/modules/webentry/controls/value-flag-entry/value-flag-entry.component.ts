@@ -18,6 +18,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
   //entry controls definitions
   entryControlsDefs: any[] = [];
   elementsData: Element[] = [];
+  daysData: number[] = [];
 
   constructor() { }
 
@@ -29,6 +30,10 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
     //should also check that all element names are unique to prevent data entry errors
     if (this.entryForm.entryFields.includes("elementId")) {
       this.elementsData = ELEMENTSLIST;
+    }else if (this.entryForm.entryFields.includes("day")) {
+      
+    }else if (this.entryForm.entryFields.includes("hour")) {
+
     }
 
     this.entryControlsDefs = this.getValueFlagControls(this.entryForm, this.entryDataItems);
@@ -39,11 +44,10 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
 
   private getValueFlagControls(entryForm: EntryForm,  entryDataItems: any[]): any[] {
     let entryControlsDefs: any[] = [];
+    //get the entry field to use
     let entryField: string = entryForm.entryFields[0];
 
-
-    //todo. set controls from the selected entry field
-
+    //set controls from the data
     entryDataItems.forEach(entryData => {
       let controlValueDef: any = {};
       //get the control id from the entry field. 
@@ -62,7 +66,8 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
 
     if (entryField === "elementId") {
       return this.getPropertyValueFromArray(this.elementsData, "id", controlId);
-
+    }else if (entryField === "day") {
+      return this.getPropertyValueFromArray(DAYSLIST, "id", controlId);
     }
     return controlId;
 

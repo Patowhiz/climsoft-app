@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WebEntryBaseComponent } from './web-entry-base.component';
+import { ImportEntryComponent } from './import-entry.component';
 
-describe('WebEntryBaseComponent', () => {
-  let component: WebEntryBaseComponent;
-  let fixture: ComponentFixture<WebEntryBaseComponent>;
+describe('ImportEntryComponent', () => {
+  let component: ImportEntryComponent;
+  let fixture: ComponentFixture<ImportEntryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WebEntryBaseComponent ]
+      declarations: [ ImportEntryComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(WebEntryBaseComponent);
+    fixture = TestBed.createComponent(ImportEntryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

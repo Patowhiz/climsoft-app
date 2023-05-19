@@ -5,9 +5,9 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Element } from '../models/element.model';
 import { EntryForm } from '../models/entryform.model';
 import { RepoService } from '../services/repo.service';
-import { Router } from '@angular/router';
 import { Station } from '../models/station.model';
 import { MatStepper } from '@angular/material/stepper';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-form-builder',
@@ -38,7 +38,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
   formControlName: FormControl = new FormControl("");
   formControlDescription: FormControl = new FormControl("");
 
-  constructor(public repo: RepoService, private router: Router) {
+  constructor(public repo: RepoService, private location: Location) {
     this.entryForm = {
       id: 0,
       name: '',
@@ -59,7 +59,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
   }
 
   ngAfterViewInit() {
-    //overides the stepper edit and done icon bug when using completed propertt
+    //overides the stepper edit and done icon bug when using completed property
     //see issues;
     //https://github.com/angular/components/issues/7384
     //https://github.com/angular/components/issues/10513
@@ -224,7 +224,11 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
 
     //todo. this will eventually be through subscription
     this.repo.saveEntryForm(this.entryForm);
-    this.router.navigate(['/webentry/viewforms'])
+
+    //this should always just navigate back
+    this.location.back();
+
+    //this.router.navigate(['/webentry/viewforms'])
 
   }
 

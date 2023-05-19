@@ -1,11 +1,27 @@
 
-.mat-card-header{
-  justify-content: space-between;
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.mat-card-header a{
+.mat-card{
+  height: 100%;
+}
+
+.header{
+  display: flex;
+  flex-direction: row;
+}
+
+.header-spacer{
+  flex: 1 1 auto;
+}
+
+.header a{
   height: fit-content;
 }
+
 
 .header-btn{
   display: flex;

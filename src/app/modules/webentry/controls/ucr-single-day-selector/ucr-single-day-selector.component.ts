@@ -11,7 +11,7 @@ export class UcrSingleDaySelectorComponent implements OnInit, OnChanges  {
   @Input() selectedDay!: number;
   @Input() daysFilter!: number[];
   @Output() selectionChange = new EventEmitter<number>();
-  days: number[];
+  days: any[];
 
   constructor() {
     //todo. should be linke to the year and month selectors

@@ -11,7 +11,7 @@ export class UcrMultipleDaysSelectorComponent implements OnInit, OnChanges {
 
   @Input() selectedElements: number[] = [];
   @Output() selectionChange = new EventEmitter<number[]>();
-  daysList: number[] = [];
+  daysList: any[] = [];
 
   constructor() { 
     this.daysList = DAYSLIST;

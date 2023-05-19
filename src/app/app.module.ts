@@ -1,38 +1,14 @@
 import { environment } from 'src/environments/environment';
 import { ResponseInterceptor } from './modules/auth/interceptors/response.interceptor';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { BrowserModule, Title } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import {
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface,
   PerfectScrollbarModule,
 } from 'ngx-perfect-scrollbar';
-
-// Import routing module
-import { AppRoutingModule } from './app-routing.module';
-
-//------- other packages components -------
-import { AgGridModule } from 'ag-grid-angular';
-//--------------------------------
-
-
-// Import app component
-import { AppComponent } from './app.component';
-
-// Import containers
-import {
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent,
-} from './containers';
 
 import {
   AvatarModule,
@@ -56,41 +32,57 @@ import {
 } from '@coreui/angular';
 
 import { IconModule, IconSetService } from '@coreui/icons-angular';
-import { AuthModule } from './modules/auth/auth.module';
-import { DashboardModule } from './modules/dashboard/dashboard.module';
-import { SharedModule } from './shared/shared.module';
+
 import { HttpInterceptorService } from './modules/auth/interceptors/http.interceptor';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarModule } from '@ngx-loading-bar/core';
 import { ErrorInterceptor } from './modules/auth/interceptors/error.interceptor';
-import { AppToastComponent } from './containers/default-layout/toast/toast.component';
-import { SplashScreenComponent } from './containers/default-layout/splash-screen/splash-screen.component';
+// import { AppToastComponent } from './containers/default-layout/toast/toast.component';
+// import { SplashScreenComponent } from './containers/default-layout/splash-screen/splash-screen.component';
 import { CookieService } from 'ngx-cookie-service';
 import { UserIdleModule } from 'angular-user-idle';
+
+
+//------------modules------------------------------
+import { NgModule } from '@angular/core';
+import { BrowserModule, Title } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
+import { SharedModule } from './modules/shared/shared.module';
+import { AuthModule } from './modules/auth/auth.module';
 import { WebEntryModule } from './modules/webentry/webentry.module';
-import { WebEntryBaseComponent } from './modules/webentry/web-entry-base/web-entry-base.component';
+//--------------------------------------------
+//------------components------------------------------
+import { HomeComponent } from './home/home.component';
+//--------------------------------------------
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
 };
 
-const APP_CONTAINERS = [
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent,
-  AppToastComponent,
-  SplashScreenComponent
-];
-
 @NgModule({
-  declarations: [AppComponent, ...APP_CONTAINERS, WebEntryBaseComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
+
+    MatToolbarModule,
+    MatSidenavModule,
+
+    SharedModule,
+    AuthModule,
+    WebEntryModule,
+
 
     TranslateModule.forRoot({
       loader: {
@@ -99,7 +91,7 @@ const APP_CONTAINERS = [
         deps: [HttpClient]
       }
     }),
-    UserIdleModule.forRoot({idle: environment.IDLE_TIME_IN_MINUTES*60, timeout: 300 }),
+    UserIdleModule.forRoot({ idle: environment.IDLE_TIME_IN_MINUTES * 60, timeout: 300 }),
 
     LoadingBarHttpClientModule,
     LoadingBarRouterModule,
@@ -123,18 +115,12 @@ const APP_CONTAINERS = [
     SidebarModule,
     TabsModule,
     ToastModule,
-
-    FormModule,
     UtilitiesModule,
 
-    ReactiveFormsModule,
-    SharedModule,
-    AuthModule,
-    DashboardModule,
-  WebEntryModule,
-  AgGridModule,
-    
+
+
   ],
+  declarations: [AppComponent, HomeComponent],
   providers: [
     {
       provide: LocationStrategy,
@@ -165,13 +151,9 @@ const APP_CONTAINERS = [
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http);
 }
 
-/*
-    "target": "https://api-latest.opencdms.org",
-    "target": "https://api.opencdms.org",
-*/
