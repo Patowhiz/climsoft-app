@@ -20,6 +20,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDividerModule } from '@angular/material/divider';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 //--------------------------------
 
 //--------- components ------------
@@ -47,6 +48,7 @@ const materialModules = [
   MatDividerModule,
   MatMenuModule,
   MatExpansionModule,
+  MatDatepickerModule
   
 ];
 //--------------------------------

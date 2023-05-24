@@ -2,6 +2,8 @@ export  interface EntryForm{
 
     //unique id of the form
     id: number;
+    
+    data_source_id: number;
 
     name: string;
 

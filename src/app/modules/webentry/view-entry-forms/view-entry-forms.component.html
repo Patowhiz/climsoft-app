@@ -17,19 +17,33 @@
         <th mat-header-cell *matHeaderCellDef>Name</th>
         <td mat-cell *matCellDef="let element">{{ element.name }}</td>
       </ng-container>
+      <!---------->
 
       <!-- Description Column -->
       <ng-container matColumnDef="description">
         <th mat-header-cell *matHeaderCellDef>Description</th>
         <td mat-cell *matCellDef="let element">{{ element.description }}</td>
       </ng-container>
+      <!---------->
+
+      <!-- options button -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-stroked-button color="primary" [matMenuTriggerFor]="menu">
+            <mat-icon>unfold_more</mat-icon>
+            Options
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>Edit Form</button>
+            <button mat-menu-item (click)="onFormClick(row)">Enter Data</button>
+          </mat-menu>
+        </td>
+      </ng-container>
+      <!---------->
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        *matRowDef="let row; columns: displayedColumns"
-        (click)="onFormClick(row)"
-      ></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
     <div *ngIf="mobileView">
@@ -42,6 +56,16 @@
           <mat-card-title>{{ entryForm.name }}</mat-card-title>
           <mat-card-subtitle>{{ entryForm.description }}</mat-card-subtitle>
         </mat-card-header>
+        <mat-card-actions align="end">
+          <button mat-stroked-button color="primary">Edit Form</button>
+          <button
+            mat-stroked-button
+            color="primary"
+            (click)="onFormClick(entryForm)"
+          >
+            Enter Data
+          </button>
+        </mat-card-actions>
       </mat-card>
     </div>
   </mat-card-content>

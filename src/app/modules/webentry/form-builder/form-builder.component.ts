@@ -27,7 +27,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
 
   visibleForm: string = "entrySelectors";
   subTitle: string = "";
-  allEntrySelectors: any[] = [{ id: 'stationId', name: 'Station' }, { id: 'elementId', name: 'Element' }, { id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }];
+  allEntrySelectors: any[] = [{ id: 'elementId', name: 'Element' }, { id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }];
   //determined by the entry selectors
   allEntryFields: any[] = [];
   formControlEntryControl: FormControl = new FormControl();
@@ -41,6 +41,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
   constructor(public repo: RepoService, private location: Location) {
     this.entryForm = {
       id: 0,
+      data_source_id: 0,
       name: '',
       description: '',
       entrySelectors: [],
@@ -93,7 +94,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
 
   entrySelectorsCompleted(): boolean {
     //must be a minimum of 4 and maximum of 5
-    return this.entryForm.entrySelectors.length === 4 || this.entryForm.entrySelectors.length === 5;
+    return this.entryForm.entrySelectors.length >= 3 && this.entryForm.entrySelectors.length <= 4;
   }
   //-----------------------------------------------
 
@@ -110,9 +111,9 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
   entryFieldsCompleted(): boolean {
     //must be a minimum of 1 or maximum of 4 depending on the selectors
     if (this.entryForm.entrySelectors.length === 4) {
-      return this.entryForm.entryFields.length === 2;
-    } else if (this.entryForm.entrySelectors.length === 5) {
       return this.entryForm.entryFields.length === 1;
+    } else if (this.entryForm.entrySelectors.length === 3) {
+      return this.entryForm.entryFields.length === 2;
     } else {
       return false;
     }
@@ -218,9 +219,6 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
 
     this.entryForm.name = this.formControlName.value;
     this.entryForm.description = this.formControlDescription.value;
-
-
-    console.log("form",  this.entryForm);
 
     //todo. this will eventually be through subscription
     this.repo.saveEntryForm(this.entryForm);

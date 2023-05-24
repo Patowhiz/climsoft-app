@@ -5,8 +5,7 @@
       <mat-step [completed]="entrySelectorsCompleted()" [optional]="false">
         <h6>Select Entry Selectors</h6>
         <div>
-          <p>Minimum 4, maximum 5</p>
-          <p>Preview ></p>
+          <p>Minimum 3, maximum 4</p>
           <app-ucr-multiple-selector
             class="selection-container"
             [dataSource]="allEntrySelectors"
@@ -23,7 +22,6 @@
       <!-- Entry fields -->
       <mat-step [completed]="entryFieldsCompleted()" [optional]="false">
         <h6>Select Entry Fields</h6>
-        <p>Preview ></p>
         <app-ucr-multiple-selector
           class="selection-container"
           [dataSource]="allEntryFields"
@@ -59,13 +57,13 @@
             >
               Grid
             </mat-radio-button>
-            <mat-radio-button
+            <!-- <mat-radio-button
               *ngIf="entryForm.entryFields.length === 1"
               class="selection-radio-button"
               value="wsd"
             >
               Wind Speed and Direction
-            </mat-radio-button>
+            </mat-radio-button> -->
           </mat-radio-group>
         </div>
 

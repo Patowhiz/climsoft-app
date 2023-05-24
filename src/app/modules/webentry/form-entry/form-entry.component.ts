@@ -47,33 +47,27 @@ export class FormEntryComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
   }
 
-  public onStationChange(station: Station) {
-    console.log("form entry station changed", station);
-
-  }
-
   public onElementChange(element: Element): void {
-    console.log("form entry element changed", element);
-
+    //console.log("form entry element changed", element);
   }
 
   public onYearChange(year: any): void {
-    console.log("form entry year changed", year);
+    //console.log("form entry year changed", year);
 
   }
 
   public onMonthChange(month: any): void {
-    console.log("form entry onth changed", month);
+    //console.log("form entry onth changed", month);
 
   }
 
   public onDayChange(day: number): void {
-    console.log("dform entry ay changed", day);
+    //console.log("dform entry ay changed", day);
 
   }
 
   public onHourChange(hour: number): void {
-    console.log("form entry hour changed", hour);
+    //console.log("form entry hour changed", hour);
 
   }
 
@@ -81,10 +75,17 @@ export class FormEntryComponent implements OnInit, AfterViewInit {
     //console.log("form entry hour changed", hour);
 
   }
+
   public onSave(): void {
-    //console.log("form entry hour changed", hour);
+    console.log("new values", this.entryDataItems)
 
   }
 
+  public onDelete(): void {
 
+  }
+
+  public onClear(): void {
+
+  }
 }

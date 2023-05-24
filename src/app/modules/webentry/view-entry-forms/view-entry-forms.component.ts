@@ -4,8 +4,6 @@ import { EntryForm } from '../models/entryform.model';
 import { RepoService } from '../services/repo.service';
 import { ViewportService, ViewPortSize } from '../../shared/services/viewport.service';
 
-
-
 @Component({
   selector: 'app-view-entry-forms',
   templateUrl: './view-entry-forms.component.html',
@@ -14,7 +12,7 @@ import { ViewportService, ViewPortSize } from '../../shared/services/viewport.se
 export class ViewEntryFormsComponent implements OnInit {
 
   mobileView: boolean = false;
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['name', 'description','actions'];
   entryForms: EntryForm[];
 
   constructor(private viewPort: ViewportService, repo: RepoService, private router: Router) {
@@ -22,6 +20,7 @@ export class ViewEntryFormsComponent implements OnInit {
       this.mobileView = (viewPortSize === ViewPortSize.Small)
     });
 
+    //todo. forms shown here should be for the selected station only
     this.entryForms = repo.getEntryForms();
   }
 
