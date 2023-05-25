@@ -4,7 +4,7 @@ import { Router, NavigationEnd, NavigationExtras, Navigation } from '@angular/ro
 import { Location } from '@angular/common';
 import { filter } from "rxjs/operators";
 import { ViewPortSize, ViewportService } from '../modules/shared/services/viewport.service';
-import { ComponentsDataService } from '../modules/shared/services/components-data.service';
+import { ViewsDataService } from '../modules/shared/services/views-data.service';
 
 @Component({
   selector: 'app-home',
@@ -27,12 +27,14 @@ export class HomeComponent implements OnInit {
       icon: 'edit_note',
       children: [
         {
-          name: 'Forms Entry',
-          url: '/dataentry/formsentry',
+          name: 'Forms',
+          url: '/dataentry/stations',
+          featureTitle: 'Entry Stations'
         },
         {
-          name: 'Import Entry',
+          name: 'Import',
           url: '/dataentry/importentry',
+          featureTitle: 'Import Data'
         }
       ]
     },
@@ -41,7 +43,18 @@ export class HomeComponent implements OnInit {
       name: 'Metadata',
       url: '/metadata',
       icon: 'sticky_note_2',
-      children: []
+      children: [
+        {
+          name: 'Stations',
+          url: '',
+          featureTitle: 'Stations'
+        },
+        {
+          name: 'Forms',
+          url: '/metadata/forms',
+          featureTitle: 'Entry Forms'
+        }
+      ]
     },
     {
       name: 'User Management',
@@ -53,15 +66,15 @@ export class HomeComponent implements OnInit {
 
   ]
 
-  constructor(private viewPort: ViewportService,private componentsData: ComponentsDataService, private router: Router, private location: Location) {
+  constructor(private viewPort: ViewportService,private viewDataService: ViewsDataService, private router: Router, private location: Location) {
 
-    this.componentsData.loadedComponentNavigationState.subscribe( (state)=>{
-      if (state['title']) {
-        this.componentTitle = state['title'];
+    this.viewDataService.loadedViewNavigationData.subscribe( (state)=>{
+      if (state['viewTitle']) {
+        this.componentTitle = state['viewTitle'];
       }
   
-      if (state['subComponent']) {
-        this.launchedAsSubComponent = state['subComponent'];
+      if (state['subView']) {
+        this.launchedAsSubComponent = state['subView'];
       } else {
         this.launchedAsSubComponent = false;
       }
@@ -95,11 +108,11 @@ export class HomeComponent implements OnInit {
   }
 
 
-  public onFeatureClick(featureName: string, url: string): void {
+  public onFeatureClick(featureTitle: string, url: string): void {
     if (this.sideNav.mode === 'over') {
       this.sideNav.close();
     }
-    this.router.navigate([url], { state: { title: featureName } });
+    this.router.navigate([url], { state: { viewTitle: featureTitle } });
     //todo. loop through to get the active features and highlight accordingly
   }
 

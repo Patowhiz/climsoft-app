@@ -1,9 +1,9 @@
 import { Component, Input, ViewChild, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { CellClickedEvent, CellValueChangedEvent, ColDef } from 'ag-grid-community';
 import { DAYSLIST, ELEMENTSLIST } from '../../mockdata/mockdata-list.mock';
-import { Element } from '../../models/element.model';
-import { EntryData } from '../../models/entrydata.model';
-import { EntryForm } from '../../models/entryform.model';
+import { EntryForm } from 'src/app/modules/shared/models/entryform.model';
+import { EntryData } from 'src/app/modules/shared/models/entrydata.model';
+
 
 @Component({
   selector: 'app-value-flag-entry',

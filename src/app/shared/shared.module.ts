@@ -43,13 +43,10 @@ import { StationSelectionComponent } from './component/station-selection/station
 import { ElementSelectionComponent } from './component/element-selection/element-selection.component';
 import { DataTimeComponent } from './component/data-time-selection/date-time.component';
 import { NoValueComponent } from './component/no-value/no-value.component';
-import { InstrumentSelectionComponent } from './component/instrument-selection/instrument-selection.component';
 import { TimzoneSelectionComponent } from './component/timzone-selection/timzone-selection.component';
 import { ImageUploaderComponent } from './component/image-uploader/image-uploader.component';
 import { FlagPickerComponent } from './component/flag-picker/flag-picker.component';
 import { FlagLegendComponent } from './component/flag-legend/flag-legend.component';
-import { ArchiveDefinitionSelectionComponent } from './component/archive-definition-selection/archive-definition-selection.component';
-import { ArchiveViewerComponent } from './component/archive-viewer/archive-viewer.component';
 import { YearSelectorComponent } from './component/year-selector/year-selector.component';
 import { InfiniteLoadingComponent } from './component/infinite-loading/infinite-loading.component';
 import { StationElementSelectionComponent } from './component/station-element-selection/station-element-selection.component';
@@ -112,15 +109,12 @@ const materialModules = [
     FlagPickerComponent,
     ImageUploaderComponent,
     InfoBlockComponent,
-    InstrumentSelectionComponent,
     PromptComponent,
     PaginatorComponent,
     NoValueComponent,
     StationSelectionComponent,
     TimzoneSelectionComponent,
     FlagLegendComponent,
-    ArchiveDefinitionSelectionComponent,
-    ArchiveViewerComponent,
     YearSelectorComponent,
     InfiniteLoadingComponent,
     StationElementSelectionComponent,
@@ -215,10 +209,8 @@ const materialModules = [
 
 
     // Custom Selector Components
-    ArchiveDefinitionSelectionComponent,
     ElementSelectionComponent,
     FlagPickerComponent,
-    InstrumentSelectionComponent,
     StationSelectionComponent,
     TimzoneSelectionComponent,
     ImageUploaderComponent,

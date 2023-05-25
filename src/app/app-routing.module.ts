@@ -21,6 +21,11 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('./modules/webentry/webentry.module').then((m) => m.WebEntryModule)
       },
+      {
+        path: 'metadata',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('./modules/metadata/metadata.module').then((m) => m.MetadataModule)
+      },
     ]
   },  
   {

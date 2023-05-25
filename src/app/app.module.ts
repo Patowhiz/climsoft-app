@@ -56,12 +56,16 @@ import { AppComponent } from './app.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
+//--------------------------------------------
 import { SharedModule } from './modules/shared/shared.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MetadataModule } from './modules/metadata/metadata.module';
 import { WebEntryModule } from './modules/webentry/webentry.module';
 //--------------------------------------------
+
 //------------components------------------------------
 import { HomeComponent } from './home/home.component';
+
 //--------------------------------------------
 
 
@@ -81,8 +85,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     SharedModule,
     AuthModule,
+    MetadataModule,
     WebEntryModule,
-
 
     TranslateModule.forRoot({
       loader: {

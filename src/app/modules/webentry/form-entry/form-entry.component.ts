@@ -1,38 +1,40 @@
-import { Component, OnInit, AfterViewInit, ComponentFactoryResolver, Type, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ENTRYDATASAMPLE, HOURSLIST } from '../mockdata/mockdata-list.mock';
+import { Router } from '@angular/router';
+import { Station } from '../../shared/models/station.model';
+import { EntryForm } from '../../shared/models/entryform.model';
+import { EntryData } from '../../shared/models/entrydata.model';
+import { RepoService } from '../../shared/services/repo.service';
+import { Element } from '../../shared/models/element.model';
+import { ViewsDataService } from '../../shared/services/views-data.service';
 
-import { EntryForm } from '../models/entryform.model';
-import { EntryData } from '../models/entrydata.model';
-import { DAYSLIST, ENTRYDATASAMPLE, HOURSLIST } from '../mockdata/mockdata-list.mock';
-import { ActivatedRoute, Router } from '@angular/router';
-import { RepoService } from '../services/repo.service';
-import { Station } from '../models/station.model';
-import { Element } from '../models/element.model';
 
 @Component({
   selector: 'app-form-entry',
   templateUrl: './form-entry.component.html',
   styleUrls: ['./form-entry.component.scss']
 })
-export class FormEntryComponent implements OnInit, AfterViewInit {
-   entryForm!: EntryForm;
-   entryDataItems: EntryData[] = [];
+export class FormEntryComponent implements OnInit {
+  station!: Station;
+  entryForm!: EntryForm;
+  entryDataItems: EntryData[] = [];
+  useDatePickerControl: boolean = false;
 
-  constructor(private route: ActivatedRoute, private router: Router, private repo: RepoService, private componentFactoryResolver: ComponentFactoryResolver) {
-    let formId = this.route.snapshot.paramMap.get("formid");
-    //check for valid form id
-    if (formId === null || !Number(formId)) {
-      this.router.navigate(['/webentry/viewforms'])
-      return;
-    }
 
-    //todo. will be a subscription and also check for valid form
-    this.entryForm = this.repo.getEntryForm(Number(formId));
+  constructor(private viewDataService: ViewsDataService, private repo: RepoService, private router: Router) {
 
-     //todo. push it to the entry control level
-     this.entryForm.hours = [];
-     HOURSLIST.forEach(element => {
-       this.entryForm.hours.push(element);
-     });
+    this.station = this.viewDataService.getViewNavigationData()['stationData'];
+    this.entryForm = this.viewDataService.getViewNavigationData()['formData'];
+
+
+   this. useDatePickerControl = this.entryForm.entrySelectors.includes('year') && 
+   this.entryForm.entrySelectors.includes('month') && this.entryForm.entrySelectors.includes('day');
+  
+    //todo. push it to the entry control level
+    this.entryForm.hours = [];
+    HOURSLIST.forEach(element => {
+      this.entryForm.hours.push(element);
+    });
 
     //get the data based on the selectors and fields
     //todo. this data will later come from the server
@@ -42,9 +44,6 @@ export class FormEntryComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit() {
   }
 
   public onElementChange(element: Element): void {

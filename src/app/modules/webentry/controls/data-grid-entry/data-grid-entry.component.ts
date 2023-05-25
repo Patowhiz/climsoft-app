@@ -3,9 +3,9 @@ import { AgGridAngular } from 'ag-grid-angular';
 
 import { CellValueChangedEvent, ColDef } from 'ag-grid-community';
 import { DAYSLIST, ELEMENTSLIST } from '../../mockdata/mockdata-list.mock';
-import { Element } from '../../models/element.model';
-import { EntryData } from '../../models/entrydata.model';
-import { EntryForm } from '../../models/entryform.model';
+import { EntryForm } from 'src/app/modules/shared/models/entryform.model';
+import { EntryData } from 'src/app/modules/shared/models/entrydata.model';
+import { Element } from 'src/app/modules/shared/models/element.model';
 
 
 @Component({

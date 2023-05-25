@@ -1,15 +1,8 @@
 <mat-card>
-  <!-- <div class="header">
-     <app-paginator></app-paginator> 
-    <span class="header-spacer"></span>
-     <a mat-raised-button color="primary" routerLink="/dataentry/formbuilder">
-      Edit Form
-    </a> 
-  </div> -->
+  <mat-card-header>
+    <mat-card-title>{{ station.id }} - {{ station.name }}</mat-card-title>
+  </mat-card-header>
   <mat-card-content>
-    <!-- place holder for marging top to work because it's overwritten by angular -->
-    <div></div>
-
     <!-- selectors -->
     <fieldset class="entry-selectors">
       <legend>Entry Selectors</legend>
@@ -21,27 +14,27 @@
       ></app-ucr-single-elements-selector>
       <app-ucr-single-year-selector
         class="entry-selector"
-        *ngIf="entryForm.entrySelectors.includes('year')"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('year')
+        "
         (selectionChange)="onYearChange($event)"
       ></app-ucr-single-year-selector>
       <app-ucr-single-month-selector
         class="entry-selector"
-        *ngIf="entryForm.entrySelectors.includes('month')"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('month')
+        "
         (selectionChange)="onMonthChange($event)"
       ></app-ucr-single-month-selector>
       <app-ucr-single-day-selector
         class="entry-selector"
-        *ngIf="entryForm.entrySelectors.includes('day')"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('day')
+        "
         (selectionChange)="onDayChange($event)"
       ></app-ucr-single-day-selector>
 
-      <!-- <mat-form-field>
-            <mat-label>Choose a date</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field> -->
+      <app-date-picker class="entry-selector" *ngIf="useDatePickerControl"></app-date-picker>
 
       <app-ucr-single-hour-selector
         class="entry-selector"
