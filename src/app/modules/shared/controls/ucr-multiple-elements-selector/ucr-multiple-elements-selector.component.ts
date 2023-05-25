@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { MatLegacySelectionListChange as MatSelectionListChange } from '@angular/material/legacy-list';
+import { MatSelectionListChange as MatSelectionListChange } from '@angular/material/list';
 import { Element } from '../../models/element.model';
 
 export const ELEMENTSLIST: Element[] = [

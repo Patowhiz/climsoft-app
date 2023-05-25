@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { MatLegacySelectionListChange as MatSelectionListChange } from '@angular/material/legacy-list';
+import { MatSelectionListChange as MatSelectionListChange } from '@angular/material/list';
 
 export const DAYSLIST: any[] = [
   { id: 1, name: "Day 01"},
