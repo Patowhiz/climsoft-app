@@ -1,5 +1,5 @@
 import { UserProfile } from './../../../../data/interface/user';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -16,17 +16,17 @@ export class ProfileDialogComponent implements OnInit {
   @Input() profile!: UserProfile;
 
   public onClose: Subject<boolean> = new Subject();
-  public form!: FormGroup;
+  public form!: UntypedFormGroup;
   submitted = false;
 
   constructor(private router: Router, private dialogRef: BsModalRef) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', [Validators.required, Validators.pattern(emailPattern)]),
-      userId:  new FormControl('', Validators.required)
+    this.form = new UntypedFormGroup({
+      firstName: new UntypedFormControl('', Validators.required),
+      lastName: new UntypedFormControl('', Validators.required),
+      email: new UntypedFormControl('', [Validators.required, Validators.pattern(emailPattern)]),
+      userId:  new UntypedFormControl('', Validators.required)
     });
 
     this.form.patchValue(this.profile);

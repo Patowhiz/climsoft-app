@@ -1,7 +1,7 @@
 import { StationService } from '@station/services/station.service';
 import { catchError, delay, filter, map, tap } from 'rxjs/operators';
 import { DataEntryService } from './../../services/data-entry.service';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { IDataEntryForm } from '@data/interface/data-entry-form';
@@ -74,7 +74,7 @@ const obsList: any = {
 export class FormAgro1Component implements OnInit, IDataEntryForm {
   @ViewChildren('agroGroup') agroGroup!: QueryList<AgroFormGroupComponent>;
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
   error = '';
@@ -215,12 +215,12 @@ export class FormAgro1Component implements OnInit, IDataEntryForm {
     this.hasRecord ? this.update(payload) : this.save(payload);
   }
 
-  groupArray(group: string): FormArray {
-    return this.form.get(group) as FormArray;
+  groupArray(group: string): UntypedFormArray {
+    return this.form.get(group) as UntypedFormArray;
   }
 
-  formGroups(group: string): FormGroup[] {
-    return this.groupArray(group).controls as FormGroup[];
+  formGroups(group: string): UntypedFormGroup[] {
+    return this.groupArray(group).controls as UntypedFormGroup[];
   }
 
   keyFocus(i: number) {
@@ -236,12 +236,12 @@ export class FormAgro1Component implements OnInit, IDataEntryForm {
     }
   }
 
-  getFieldsetGroupArray(group: string): FormArray {
-    return this.form.get(group) as FormArray;
+  getFieldsetGroupArray(group: string): UntypedFormArray {
+    return this.form.get(group) as UntypedFormArray;
   }
 
-  getFieldsetGroupControls(group: string): FormGroup[] {
-    return this.getFieldsetGroupArray(group).controls as FormGroup[];
+  getFieldsetGroupControls(group: string): UntypedFormGroup[] {
+    return this.getFieldsetGroupArray(group).controls as UntypedFormGroup[];
   }
 
   revertItem(idx: number) {
@@ -273,21 +273,21 @@ export class FormAgro1Component implements OnInit, IDataEntryForm {
     });
   }
 
-  private getElementGroup(group: string, index: number, element: number, label: string, value: any, flag: string, ): FormGroup {
-    return new FormGroup({
-      group:    new FormControl(group),
-      index:    new FormControl(index),
-      element:  new FormControl(element),
-      label:    new FormControl(label),
-      value:    new FormControl(value),
-      flag:     new FormControl(flag || Flag.N)
+  private getElementGroup(group: string, index: number, element: number, label: string, value: any, flag: string, ): UntypedFormGroup {
+    return new UntypedFormGroup({
+      group:    new UntypedFormControl(group),
+      index:    new UntypedFormControl(index),
+      element:  new UntypedFormControl(element),
+      label:    new UntypedFormControl(label),
+      value:    new UntypedFormControl(value),
+      flag:     new UntypedFormControl(flag || Flag.N)
     });
   }
 
   private initForm() {
-    this.form = new FormGroup({
-      station:         new FormControl(null, Validators.required),
-      dayMonthYear:    new FormControl(new Date(), Validators.required),
+    this.form = new UntypedFormGroup({
+      station:         new UntypedFormControl(null, Validators.required),
+      dayMonthYear:    new UntypedFormControl(new Date(), Validators.required),
       // tempRH06GMT:     new FormArray([]),
       // tempRH12GMT:     new FormArray([]),
       // soilTemp05GMT:   new FormArray([]),
@@ -301,14 +301,14 @@ export class FormAgro1Component implements OnInit, IDataEntryForm {
   }
 
   private initFieldsets() {
-    this.form.controls['tempRH06GMT'] =     new FormArray([]);
-    this.form.controls['tempRH12GMT'] =     new FormArray([]);
-    this.form.controls['soilTemp05GMT'] =   new FormArray([]);
-    this.form.controls['soilTemp09GMT'] =   new FormArray([]);
-    this.form.controls['soilTemp13GMT'] =   new FormArray([]);
-    this.form.controls['sunshineEvap'] =    new FormArray([]);
-    this.form.controls['windrunRainfall'] = new FormArray([]);
-    this.form.controls['tempRSoilMoist'] =  new FormArray([]);
+    this.form.controls['tempRH06GMT'] =     new UntypedFormArray([]);
+    this.form.controls['tempRH12GMT'] =     new UntypedFormArray([]);
+    this.form.controls['soilTemp05GMT'] =   new UntypedFormArray([]);
+    this.form.controls['soilTemp09GMT'] =   new UntypedFormArray([]);
+    this.form.controls['soilTemp13GMT'] =   new UntypedFormArray([]);
+    this.form.controls['sunshineEvap'] =    new UntypedFormArray([]);
+    this.form.controls['windrunRainfall'] = new UntypedFormArray([]);
+    this.form.controls['tempRSoilMoist'] =  new UntypedFormArray([]);
 
     let idx = 0;
     Object.keys(obsGroups).forEach((k) => {

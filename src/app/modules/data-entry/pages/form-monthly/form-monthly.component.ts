@@ -8,7 +8,7 @@ import { ElementService } from '@element/services/element.service';
 import { MonthlyRecord } from './../../../../data/interface/data-entry-form';
 import { ResponsiveService } from '@shared/services/responsive.service';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 import { Flag } from '@data/enum/flag';
@@ -26,7 +26,7 @@ import { filter, take, tap, switchMap, of, delay } from 'rxjs';
 })
 export class FormMonthlyComponent implements OnInit {
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
   error = '';
@@ -171,12 +171,12 @@ export class FormMonthlyComponent implements OnInit {
     return moment(this.date).format('YYYY');
   }
 
-  get monthsArray(): FormArray {
-    return this.form.get('months') as FormArray;
+  get monthsArray(): UntypedFormArray {
+    return this.form.get('months') as UntypedFormArray;
   }
 
-  get formMonthGroups(): FormGroup[] {
-    return this.monthsArray.controls as FormGroup[];
+  get formMonthGroups(): UntypedFormGroup[] {
+    return this.monthsArray.controls as UntypedFormGroup[];
   }
 
   get calcTotal(): number {
@@ -226,12 +226,12 @@ export class FormMonthlyComponent implements OnInit {
     });
   }
 
-  private getMonthGroup(data?: any): FormGroup {
-    const formGroup = new FormGroup({
-      month:  new FormControl(null),
-      value:  new FormControl(null, [Validators.min(0), Validators.max(70)]),
-      flag:   new FormControl(null),
-      period: new FormControl(null)
+  private getMonthGroup(data?: any): UntypedFormGroup {
+    const formGroup = new UntypedFormGroup({
+      month:  new UntypedFormControl(null),
+      value:  new UntypedFormControl(null, [Validators.min(0), Validators.max(70)]),
+      flag:   new UntypedFormControl(null),
+      period: new UntypedFormControl(null)
     });
 
     if(data) {
@@ -253,16 +253,16 @@ export class FormMonthlyComponent implements OnInit {
   }
 
   private resetMonths() {
-    this.form.controls['months'] = new FormArray([]);
+    this.form.controls['months'] = new UntypedFormArray([]);
   }
 
   private initForm(year: number = new Date().getFullYear()) {
-    this.form = new FormGroup({
-      station:  new FormControl(null, Validators.required),
-      element:  new FormControl(null, Validators.required),
-      yyyy:     new FormControl(year, Validators.required),
-      months:   new FormArray([]),
-      total:    new FormControl(0)
+    this.form = new UntypedFormGroup({
+      station:  new UntypedFormControl(null, Validators.required),
+      element:  new UntypedFormControl(null, Validators.required),
+      yyyy:     new UntypedFormControl(year, Validators.required),
+      months:   new UntypedFormArray([]),
+      total:    new UntypedFormControl(0)
     });
   }
 

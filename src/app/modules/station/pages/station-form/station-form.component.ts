@@ -1,5 +1,5 @@
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { FormGroup, FormControl, Validators, AsyncValidatorFn, AbstractControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, AsyncValidatorFn, AbstractControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter, switchMap, tap, take } from 'rxjs/operators';
@@ -31,26 +31,26 @@ export class StationFormComponent implements OnInit, IDeactivateComponent {
   minDate!: Date;
   stValidated = false;
 
-  form: FormGroup = new FormGroup({
-    station_id:       new FormControl(null, Validators.required, [this.stationValidator()]),
-    station_name:     new FormControl('', Validators.required),
-    longitude:        new FormControl(''),
-    latitude:         new FormControl(''),
-    elevation:        new FormControl(''),
-    wmoid:            new FormControl(''),
-    icaoid:           new FormControl(''),
-    country:          new FormControl(''),
-    authority:        new FormControl(''),
-    admin_region:     new FormControl(''),
-    drainage_basin:   new FormControl(''),
-    qualifier:        new FormControl(''),
-    opening_datetime:      new FormControl(''),
-    closing_datetime:      new FormControl(''),
-    geolocation_method:    new FormControl(''),
-    geolocation_accuracy:  new FormControl(''),
-    station_operational:   new FormControl(false),
-    waca_selection:        new FormControl(false),
-    cpt_selection:         new FormControl(false)
+  form: UntypedFormGroup = new UntypedFormGroup({
+    station_id:       new UntypedFormControl(null, Validators.required, [this.stationValidator()]),
+    station_name:     new UntypedFormControl('', Validators.required),
+    longitude:        new UntypedFormControl(''),
+    latitude:         new UntypedFormControl(''),
+    elevation:        new UntypedFormControl(''),
+    wmoid:            new UntypedFormControl(''),
+    icaoid:           new UntypedFormControl(''),
+    country:          new UntypedFormControl(''),
+    authority:        new UntypedFormControl(''),
+    admin_region:     new UntypedFormControl(''),
+    drainage_basin:   new UntypedFormControl(''),
+    qualifier:        new UntypedFormControl(''),
+    opening_datetime:      new UntypedFormControl(''),
+    closing_datetime:      new UntypedFormControl(''),
+    geolocation_method:    new UntypedFormControl(''),
+    geolocation_accuracy:  new UntypedFormControl(''),
+    station_operational:   new UntypedFormControl(false),
+    waca_selection:        new UntypedFormControl(false),
+    cpt_selection:         new UntypedFormControl(false)
   });
   // Use a LatLng custom Validator from https://codereview.stackexchange.com/questions/230908/angular-control-for-inputting-latitude-and-longitude-with-validation
   // form: FormGroup = new FormGroup({

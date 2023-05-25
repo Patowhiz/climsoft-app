@@ -7,7 +7,7 @@ import { Instrument } from 'src/app/data/interface/instrument';
 import { ObsElement } from 'src/app/data/interface/element';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Station, StationElement } from '@data/interface/station';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Subject, tap, switchMap } from 'rxjs';
@@ -24,7 +24,7 @@ export class StationElementFormComponent implements OnInit {
 
   public onClose: Subject<boolean> = new Subject();
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
 
@@ -56,14 +56,14 @@ export class StationElementFormComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.stationElement);
 
-    this.form = new FormGroup({
-      recorded_from:  new FormControl(null, Validators.required),
-      described_by:   new FormControl(null, Validators.required),
-      recorded_with:  new FormControl(null, Validators.required),
-      scheduled_for:  new FormControl({ value: '', disabled: true }, Validators.required),
-      begin_date:     new FormControl(null, Validators.required),
-      end_date:       new FormControl(null),
-      height:         new FormControl(null, Validators.required)
+    this.form = new UntypedFormGroup({
+      recorded_from:  new UntypedFormControl(null, Validators.required),
+      described_by:   new UntypedFormControl(null, Validators.required),
+      recorded_with:  new UntypedFormControl(null, Validators.required),
+      scheduled_for:  new UntypedFormControl({ value: '', disabled: true }, Validators.required),
+      begin_date:     new UntypedFormControl(null, Validators.required),
+      end_date:       new UntypedFormControl(null),
+      height:         new UntypedFormControl(null, Validators.required)
     });
 
     if(this.fromStation) {

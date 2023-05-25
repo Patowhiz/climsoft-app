@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { MatStepper } from '@angular/material/stepper';
@@ -25,13 +25,13 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
   allEntrySelectors: any[] = [{ id: 'elementId', name: 'Element' }, { id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }];
   //determined by the entry selectors
   allEntryFields: any[] = [];
-  formControlEntryControl: FormControl = new FormControl();
-  formControlStationsControl: FormControl = new FormControl("all");
-  formControlElementsControl: FormControl = new FormControl("all");
-  formControlDaysControl: FormControl = new FormControl("all");
-  formControlHoursControl: FormControl = new FormControl("all");
-  formControlName: FormControl = new FormControl("");
-  formControlDescription: FormControl = new FormControl("");
+  formControlEntryControl: UntypedFormControl = new UntypedFormControl();
+  formControlStationsControl: UntypedFormControl = new UntypedFormControl("all");
+  formControlElementsControl: UntypedFormControl = new UntypedFormControl("all");
+  formControlDaysControl: UntypedFormControl = new UntypedFormControl("all");
+  formControlHoursControl: UntypedFormControl = new UntypedFormControl("all");
+  formControlName: UntypedFormControl = new UntypedFormControl("");
+  formControlDescription: UntypedFormControl = new UntypedFormControl("");
 
   constructor(public repo: RepoService, private location: Location) {
     this.entryForm = {

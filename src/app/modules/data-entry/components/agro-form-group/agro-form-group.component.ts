@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input, OnInit, Output, EventEmitter, ElementRef, ViewChild, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Flag } from '@data/enum/flag';
 import { filter, fromEvent } from 'rxjs';
 
@@ -10,12 +10,12 @@ import { filter, fromEvent } from 'rxjs';
 })
 export class AgroFormGroupComponent implements OnInit, AfterViewInit {
   @Input() modified: boolean = false;
-  @Input() group: FormGroup = new FormGroup({
-    index:  new FormControl(0),
-    element: new FormControl(0),
-    label:  new FormControl('No Value'),
-    value:  new FormControl(null, Validators.required),
-    flag:   new FormControl(Flag.N)
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    index:  new UntypedFormControl(0),
+    element: new UntypedFormControl(0),
+    label:  new UntypedFormControl('No Value'),
+    value:  new UntypedFormControl(null, Validators.required),
+    flag:   new UntypedFormControl(Flag.N)
   });
   @Input() disabled: boolean = false;
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;

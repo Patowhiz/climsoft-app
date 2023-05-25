@@ -1,4 +1,4 @@
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, EventEmitter, Output, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { filter, fromEvent } from 'rxjs';
 
@@ -11,13 +11,13 @@ import { Flag } from '@data/enum/flag';
 })
 export class SynopticFormGroupComponent implements OnInit, AfterViewInit {
   @Input() modified: boolean = false;
-  @Input() group: FormGroup = new FormGroup({
-    index:  new FormControl(0),
-    element: new FormControl(0),
-    key:    new FormControl(''),
-    label:  new FormControl(''),
-    value:  new FormControl(null, Validators.required),
-    flag:   new FormControl(null)
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    index:  new UntypedFormControl(0),
+    element: new UntypedFormControl(0),
+    key:    new UntypedFormControl(''),
+    label:  new UntypedFormControl(''),
+    value:  new UntypedFormControl(null, Validators.required),
+    flag:   new UntypedFormControl(null)
   });
   @Input() disabled: boolean = false;
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;

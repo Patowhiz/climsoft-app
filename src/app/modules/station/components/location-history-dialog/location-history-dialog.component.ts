@@ -2,7 +2,7 @@ import { StationService } from '@station/services/station.service';
 import { Station } from '@data/interface/station';
 import { Component, OnInit, Input } from '@angular/core';
 import { Subject, filter, map } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import * as moment from 'moment';
 
@@ -17,7 +17,7 @@ import { StationLocationHistory } from 'src/app/data/interface/station';
 export class LocationHistoryDialogComponent implements OnInit {
   @Input() fromStation!: string;
   @Input() historyItem!: StationLocationHistory;
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
 
   stationTypes!: { key: string, value: string }[];
@@ -49,19 +49,19 @@ export class LocationHistoryDialogComponent implements OnInit {
     //   drainage_basin: new FormControl('')
     // });
 
-    this.form = new FormGroup({
-      belongs_to: new FormControl(null, Validators.required),
-      station_type: new FormControl('', Validators.required),
-      latitude: new FormControl(null, Validators.required),
-      longitude: new FormControl(null, Validators.required),
-      geoLocationMethod: new FormControl('', Validators.required),
-      geoLocationAccuracy: new FormControl(null, Validators.required),
-      opening_datetime: new FormControl(null, Validators.required),
-      closing_datetime: new FormControl(null, Validators.required),
-      authority: new FormControl('', Validators.required),
-      elevation: new FormControl(null, Validators.required),
-      admin_region: new FormControl('', Validators.required),
-      drainage_basin: new FormControl('', Validators.required)
+    this.form = new UntypedFormGroup({
+      belongs_to: new UntypedFormControl(null, Validators.required),
+      station_type: new UntypedFormControl('', Validators.required),
+      latitude: new UntypedFormControl(null, Validators.required),
+      longitude: new UntypedFormControl(null, Validators.required),
+      geoLocationMethod: new UntypedFormControl('', Validators.required),
+      geoLocationAccuracy: new UntypedFormControl(null, Validators.required),
+      opening_datetime: new UntypedFormControl(null, Validators.required),
+      closing_datetime: new UntypedFormControl(null, Validators.required),
+      authority: new UntypedFormControl('', Validators.required),
+      elevation: new UntypedFormControl(null, Validators.required),
+      admin_region: new UntypedFormControl('', Validators.required),
+      drainage_basin: new UntypedFormControl('', Validators.required)
     });
 
     if(this.historyItem) {

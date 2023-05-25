@@ -3,7 +3,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Instrument } from './../../../../data/interface/instrument';
 import { ObsElement } from './../../../../data/interface/element';
 import { StationElement } from './../../../../data/interface/station';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject, Observable } from 'rxjs';
@@ -18,7 +18,7 @@ import * as moment from 'moment';
 export class StationElementDialogComponent implements OnInit {
   @Input() station!: Station;
   @Input() stationElement?: StationElement;
-  form!: FormGroup;
+  form!: UntypedFormGroup;
 
   submitted = false;
   beginDate!: Date;
@@ -52,15 +52,15 @@ export class StationElementDialogComponent implements OnInit {
     //   });
     // }
 
-    this.form = new FormGroup({
-      recorded_from:  new FormControl(this.station, Validators.required),
-      recorded_with:  new FormControl(null),
-      described_by:   new FormControl(null, Validators.required),
-      height:         new FormControl(null),
-      begin_date:     new FormControl('', Validators.required),
-      end_date:       new FormControl(null),
-      instrument_code:new FormControl(null),
-      scheduled_for:  new FormControl(null)
+    this.form = new UntypedFormGroup({
+      recorded_from:  new UntypedFormControl(this.station, Validators.required),
+      recorded_with:  new UntypedFormControl(null),
+      described_by:   new UntypedFormControl(null, Validators.required),
+      height:         new UntypedFormControl(null),
+      begin_date:     new UntypedFormControl('', Validators.required),
+      end_date:       new UntypedFormControl(null),
+      instrument_code:new UntypedFormControl(null),
+      scheduled_for:  new UntypedFormControl(null)
     });
 
     if(this.stationElement) {

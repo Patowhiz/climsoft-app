@@ -4,7 +4,7 @@ import { ConfirmationComponent } from './../../../../shared/dialogs/confirmation
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { filter, map, tap } from 'rxjs/operators';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import * as moment from 'moment';
 
@@ -59,7 +59,7 @@ const groupsList = [
 export class FormSynoptic2CaribbeanComponent implements OnInit, IDataEntryForm {
   @ViewChildren('synopticGroup') synopticGroup!: QueryList<SynopticFormGroupComponent>;
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
   error = '';
@@ -166,12 +166,12 @@ export class FormSynoptic2CaribbeanComponent implements OnInit, IDataEntryForm {
     // this.hasRecord ? this.updateRecord() : this.addRecord();
   }
 
-  get groupArray(): FormArray {
-    return this.form.get('tags') as FormArray;
+  get groupArray(): UntypedFormArray {
+    return this.form.get('tags') as UntypedFormArray;
   }
 
-  get formGroups(): FormGroup[] {
-    return this.groupArray.controls as FormGroup[];
+  get formGroups(): UntypedFormGroup[] {
+    return this.groupArray.controls as UntypedFormGroup[];
   }
 
   keyFocus(i: number) {
@@ -210,23 +210,23 @@ export class FormSynoptic2CaribbeanComponent implements OnInit, IDataEntryForm {
     });
   }
 
-  private getTagGroup(index: number, element: number, key: string, label: string, value: number, flag?: string): FormGroup {
-    return new FormGroup({
-      index:  new FormControl(index),
-      element: new FormControl(element),
-      key:    new FormControl(key),
-      label:  new FormControl(label),
-      value:  new FormControl(value),
-      flag:   new FormControl(flag || Flag.N),
+  private getTagGroup(index: number, element: number, key: string, label: string, value: number, flag?: string): UntypedFormGroup {
+    return new UntypedFormGroup({
+      index:  new UntypedFormControl(index),
+      element: new UntypedFormControl(element),
+      key:    new UntypedFormControl(key),
+      label:  new UntypedFormControl(label),
+      value:  new UntypedFormControl(value),
+      flag:   new UntypedFormControl(flag || Flag.N),
     });
   }
 
   private initForm() {
-    this.form = new FormGroup({
-      station:        new FormControl(null, Validators.required),
-      dayMonthYear:   new FormControl(new Date(), Validators.required),
-      hour:           new FormControl(6, [Validators.min(0), Validators.max(24)]),
-      tags:           new FormArray([])
+    this.form = new UntypedFormGroup({
+      station:        new UntypedFormControl(null, Validators.required),
+      dayMonthYear:   new UntypedFormControl(new Date(), Validators.required),
+      hour:           new UntypedFormControl(6, [Validators.min(0), Validators.max(24)]),
+      tags:           new UntypedFormArray([])
     });
 
     for(let i=0; i < groupsList.length; i++) {

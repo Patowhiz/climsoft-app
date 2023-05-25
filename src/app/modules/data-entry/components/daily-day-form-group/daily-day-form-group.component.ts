@@ -1,6 +1,6 @@
 import { tap } from 'rxjs/operators';
 import { Component, OnInit, Input, OnChanges, SimpleChanges, Output, EventEmitter, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Flag } from '@data/enum/flag';
 import { filter, of, delay, Observable, fromEvent } from 'rxjs';
 
@@ -14,11 +14,11 @@ export class DailyDayFormGroupComponent implements OnInit, OnChanges, AfterViewI
 
   @Input() limits!: { lower: number, upper: number } | null;
   @Input() modified: boolean = false;
-  @Input() group: FormGroup = new FormGroup({
-    day:    new FormControl(1),
-    value:  new FormControl(null, Validators.required),
-    flag:   new FormControl(null),
-    period: new FormControl(null)
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    day:    new UntypedFormControl(1),
+    value:  new UntypedFormControl(null, Validators.required),
+    flag:   new UntypedFormControl(null),
+    period: new UntypedFormControl(null)
   });
   @Input() disabled: boolean = false;
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;

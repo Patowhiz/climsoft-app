@@ -1,7 +1,7 @@
 import { ConfirmationComponent } from './../../../../shared/dialogs/confirmation/confirmation.component';
 import { HourlyWindFormGroupComponent } from './../../components/hourly-wind-form-group/hourly-wind-form-group.component';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Router } from '@angular/router';
@@ -26,7 +26,7 @@ import * as _ from 'cypress/types/lodash';
 export class FormHourlyWindComponent implements OnInit {
   @ViewChildren('hourlyWindGroup') hourlyWindGroup!: QueryList<HourlyWindFormGroupComponent>;
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
   error = '';
@@ -185,12 +185,12 @@ export class FormHourlyWindComponent implements OnInit {
     }, 0);
   }
 
-  get hoursArray(): FormArray {
-    return this.form.get('hours') as FormArray;
+  get hoursArray(): UntypedFormArray {
+    return this.form.get('hours') as UntypedFormArray;
   }
 
-  get formHoursGroups(): FormGroup[] {
-    return this.hoursArray.controls as FormGroup[];
+  get formHoursGroups(): UntypedFormGroup[] {
+    return this.hoursArray.controls as UntypedFormGroup[];
   }
 
   handleReturn(h: number) {
@@ -230,13 +230,13 @@ export class FormHourlyWindComponent implements OnInit {
 
   hourBlur(d: number) {}
 
-  private getHourGroup(data: HourlyWindRecord): FormGroup {
-    const formGroup = new FormGroup({
-      hour:   new FormControl(null),
-      ddff:   new FormControl(null),
-      dd:     new FormControl(null),
-      ff:     new FormControl(null),
-      flag:   new FormControl(null)
+  private getHourGroup(data: HourlyWindRecord): UntypedFormGroup {
+    const formGroup = new UntypedFormGroup({
+      hour:   new UntypedFormControl(null),
+      ddff:   new UntypedFormControl(null),
+      dd:     new UntypedFormControl(null),
+      ff:     new UntypedFormControl(null),
+      flag:   new UntypedFormControl(null)
     });
 
     if(data) {
@@ -254,15 +254,15 @@ export class FormHourlyWindComponent implements OnInit {
   }
 
   private resetHours() {
-    this.form.controls['hours'] = new FormArray([]);
+    this.form.controls['hours'] = new UntypedFormArray([]);
   }
 
   private initForm() {
-    this.form = new FormGroup({
-      station:        new FormControl(null, Validators.required),
-      date:           new FormControl(new Date(), Validators.required),
-      hours:          new FormArray([]),
-      total:          new FormControl(null)
+    this.form = new UntypedFormGroup({
+      station:        new UntypedFormControl(null, Validators.required),
+      date:           new UntypedFormControl(new Date(), Validators.required),
+      hours:          new UntypedFormArray([]),
+      total:          new UntypedFormControl(null)
     });
   }
 

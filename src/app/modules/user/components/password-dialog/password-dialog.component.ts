@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UntypedFormGroup, Validators, UntypedFormControl } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
@@ -12,16 +12,16 @@ import { Component, OnInit } from '@angular/core';
 export class PasswordDialogComponent implements OnInit {
 
   public onClose: Subject<boolean> = new Subject();
-  public form!: FormGroup;
+  public form!: UntypedFormGroup;
   submitted = false;
 
   constructor(private router: Router, private dialogRef: BsModalRef) { }
 
   ngOnInit(): void {
-    this.form = new FormGroup({
-      current: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      confirm:  new FormControl('', Validators.required)
+    this.form = new UntypedFormGroup({
+      current: new UntypedFormControl('', Validators.required),
+      password: new UntypedFormControl('', Validators.required),
+      confirm:  new UntypedFormControl('', Validators.required)
     });
   }
 

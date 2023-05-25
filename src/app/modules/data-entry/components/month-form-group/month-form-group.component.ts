@@ -1,6 +1,6 @@
 import { filter } from 'rxjs/operators';
 import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { fromEvent } from 'rxjs';
 import { Flag } from '@data/enum/flag';
 import * as moment from 'moment';
@@ -16,11 +16,11 @@ export class MonthFormGroupComponent implements OnInit, AfterViewInit {
 
   @Input() modified: boolean = false;
   @Input() limits!: ElementLimits | null;
-  @Input() group: FormGroup = new FormGroup({
-    month:  new FormControl(''),
-    value:  new FormControl(null),
-    flag:   new FormControl(null),
-    priod:  new FormControl(''),
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    month:  new UntypedFormControl(''),
+    value:  new UntypedFormControl(null),
+    flag:   new UntypedFormControl(null),
+    priod:  new UntypedFormControl(''),
   });
   @Input() disabled: boolean = false;
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;

@@ -4,7 +4,7 @@ import { AppMode } from './../../../../data/enum/app-mode';
 import { environment } from 'src/environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './../../services/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
 import AppConfig from '@config/app-config.json';
 
@@ -14,11 +14,11 @@ import AppConfig from '@config/app-config.json';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  form: FormGroup = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-    api: new FormControl('api-latest'),
-    db: new FormControl('')
+  form: UntypedFormGroup = new UntypedFormGroup({
+    username: new UntypedFormControl('', Validators.required),
+    password: new UntypedFormControl('', Validators.required),
+    api: new UntypedFormControl('api-latest'),
+    db: new UntypedFormControl('')
   });
   submitted = false;
   loading = false;

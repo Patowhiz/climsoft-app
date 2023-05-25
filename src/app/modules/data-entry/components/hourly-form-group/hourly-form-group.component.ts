@@ -1,7 +1,7 @@
 import { ElementLimits } from './../../../../data/interface/data-entry-form';
 import { Flag } from './../../../../data/enum/flag';
 import { filter, fromEvent } from 'rxjs';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 
 const patternRegex = ``;
@@ -16,10 +16,10 @@ export class HourlyFormGroupComponent implements OnInit, AfterViewInit {
 
   @Input() modified: boolean = false;
   @Input() limits!: ElementLimits | null;
-  @Input() group: FormGroup = new FormGroup({
-    hour:    new FormControl(1),
-    value:  new FormControl(null, Validators.required),
-    flag:   new FormControl(Flag.N)
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    hour:    new UntypedFormControl(1),
+    value:  new UntypedFormControl(null, Validators.required),
+    flag:   new UntypedFormControl(Flag.N)
   });
   @Input() disabled: boolean = false;
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;

@@ -4,7 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { IDeactivateComponent } from '@data/interface/deactivate-component';
 import { DailyDayFormGroupComponent } from './../../components/daily-day-form-group/daily-day-form-group.component';
 import { Component, OnInit, ElementRef, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 import { filter, switchMap, take, tap } from 'rxjs/operators';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import * as moment from 'moment';
@@ -29,7 +29,7 @@ import { of, delay } from 'rxjs';
   styleUrls: ['./form-daily2.component.scss']
 })
 export class FormDaily2Component implements OnInit, IDataEntryForm, IDeactivateComponent {
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = true;
   error = '';
@@ -220,12 +220,12 @@ export class FormDaily2Component implements OnInit, IDataEntryForm, IDeactivateC
     console.log('more info');
   }
 
-  get daysArray(): FormArray {
-    return this.form.get('days') as FormArray;
+  get daysArray(): UntypedFormArray {
+    return this.form.get('days') as UntypedFormArray;
   }
 
-  get formDaysGroups(): FormGroup[] {
-    return this.daysArray.controls as FormGroup[];
+  get formDaysGroups(): UntypedFormGroup[] {
+    return this.daysArray.controls as UntypedFormGroup[];
   }
 
   get calcTotal(): number {
@@ -275,15 +275,15 @@ export class FormDaily2Component implements OnInit, IDataEntryForm, IDeactivateC
   }
 
   private resetDays() {
-    this.form.controls['days'] = new FormArray([]);
+    this.form.controls['days'] = new UntypedFormArray([]);
   }
 
-  private getDayGroup(day: number, value?: number, flag?: string, period?: number): FormGroup {
-    return new FormGroup({
-      day:    new FormControl(day),
-      value:  new FormControl(value, [Validators.min(0), Validators.max(70)]),
-      flag:   new FormControl(flag || Flag.N),
-      period: new FormControl(period)
+  private getDayGroup(day: number, value?: number, flag?: string, period?: number): UntypedFormGroup {
+    return new UntypedFormGroup({
+      day:    new UntypedFormControl(day),
+      value:  new UntypedFormControl(value, [Validators.min(0), Validators.max(70)]),
+      flag:   new UntypedFormControl(flag || Flag.N),
+      period: new UntypedFormControl(period)
     });
   }
 
@@ -302,18 +302,18 @@ export class FormDaily2Component implements OnInit, IDataEntryForm, IDeactivateC
   }
 
   private initForm() {
-    this.form = new FormGroup({
-      station:        new FormControl(null, Validators.required),
-      element:        new FormControl(null, Validators.required),
-      element_seq:    new FormControl(false),
-      monthYear:      new FormControl(new Date(), Validators.required),
-      dayHour:        new FormControl(6, [Validators.min(0), Validators.max(24)]),
-      temperature:    new FormControl(null),
-      precip:         new FormControl(null),
-      cloud_height:   new FormControl(null),
-      visibility:     new FormControl(null),
-      days:           new FormArray([]),
-      total:          new FormControl(null)
+    this.form = new UntypedFormGroup({
+      station:        new UntypedFormControl(null, Validators.required),
+      element:        new UntypedFormControl(null, Validators.required),
+      element_seq:    new UntypedFormControl(false),
+      monthYear:      new UntypedFormControl(new Date(), Validators.required),
+      dayHour:        new UntypedFormControl(6, [Validators.min(0), Validators.max(24)]),
+      temperature:    new UntypedFormControl(null),
+      precip:         new UntypedFormControl(null),
+      cloud_height:   new UntypedFormControl(null),
+      visibility:     new UntypedFormControl(null),
+      days:           new UntypedFormArray([]),
+      total:          new UntypedFormControl(null)
     });
   }
 

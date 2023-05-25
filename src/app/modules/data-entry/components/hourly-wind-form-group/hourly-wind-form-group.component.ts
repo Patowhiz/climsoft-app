@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, EventEmitter, Output, SimpleChanges, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Flag } from '@data/enum/flag';
 import { filter, fromEvent } from 'rxjs';
 
@@ -16,12 +16,12 @@ export class HourlyWindFormGroupComponent implements OnInit, AfterViewInit {
   @Input() modified: boolean = false;
   @Input() disabled: boolean = false;
   @Input() config!: { dd: number, ff: number };
-  @Input() group: FormGroup = new FormGroup({
-    hour: new FormControl(1),
-    ddff: new FormControl(null, Validators.required),
-    dd:   new FormControl(null, Validators.required),
-    ff:   new FormControl(null, Validators.required),
-    flag: new FormControl(Flag.N)
+  @Input() group: UntypedFormGroup = new UntypedFormGroup({
+    hour: new UntypedFormControl(1),
+    ddff: new UntypedFormControl(null, Validators.required),
+    dd:   new UntypedFormControl(null, Validators.required),
+    ff:   new UntypedFormControl(null, Validators.required),
+    flag: new UntypedFormControl(Flag.N)
   });
   @Output() onDirty: EventEmitter<boolean> = new EventEmitter;
   @Output() onRevert: EventEmitter<number> = new EventEmitter;

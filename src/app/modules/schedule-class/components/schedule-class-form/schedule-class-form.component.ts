@@ -1,6 +1,6 @@
 import { StationService } from '@station/services/station.service';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Subject, map, filter } from 'rxjs';
 import { ScheduleClass } from './../../../../data/interface/schedule-class';
 import { Component, OnInit, Input } from '@angular/core';
@@ -19,7 +19,7 @@ export class ScheduleClassFormComponent implements OnInit {
   @Input() error!: string;
 
   public onClose: Subject<any> = new Subject();
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
 
   station!: Partial<Station> | undefined;
@@ -28,10 +28,10 @@ export class ScheduleClassFormComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.repeatPayload);
-    this.form = new FormGroup({
-      refers_to: new FormControl('', Validators.required),
-      schedule_class: new FormControl('', Validators.required),
-      description: new FormControl('')
+    this.form = new UntypedFormGroup({
+      refers_to: new UntypedFormControl('', Validators.required),
+      schedule_class: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl('')
     });
 
     if(this.scheduleClass) {

@@ -2,7 +2,7 @@ import { filter, switchMap } from 'rxjs/operators';
 import { tap } from 'rxjs';
 import { ElementService } from './../../services/element.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 const numberRegex = /^-?(0|[1-9]\d*)?$/;
@@ -14,17 +14,17 @@ const numberRegex = /^-?(0|[1-9]\d*)?$/;
 })
 export class ElementFormComponent implements OnInit {
 
-  form: FormGroup = new FormGroup({
-    element_name:       new FormControl('', Validators.required),
-    abbreviation:       new FormControl(''),
-    element_type:       new FormControl(''),
-    description:        new FormControl(''),
-    lower_limit:        new FormControl(''),
-    upper_limit:        new FormControl(''),
-    units:              new FormControl(''),
-    element_scale:      new FormControl(''),
-    qc_total_required:  new FormControl(false),
-    selected:           new FormControl(false)
+  form: UntypedFormGroup = new UntypedFormGroup({
+    element_name:       new UntypedFormControl('', Validators.required),
+    abbreviation:       new UntypedFormControl(''),
+    element_type:       new UntypedFormControl(''),
+    description:        new UntypedFormControl(''),
+    lower_limit:        new UntypedFormControl(''),
+    upper_limit:        new UntypedFormControl(''),
+    units:              new UntypedFormControl(''),
+    element_scale:      new UntypedFormControl(''),
+    qc_total_required:  new UntypedFormControl(false),
+    selected:           new UntypedFormControl(false)
   });
 
   // form: FormGroup = new FormGroup({

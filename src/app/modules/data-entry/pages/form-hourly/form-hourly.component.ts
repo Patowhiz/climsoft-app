@@ -9,7 +9,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormArray } from '@angular/forms';
 
 import { ResponsiveService } from '@shared/services/responsive.service';
 import { ObsElement } from '@data/interface/element';
@@ -29,7 +29,7 @@ import { of, delay, tap, switchMap, filter } from 'rxjs';
 export class FormHourlyComponent implements OnInit, IDataEntryForm {
   @ViewChildren('hourlyGroup') hourlyGroup!: QueryList<DailyDayFormGroupComponent>;
 
-  form!: FormGroup;
+  form!: UntypedFormGroup;
   submitted = false;
   loading = false;
   error = '';
@@ -193,19 +193,19 @@ export class FormHourlyComponent implements OnInit, IDataEntryForm {
     }, 0);
   }
 
-  get hoursArray(): FormArray {
-    return this.form.get('hours') as FormArray;
+  get hoursArray(): UntypedFormArray {
+    return this.form.get('hours') as UntypedFormArray;
   }
 
-  get formHoursGroups(): FormGroup[] {
-    return this.hoursArray.controls as FormGroup[];
+  get formHoursGroups(): UntypedFormGroup[] {
+    return this.hoursArray.controls as UntypedFormGroup[];
   }
 
-  private getHourGroup(data: HourlyRecord): FormGroup {
-    const formGroup = new FormGroup({
-      hour:    new FormControl(null),
-      value:  new FormControl(null, [Validators.min(0), Validators.max(70)]),
-      flag:   new FormControl(Flag.N)
+  private getHourGroup(data: HourlyRecord): UntypedFormGroup {
+    const formGroup = new UntypedFormGroup({
+      hour:    new UntypedFormControl(null),
+      value:  new UntypedFormControl(null, [Validators.min(0), Validators.max(70)]),
+      flag:   new UntypedFormControl(Flag.N)
     });
 
     if(data) {
@@ -258,16 +258,16 @@ export class FormHourlyComponent implements OnInit, IDataEntryForm {
   }
 
   private resetHours() {
-    this.form.controls['hours'] = new FormArray([]);
+    this.form.controls['hours'] = new UntypedFormArray([]);
   }
 
   private initForm() {
-    this.form = new FormGroup({
-      station:        new FormControl(null, Validators.required),
-      element:        new FormControl(null, Validators.required),
-      date:           new FormControl(new Date(), Validators.required),
-      hours:          new FormArray([]),
-      total:          new FormControl(null)
+    this.form = new UntypedFormGroup({
+      station:        new UntypedFormControl(null, Validators.required),
+      element:        new UntypedFormControl(null, Validators.required),
+      date:           new UntypedFormControl(new Date(), Validators.required),
+      hours:          new UntypedFormArray([]),
+      total:          new UntypedFormControl(null)
     });
   }
 

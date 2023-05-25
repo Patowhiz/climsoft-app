@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output, Optional, Self, OnDestroy } from '@angular/core';
-import { ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { ControlValueAccessor, UntypedFormControl, NgControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ export class YearSelectorComponent implements OnInit, OnDestroy {
   @Input() start: number = new Date().getFullYear() - 30;
   @Input() end: number = new Date().getFullYear();
 
-  formControl!: FormControl;
+  formControl!: UntypedFormControl;
   @Output() onSelect: EventEmitter<number> = new EventEmitter();
 
   subscription!: Subscription;
@@ -25,7 +25,7 @@ export class YearSelectorComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
-    this.formControl = new FormControl(this.value);
+    this.formControl = new UntypedFormControl(this.value);
     for(let i = this.end; i > this.start; i--) {
       this.years.push(i);
     }
