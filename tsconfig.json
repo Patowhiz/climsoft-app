@@ -16,26 +16,51 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "lib": [
       "es2020",
       "dom"
     ],
     "paths": {
-      "@config/*": [ "src/config/*" ],
-      "@data/*": [ "src/app/data/*" ],
-      "@environment/*": [ "src/environments/*" ],
-      "@station/*": [ "src/app/modules/station/*" ],
-      "@element/*": [ "src/app/modules/element/*" ],
-      "@instrument/*": [ "src/app/modules/instrument/*" ],
-      "@station-element/*": [ "src/app/modules/station-element/*" ],
-      "@location-history/*": [ "src/app/modules/location-history/*" ],
-      "@qualifier/*": [ "src/app/modules/qualifier/*" ],
-      "@paper-archive/*": [ "src/app/modules/paper-archive/*" ],
-      "@physical-feature/*": [ "src/app/modules/physical-feature/*" ],
-      "@shared/*": [ "src/app/shared/*" ]
-    }
+      "@config/*": [
+        "src/config/*"
+      ],
+      "@data/*": [
+        "src/app/data/*"
+      ],
+      "@environment/*": [
+        "src/environments/*"
+      ],
+      "@station/*": [
+        "src/app/modules/station/*"
+      ],
+      "@element/*": [
+        "src/app/modules/element/*"
+      ],
+      "@instrument/*": [
+        "src/app/modules/instrument/*"
+      ],
+      "@station-element/*": [
+        "src/app/modules/station-element/*"
+      ],
+      "@location-history/*": [
+        "src/app/modules/location-history/*"
+      ],
+      "@qualifier/*": [
+        "src/app/modules/qualifier/*"
+      ],
+      "@paper-archive/*": [
+        "src/app/modules/paper-archive/*"
+      ],
+      "@physical-feature/*": [
+        "src/app/modules/physical-feature/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
+    },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
