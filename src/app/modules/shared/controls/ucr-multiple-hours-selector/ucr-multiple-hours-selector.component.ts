@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { MatSelectionListChange } from '@angular/material/list';
+import { MatLegacySelectionListChange as MatSelectionListChange } from '@angular/material/legacy-list';
 
 export const HOURSLIST: any[] = [
   { id: 0, name: "Hour 00"},
