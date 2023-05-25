@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppMode } from './../../../../data/enum/app-mode';
 import { environment } from 'src/environments/environment';
-import { CookieService } from 'ngx-cookie-service';
+
 import { AuthService } from './../../services/auth.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   ];
   dbOptions: { key: string, value: string }[] = [];
 
-  constructor(private cookieService: CookieService, private authService: AuthService) {
+  constructor(private authService: AuthService) {
     console.log(AppConfig);
   }
 
@@ -50,7 +50,8 @@ export class LoginComponent implements OnInit {
   }
 
   get isClimsoft(): boolean {
-    return +this.cookieService.get(environment.APP_MODE_COOKIE) === AppMode.CLIMSOFT || false;
+    return true;
+    //return +this.cookieService.get(environment.APP_MODE_COOKIE) === AppMode.CLIMSOFT || false;
   }
 
   onSubmit() {

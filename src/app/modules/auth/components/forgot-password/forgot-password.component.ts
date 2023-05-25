@@ -1,6 +1,5 @@
 import { AppMode } from './../../../../data/enum/app-mode';
 import { environment } from 'src/environments/environment';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from './../../services/auth.service';
 import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -18,7 +17,7 @@ export class ForgotPasswordComponent implements OnInit {
   loading = false;
   error: boolean = false;
 
-  constructor(private cookieService: CookieService, private authService: AuthService) {}
+  constructor( private authService: AuthService) {}
 
 
   ngOnInit(): void {}
@@ -28,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   get isClimsoft(): boolean {
-    return +this.cookieService.get(environment.APP_MODE_COOKIE) === AppMode.CLIMSOFT || false;
+    return true;
   }
 
   onSubmit() {
