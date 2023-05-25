@@ -1,6 +1,0 @@
-<div *ngFor="let item of entryControlsDefs;">
-  <mat-form-field class="input-field">
-    <mat-label>{{item.label}}</mat-label>
-    <input #newInput matInput (change)="onInputEntry(item.entryData, newInput.value)" [value]="item.value" />
-  </mat-form-field>
-</div>
