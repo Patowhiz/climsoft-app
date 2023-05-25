@@ -1,0 +1,79 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ station.id }} - {{ station.name }}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <!-- selectors -->
+    <fieldset class="entry-selectors">
+      <legend>Entry Selectors</legend>
+      <app-ucr-single-elements-selector
+        class="entry-selector"
+        *ngIf="entryForm.entrySelectors.includes('elementId')"
+        [elementIdsFilter]="entryForm.elements"
+        (selectionChange)="onElementChange($event)"
+      ></app-ucr-single-elements-selector>
+      <app-ucr-single-year-selector
+        class="entry-selector"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('year')
+        "
+        (selectionChange)="onYearChange($event)"
+      ></app-ucr-single-year-selector>
+      <app-ucr-single-month-selector
+        class="entry-selector"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('month')
+        "
+        (selectionChange)="onMonthChange($event)"
+      ></app-ucr-single-month-selector>
+      <app-ucr-single-day-selector
+        class="entry-selector"
+        *ngIf="
+          !useDatePickerControl && entryForm.entrySelectors.includes('day')
+        "
+        (selectionChange)="onDayChange($event)"
+      ></app-ucr-single-day-selector>
+
+      <app-date-picker class="entry-selector" *ngIf="useDatePickerControl"></app-date-picker>
+
+      <app-ucr-single-hour-selector
+        class="entry-selector"
+        *ngIf="entryForm.entrySelectors.includes('hour')"
+        [hoursFilter]="entryForm.hours"
+        (selectionChange)="onHourChange($event)"
+      ></app-ucr-single-hour-selector>
+    </fieldset>
+    <!-- ----------- -->
+
+    <!-- fields -->
+    <fieldset class="entry-fields">
+      <legend>Entry Fields</legend>
+      <!-- grid entry -->
+      <app-data-grid-entry
+        *ngIf="entryForm.entryControl === 'grid'"
+        [entryForm]="entryForm"
+        [entryDataItems]="entryDataItems"
+      >
+      </app-data-grid-entry>
+      <!-- ----------- -->
+      <!-- value flag entry -->
+      <app-value-flag-entry
+        *ngIf="entryForm.entryControl === 'vf'"
+        [entryForm]="entryForm"
+        [entryDataItems]="entryDataItems"
+      >
+      </app-value-flag-entry>
+      <!-- ----------- -->
+    </fieldset>
+    <!-- ----------- -->
+
+    <!-- save buttons -->
+    <div class="entry-buttons">
+      <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+      <button mat-raised-button color="primary">Delete</button>
+      <button mat-raised-button color="primary">Clear</button>
+      <!-- <button mat-raised-button color="primary">Image</button> -->
+    </div>
+    <!-- ----------- -->
+  </mat-card-content>
+</mat-card>

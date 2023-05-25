@@ -1,0 +1,9 @@
+<mat-selection-list *ngIf="dataSource" (selectionChange)="onChange($event)">
+  <mat-list-option
+    *ngFor="let item of dataSource"
+    [selected]="isSelected(item)"
+    [value]="item"
+  >
+    {{ displayMember ? item[displayMember] : item }}
+  </mat-list-option>
+</mat-selection-list>

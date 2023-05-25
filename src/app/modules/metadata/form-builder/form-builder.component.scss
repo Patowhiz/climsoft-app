@@ -1,0 +1,22 @@
+.selection-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.selection-radio-button {
+    margin: 5px;
+}
+
+.input-field {
+    width: 100%;
+}
+
+.selection-button-row {
+    margin-top: 5px;
+    display: table-cell;
+}
+
+.selection-button-row button {
+    margin: 5px;
+}
