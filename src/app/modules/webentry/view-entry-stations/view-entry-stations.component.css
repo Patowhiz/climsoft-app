@@ -4,6 +4,7 @@
     height: 100%;
 }
 
+
 .mat-card-header {
     justify-content: space-between;
 }
@@ -12,7 +13,7 @@
     height: fit-content;
 }
 
-.mat-table {
+.mat-mdc-table {
     width: 100%;
 }
 
@@ -21,13 +22,10 @@
     font-size: 1rem;
 }
 
-.mat-row:hover {
-    /* cursor: pointer;
-    border-bottom: 1px solid transparent;
-    border-top: 1px solid transparent; */
+.mat-mdc-row:hover {
     cursor: pointer;
 }
 
-.form-card {
+.mobile-view-items {
     margin-bottom: 5px;
 }

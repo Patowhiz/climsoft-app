@@ -9,7 +9,7 @@ import { ViewsDataService } from '../modules/shared/services/views-data.service'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
 
@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
         {
           name: 'Forms',
           url: '/dataentry/stations',
-          featureTitle: 'Entry Stations'
+          featureTitle: 'Select Stations'
         },
         {
           name: 'Import',

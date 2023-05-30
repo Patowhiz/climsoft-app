@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-entry-stations',
   templateUrl: './view-entry-stations.component.html',
-  styleUrls: ['./view-entry-stations.component.scss']
+  styleUrls: ['./view-entry-stations.component.css']
 })
 export class ViewEntryStationsComponent implements OnInit {
 
@@ -36,7 +36,7 @@ export class ViewEntryStationsComponent implements OnInit {
       ['dataentry', 'forms'],
       {
         state: {
-          viewTitle: 'Entry Forms', subView: true, stationData: station
+          viewTitle: 'Select Form', subView: true, stationData: station
         }
       });
   }
