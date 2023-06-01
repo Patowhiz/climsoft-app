@@ -37,7 +37,7 @@ export const DAYSLIST: any[] = [
 @Component({
   selector: 'app-ucr-single-day-selector',
   templateUrl: './ucr-single-day-selector.component.html',
-  styleUrls: ['./ucr-single-day-selector.component.css']
+  styleUrls: ['./ucr-single-day-selector.component.scss']
 })
 export class UcrSingleDaySelectorComponent implements OnInit, OnChanges  {
 

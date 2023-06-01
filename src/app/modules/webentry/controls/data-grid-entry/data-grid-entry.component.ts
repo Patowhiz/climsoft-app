@@ -11,7 +11,7 @@ import { Element } from 'src/app/modules/shared/models/element.model';
 @Component({
   selector: 'app-data-grid-entry',
   templateUrl: './data-grid-entry.component.html',
-  styleUrls: ['./data-grid-entry.component.css']
+  styleUrls: ['./data-grid-entry.component.scss']
 })
 export class DataGridEntryComponent implements OnInit, OnChanges {
 

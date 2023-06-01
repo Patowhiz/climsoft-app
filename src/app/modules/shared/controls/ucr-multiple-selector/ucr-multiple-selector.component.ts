@@ -6,7 +6,7 @@ import {  MatSelectionListChange } from '@angular/material/list';
 @Component({
   selector: 'app-ucr-multiple-selector',
   templateUrl: './ucr-multiple-selector.component.html',
-  styleUrls: ['./ucr-multiple-selector.component.css']
+  styleUrls: ['./ucr-multiple-selector.component.scss']
 })
 export class UcrMultipleSelectorComponent implements OnInit, OnChanges {
 

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-view-entry-stations',
   templateUrl: './view-entry-stations.component.html',
-  styleUrls: ['./view-entry-stations.component.css']
+  styleUrls: ['./view-entry-stations.component.scss']
 })
 export class ViewEntryStationsComponent implements OnInit {
 

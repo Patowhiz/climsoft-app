@@ -4,7 +4,7 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
 @Component({
   selector: 'app-ucr-single-year-selector',
   templateUrl: './ucr-single-year-selector.component.html',
-  styleUrls: ['./ucr-single-year-selector.component.css']
+  styleUrls: ['./ucr-single-year-selector.component.scss']
 })
 export class UcrSingleYearSelectorComponent implements OnInit {
 

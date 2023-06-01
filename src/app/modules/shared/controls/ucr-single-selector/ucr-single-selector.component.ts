@@ -6,7 +6,7 @@ import { MatSelectChange } from '@angular/material/select';
 @Component({
   selector: 'app-ucr-single-selector',
   templateUrl: './ucr-single-selector.component.html',
-  styleUrls: ['./ucr-single-selector.component.css']
+  styleUrls: ['./ucr-single-selector.component.scss']
 })
 export class UcrSingleSelectorComponent implements OnInit, OnChanges {
 

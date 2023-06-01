@@ -31,7 +31,7 @@ export const HOURSLIST: any[] = [
 @Component({
   selector: 'app-ucr-single-hour-selector',
   templateUrl: './ucr-single-hour-selector.component.html',
-  styleUrls: ['./ucr-single-hour-selector.component.css']
+  styleUrls: ['./ucr-single-hour-selector.component.scss']
 })
 export class UcrSingleHourSelectorComponent implements OnInit, OnChanges {
 

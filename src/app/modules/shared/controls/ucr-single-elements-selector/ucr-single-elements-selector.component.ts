@@ -12,7 +12,7 @@ export const ELEMENTSLIST: Element[] = [
 @Component({
   selector: 'app-ucr-single-elements-selector',
   templateUrl: './ucr-single-elements-selector.component.html',
-  styleUrls: ['./ucr-single-elements-selector.component.css']
+  styleUrls: ['./ucr-single-elements-selector.component.scss']
 })
 export class UcrSingleElementsSelectorComponent implements OnInit, OnChanges {
 

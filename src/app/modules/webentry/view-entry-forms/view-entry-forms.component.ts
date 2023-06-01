@@ -10,7 +10,7 @@ import { ViewsDataService } from '../../shared/services/views-data.service';
 @Component({
   selector: 'app-view-entry-forms',
   templateUrl: './view-entry-forms.component.html',
-  styleUrls: ['./view-entry-forms.component.css']
+  styleUrls: ['./view-entry-forms.component.scss']
 })
 export class ViewEntryFormsComponent implements OnInit {
 

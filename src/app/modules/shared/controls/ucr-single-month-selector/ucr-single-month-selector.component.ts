@@ -20,7 +20,7 @@ export const MONTHSLIST = [
 @Component({
   selector: 'app-ucr-single-month-selector',
   templateUrl: './ucr-single-month-selector.component.html',
-  styleUrls: ['./ucr-single-month-selector.component.css']
+  styleUrls: ['./ucr-single-month-selector.component.scss']
 })
 export class UcrSingleMonthSelectorComponent implements OnInit {
 

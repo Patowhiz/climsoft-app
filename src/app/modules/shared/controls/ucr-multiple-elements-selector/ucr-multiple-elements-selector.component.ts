@@ -12,7 +12,7 @@ export const ELEMENTSLIST: Element[] = [
 @Component({
   selector: 'app-ucr-multiple-elements-selector',
   templateUrl: './ucr-multiple-elements-selector.component.html',
-  styleUrls: ['./ucr-multiple-elements-selector.component.css']
+  styleUrls: ['./ucr-multiple-elements-selector.component.scss']
 })
 export class UcrMultipleElementsSelectorComponent implements OnInit, OnChanges {
 

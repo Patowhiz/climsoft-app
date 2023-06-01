@@ -12,7 +12,7 @@ export const STATIONSLIST: Station[] = [
 @Component({
   selector: 'app-ucr-single-station-selector',
   templateUrl: './ucr-single-station-selector.component.html',
-  styleUrls: ['./ucr-single-station-selector.component.css']
+  styleUrls: ['./ucr-single-station-selector.component.scss']
 })
 export class UcrSingleStationSelectorComponent implements OnInit, OnChanges {
   @Input() selectedStation!: Station;
