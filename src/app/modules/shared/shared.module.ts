@@ -24,6 +24,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 //--------------------------------
 
+//------- third party modules -------
+import { NgSelectModule } from '@ng-select/ng-select';
+//--------------------------------
+
 //--------- components ------------
 import { PaginatorComponent } from './controls/paginator/paginator.component';
 import { UcrSingleSelectorComponent } from './controls/ucr-single-selector/ucr-single-selector.component';
@@ -47,6 +51,10 @@ const angularModules = [
   ReactiveFormsModule,
   FormsModule,
 ];
+
+const thirdPartyModules = [
+  NgSelectModule
+]
 
 const materialModules = [
   MatIconModule,
@@ -94,10 +102,12 @@ const controlsComponents = [
   ],
   imports: [
     ...angularModules,
+    ...thirdPartyModules,
     ...materialModules,
   ],
   exports: [
     ...angularModules,
+    ...thirdPartyModules,
     ...materialModules,
     ...controlsComponents
   ]

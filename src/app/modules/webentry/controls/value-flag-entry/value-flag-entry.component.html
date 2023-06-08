@@ -1,6 +1,11 @@
-<div *ngFor="let item of entryControlsDefs;">
-  <mat-form-field class="input-field">
-    <mat-label>{{item.label}}</mat-label>
-    <input #newInput matInput (change)="onInputEntry(item.entryData, newInput.value)" [value]="item.value" />
-  </mat-form-field>
-</div>
+
+  <div class="row g-2">
+    <div class="col-auto mb-3" *ngFor="let item of entryControlsDefs">
+      <div class="form-floating">
+        <input #newInput type="text" class="form-control" [id]="item.label" placeholder="value" (change)="onInputEntry(item.entryData, newInput.value)" [value]="item.value">
+        <label [for]="item.label">{{item.label}}</label>
+      </div>
+    </div>
+  </div>
+
+
