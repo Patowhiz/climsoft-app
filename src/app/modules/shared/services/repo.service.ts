@@ -4,8 +4,8 @@ import { LocalStorageService } from './local-storage.service';
 import { EntryForm } from '../models/entryform.model';
 import { EntryDataSource } from '../models/entrydatasource.model';
 import { EntryData } from '../models/entrydata.model';
-import { ENTRYDATASAMPLE } from '../../webentry/mockdata/mockdata-list.mock';
-import { EntrySelectorsValues } from '../../webentry/form-entry/form-entry.component';
+import { ENTRYDATASAMPLE } from '../../dataentry/mockdata/mockdata-list.mock';
+import { EntrySelectorsValues } from '../../dataentry/form-entry/form-entry.component';
 import { Element } from '../models/element.model';
 
 @Injectable({

@@ -15,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'dataentry',
-        loadChildren: () => import('./modules/webentry/webentry.module').then((m) => m.WebEntryModule)
+        loadChildren: () => import('./modules/dataentry/dataentry.module').then((m) => m.DataEntryModule)
       },
       {
         path: 'metadata',

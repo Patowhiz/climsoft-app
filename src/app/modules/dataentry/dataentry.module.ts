@@ -1,6 +1,6 @@
 
 import { NgModule } from '@angular/core';
-import { WebEntryRoutingModule } from './webentry-routing.module';
+import { DataEntryRoutingModule } from './dataentry-routing.module';
 import { SharedModule } from '../shared/shared.module';
 
 //------- other packages modules  -------
@@ -29,9 +29,9 @@ import { ViewEntryStationsComponent } from './view-entry-stations/view-entry-sta
     ViewEntryStationsComponent
   ],
   imports: [
-    WebEntryRoutingModule,
+    DataEntryRoutingModule,
     SharedModule,
     // AgGridModule
   ]
 })
-export class WebEntryModule { }
+export class DataEntryModule { }

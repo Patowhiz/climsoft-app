@@ -13,7 +13,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 //--------------------------------------------
 import { SharedModule } from './modules/shared/shared.module';
 import { MetadataModule } from './modules/metadata/metadata.module';
-import { WebEntryModule } from './modules/webentry/webentry.module';
+import { DataEntryModule } from './modules/dataentry/dataentry.module';
 //--------------------------------------------
 
 //------------components------------------------------
@@ -32,10 +32,11 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    MetadataModule,
+    DataEntryModule,
+
     MatToolbarModule,
     MatSidenavModule,
-    MetadataModule,
-    WebEntryModule,
     
   ],
   providers: [
