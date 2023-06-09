@@ -29,20 +29,29 @@ import { NgSelectModule } from '@ng-select/ng-select';
 //--------------------------------
 
 //--------- components ------------
+
+import { TextInputComponent } from './controls/text-input/text-input.component';
+import { DateInputComponent } from './controls/date-input/date-input.component';
+import { SelectorInputComponent } from './controls/selector-input/selector-input.component';
 import { PaginatorComponent } from './controls/paginator/paginator.component';
-import { UcrSingleSelectorComponent } from './controls/ucr-single-selector/ucr-single-selector.component';
-import { UcrSingleStationSelectorComponent } from './controls/ucr-single-station-selector/ucr-single-station-selector.component';
-import { UcrSingleElementsSelectorComponent } from './controls/ucr-single-elements-selector/ucr-single-elements-selector.component';
-import { UcrSingleYearSelectorComponent } from './controls/ucr-single-year-selector/ucr-single-year-selector.component';
-import { UcrSingleMonthSelectorComponent } from './controls/ucr-single-month-selector/ucr-single-month-selector.component';
-import { UcrSingleDaySelectorComponent } from './controls/ucr-single-day-selector/ucr-single-day-selector.component';
-import { UcrSingleHourSelectorComponent } from './controls/ucr-single-hour-selector/ucr-single-hour-selector.component';
+
+//todo delete later
 import { UcrMultipleSelectorComponent } from './controls/ucr-multiple-selector/ucr-multiple-selector.component';
 import { UcrMultipleElementsSelectorComponent } from './controls/ucr-multiple-elements-selector/ucr-multiple-elements-selector.component';
 import { UcrMultipleStationsSelectorComponent } from './controls/ucr-multiple-stations-selector/ucr-multiple-stations-selector.component';
 import { UcrMultipleHoursSelectorComponent } from './controls/ucr-multiple-hours-selector/ucr-multiple-hours-selector.component';
 import { UcrMultipleDaysSelectorComponent } from './controls/ucr-multiple-days-selector/ucr-multiple-days-selector.component';
-import { DatePickerComponent } from './controls/date-picker/date-picker.component';
+
+//--------------------------------
+
+
+
+import { HourInputComponent } from './controls/hour-input/hour-input.component';
+import { StationInputComponent } from './controls/station-input/station-input.component';
+import { YearInputComponent } from './controls/year-input/year-input.component';
+import { MonthInputComponent } from './controls/month-input/month-input.component';
+import { DayInputComponent } from './controls/day-input/day-input.component';
+import { ElementInputComponent } from './controls/element-input/element-input.component';
 
 //--------------------------------
 
@@ -79,26 +88,31 @@ const materialModules = [
 //--------------------------------
 
 const controlsComponents = [
+  TextInputComponent,
+  SelectorInputComponent,
+  DateInputComponent,
+
+  YearInputComponent,
+  MonthInputComponent,
+  DayInputComponent, 
+  HourInputComponent,
+
+  StationInputComponent,
+  ElementInputComponent,
   PaginatorComponent,
+
   UcrMultipleSelectorComponent,
   UcrMultipleElementsSelectorComponent,
-  UcrSingleSelectorComponent,
-  UcrSingleStationSelectorComponent,
-  UcrSingleElementsSelectorComponent,
-  UcrSingleYearSelectorComponent,
-  UcrSingleMonthSelectorComponent,
-  UcrSingleDaySelectorComponent,
-  UcrSingleHourSelectorComponent,
   UcrMultipleStationsSelectorComponent,
   UcrMultipleHoursSelectorComponent,
   UcrMultipleDaysSelectorComponent,
-  DatePickerComponent
+  
+
 ];
 
 @NgModule({
   declarations: [
-    controlsComponents
-    
+    ...controlsComponents 
   ],
   imports: [
     ...angularModules,

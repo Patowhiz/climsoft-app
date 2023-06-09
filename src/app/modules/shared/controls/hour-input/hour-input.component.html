@@ -1,0 +1,9 @@
+<app-selector-input
+  [controlLabel]="'Select Hour'"
+  [dataSource]="hours"
+  [valueMember]="'id'"
+  [displayMember]="'name'"
+  [value]="value"
+  (valueChanged)="onChange($event)"
+>
+</app-selector-input>

@@ -8,6 +8,14 @@ import { RepoService } from '../../shared/services/repo.service';
 import { Element } from '../../shared/models/element.model';
 import { ViewsDataService } from '../../shared/services/views-data.service';
 
+export interface EntrySelectorsValues {
+  elementId: number;
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+}
+
 
 @Component({
   selector: 'app-form-entry',
@@ -19,65 +27,104 @@ export class FormEntryComponent implements OnInit {
   entryForm!: EntryForm;
   entryDataItems: EntryData[] = [];
   useDatePickerControl: boolean = false;
+  defaultDatePickerDate!: string;
 
+  //initial selector values should be -1 because we don't know what selectors are in the form metadata
+  public entrySelectorsValues: EntrySelectorsValues = { elementId: -1, year: -1, month: -1, day: -1, hour: -1 };
 
   constructor(private viewDataService: ViewsDataService, private repo: RepoService, private router: Router) {
 
+    //get form entry metadata
     this.station = this.viewDataService.getViewNavigationData()['stationData'];
     this.entryForm = this.viewDataService.getViewNavigationData()['formData'];
 
+    //set up values used by the component and it's UI controls
+    this.setInitialSelectorValues();
+    this.useDatePickerControl = this.checkWhetherToUseDatePickerControl();
 
-   this. useDatePickerControl = this.entryForm.entrySelectors.includes('year') && 
-   this.entryForm.entrySelectors.includes('month') && this.entryForm.entrySelectors.includes('day');
-  
-    //todo. push it to the entry control level
-    this.entryForm.hours = [];
-    HOURSLIST.forEach(element => {
-      this.entryForm.hours.push(element);
-    });
-
-    //get the data based on the selectors and fields
-    //todo. this data will later come from the server
-    this.entryDataItems = ENTRYDATASAMPLE;
-
+    //get the data based on the initial selector values
+    this.getEntryData();
 
   }
 
   ngOnInit(): void {
   }
 
+  private checkWhetherToUseDatePickerControl(): boolean {
+    return this.entryForm.entrySelectors.includes('year') &&
+      this.entryForm.entrySelectors.includes('month') &&
+      this.entryForm.entrySelectors.includes('day');
+  }
+
+  private setInitialSelectorValues(): void {
+
+    if (this.entryForm.entrySelectors.includes('elementId')) {
+      this.entrySelectorsValues.elementId = this.entryForm.elements[0];
+    }
+
+    const todayDate = new Date();
+
+    if (this.entryForm.entrySelectors.includes('year')) {
+      this.entrySelectorsValues.year = todayDate.getFullYear();
+    }
+
+    if (this.entryForm.entrySelectors.includes('month')) {
+      this.entrySelectorsValues.month = todayDate.getMonth() + 1;
+    }
+
+    if (this.entryForm.entrySelectors.includes('day')) {
+      this.entrySelectorsValues.day = todayDate.getDate();
+    }
+
+    if (this.entryForm.entrySelectors.includes('hour')) {
+      this.entrySelectorsValues.hour = this.entryForm.hours.length > 0 ? this.entryForm.hours[0] : 0;
+    }
+
+    this.defaultDatePickerDate = todayDate.toISOString().slice(0, 10)
+
+  }
+
+  private getEntryData(): void {
+    //get the data based on the station, data source and selectors
+    this.entryDataItems = this.repo.getEntryDataItems(this.station.id, this.entryForm.dataSourceId, this.entrySelectorsValues);;
+  }
+
   public onElementChange(element: Element): void {
-    //console.log("form entry element changed", element);
+    this.entrySelectorsValues.elementId = element.id;
+    this.getEntryData();
   }
 
   public onYearChange(year: any): void {
-    //console.log("form entry year changed", year);
-
+    this.entrySelectorsValues.year = year.id;
+    this.getEntryData();
   }
 
   public onMonthChange(month: any): void {
-    //console.log("form entry onth changed", month);
-
+    this.entrySelectorsValues.month = month.id;
+    this.getEntryData();
   }
 
-  public onDayChange(day: number): void {
-    //console.log("dform entry ay changed", day);
-
+  public onDayChange(day: any): void {
+    this.entrySelectorsValues.day = day.id;
+    this.getEntryData();
   }
 
-  public onHourChange(hour: number): void {
-    //console.log("form entry hour changed", hour);
-
+  public onDateChange(dateInput: string): void {
+    const date = new Date(dateInput);
+    this.entrySelectorsValues.year = date.getFullYear();
+    this.entrySelectorsValues.month = date.getMonth() + 1;
+    this.entrySelectorsValues.day = date.getDate();
+    this.getEntryData();
   }
 
-  public onGridChange(): void {
-    //console.log("form entry hour changed", hour);
-
+  public onHourChange(hourInput: any): void {
+    this.entrySelectorsValues.hour = hourInput.id;
+    this.getEntryData();
   }
 
   public onSave(): void {
     console.log("new values", this.entryDataItems)
-
+    //this.repo.saveEntryData(this.entryDataItems);
   }
 
   public onDelete(): void {
@@ -85,6 +132,6 @@ export class FormEntryComponent implements OnInit {
   }
 
   public onClear(): void {
-
+    this.entryDataItems = [];
   }
 }

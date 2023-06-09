@@ -1,5 +1,5 @@
 export interface EntryData {
-    stationId: number;
+    stationId: string;
     elementId: number;
     dataSourceId: number;
     //dateTime: string
@@ -7,11 +7,16 @@ export interface EntryData {
     //level of observation
     level: string;
 
+    //todo. string date??
     year: number;
     month: number;
     day: number;
     hour: number;
-    value: number;
+
+
+    //stored as a number in the database
+    //can be empty due to nulls
+    value: string;
     flag: string;
 
     //image file name

@@ -1,0 +1,33 @@
+<!--uneditable selector-->
+<div *ngIf="!editable">
+  <!-- todo. What should be the bindLabel for data sorces like arrays, the value and display member doesn't have to be supplied -->
+  <label [for]="controlLabel">{{ controlLabel }}</label>
+  <ng-select
+    [id]="controlLabel"
+    [items]="dataSourceUsed"
+    [ngModel]="selectedObject"
+    [multiple]="false"
+    [closeOnSelect]="true"
+    [searchable]="true"
+    [clearable]="true"
+    [virtualScroll]="true"
+    [bindLabel]="displayMember"
+    (change)="onChange($event)"
+  ></ng-select>
+</div>
+
+<!--uneditable selector-->
+<div *ngIf="editable">
+  <label [for]="controlLabel">{{ controlLabel }}</label>
+  <input
+    class="form-control"
+    list="datalistOptions"
+    [id]="controlLabel"  
+    (input)="onChange($any($event.target).value)"
+  />
+  <datalist id="datalistOptions">
+    <option *ngFor="let data of dataSourceUsed" [value]="data" [selected] = "data === selectedObject">
+      {{ data[displayMember] }}
+    </option>
+  </datalist>
+</div>

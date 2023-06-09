@@ -19,66 +19,76 @@
             <div class="card-body">
               <div class="row g-2">
                 <div
-                  class="col-auto mb-2"
+                  class="col-sm-auto mb-2"
                   *ngIf="entryForm.entrySelectors.includes('elementId')"
                 >
-                  <app-ucr-single-elements-selector
-                    [elementIdsFilter]="entryForm.elements"
-                    (selectionChange)="onElementChange($event)"
-                  ></app-ucr-single-elements-selector>
+                  <app-element-input
+                    [filter]="entryForm.elements"
+                    [value]="
+                      entryForm.elements.length > 0 ? entryForm.elements[0] : 0
+                    "
+                    (valueChanged)="onElementChange($event)"
+                  ></app-element-input>
                 </div>
 
                 <div
-                  class="col-auto mb-2"
+                  class="col-sm-auto mb-2"
                   *ngIf="
                     !useDatePickerControl &&
                     entryForm.entrySelectors.includes('year')
                   "
                 >
-                  <app-ucr-single-year-selector
-                    (selectionChange)="onYearChange($event)"
-                  ></app-ucr-single-year-selector>
+                  <app-year-input
+                    [value]="entrySelectorsValues.year"
+                    (valueChanged)="onYearChange($event)"
+                  ></app-year-input>
                 </div>
 
                 <div
-                  class="col-auto mb-2"
+                  class="col-sm-auto mb-2"
                   *ngIf="
                     !useDatePickerControl &&
                     entryForm.entrySelectors.includes('month')
                   "
                 >
-                  <app-ucr-single-month-selector
-                    (selectionChange)="onMonthChange($event)"
-                  ></app-ucr-single-month-selector>
+                  <app-month-input
+                    [value]="entrySelectorsValues.month"
+                    (valueChanged)="onMonthChange($event)"
+                  ></app-month-input>
                 </div>
 
                 <div
-                  class="col-auto mb-2"
+                  class="col-sm-auto mb-2"
                   *ngIf="
                     !useDatePickerControl &&
                     entryForm.entrySelectors.includes('day')
                   "
                 >
-                  <app-ucr-single-day-selector
-                    (selectionChange)="onDayChange($event)"
-                  ></app-ucr-single-day-selector>
+                  <app-day-input
+                    [value]="entrySelectorsValues.day"
+                    (valueChanged)="onDayChange($event)"
+                  ></app-day-input>
                 </div>
 
-                <div class="col-auto mb-2" *ngIf="useDatePickerControl">
-                  <app-date-picker
-                    *ngIf="useDatePickerControl"
-                  ></app-date-picker>
+                <div class="col-sm-auto mb-2" *ngIf="useDatePickerControl">
+                  <app-date-input
+                    [value]="defaultDatePickerDate"
+                    (valueChanged)="onDateChange($event)"
+                  ></app-date-input>
                 </div>
 
                 <div
-                  class="col-auto mb-2"
+                  class="col-sm-auto mb-2"
                   *ngIf="entryForm.entrySelectors.includes('hour')"
                 >
-                  <app-ucr-single-hour-selector
+                  <app-hour-input
                     *ngIf="entryForm.entrySelectors.includes('hour')"
-                    [hoursFilter]="entryForm.hours"
-                    (selectionChange)="onHourChange($event)"
-                  ></app-ucr-single-hour-selector>
+                    [filter]="entryForm.hours"
+                    [value]="
+                      entryForm.hours.length > 0 ? entryForm.hours[0] : 0
+                    "
+                    (valueChanged)="onHourChange($event)"
+                  ></app-hour-input>
                 </div>
               </div>
             </div>
@@ -116,7 +126,6 @@
           </div>
         </div>
       </div>
-      
     </div>
 
     <div class="card-footer">
@@ -134,7 +143,5 @@
         </div>
       </div>
     </div>
-
-
   </div>
 </div>

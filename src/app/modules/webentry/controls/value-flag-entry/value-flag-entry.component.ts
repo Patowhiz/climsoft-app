@@ -3,6 +3,12 @@ import { DAYSLIST, ELEMENTSLIST } from '../../mockdata/mockdata-list.mock';
 import { EntryForm } from 'src/app/modules/shared/models/entryform.model';
 import { EntryData } from 'src/app/modules/shared/models/entrydata.model';
 
+export interface ControlsDefinition {
+  id: number;
+  label: string;
+  entryData: EntryData;
+  valueFlag: string;
+}
 
 @Component({
   selector: 'app-value-flag-entry',
@@ -20,7 +26,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
   @Input() entryDataItems!: EntryData[];
 
   //entry controls definitions
-  entryControlsDefs: any[] = [];
+  entryControlsDefs: ControlsDefinition[] = [];
 
   constructor() { }
 
@@ -33,8 +39,8 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
 
 
   //returns an array of controls to be used for data entry
-  private getValueFlagControls(entryForm: EntryForm, entryDataItems: any[]): any[] {
-    let entryControlsDefs: any[] = [];
+  private getValueFlagControls(entryForm: EntryForm, entryDataItems: EntryData[]): any[] {
+    let entryControlsDefs: ControlsDefinition[] = [];
     //get the entry field to use
     let entryField: string = entryForm.entryFields[0];
 
@@ -57,20 +63,20 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
     entryControlsDefs.forEach(controlDef => {
 
       //get the entry data to be used by the control definition if it exists
-      let entryData = this.getElementFromArray(entryDataItems, entryField, controlDef['id'], null);
+      let entryData: EntryData = this.getElementFromArray(entryDataItems, entryField, controlDef['id'], null) as EntryData;
 
       if (entryData == null) {
 
         entryData = {
-          stationId: 0,
+          stationId: '0',
           elementId: 0,
-          entryFormId: 0,
+          dataSourceId: 0,
           level: '',
           year: 0,
           month: 0,
           day: 0,
           hour: 0,
-          value: 0,
+          value: '',
           flag: '',
           paperImage: '',
           qcStatus: 0,
@@ -83,8 +89,8 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
        
       } 
 
-      controlDef['entryData'] = entryData;
-      controlDef['value'] = entryData['value'];
+      controlDef.entryData = entryData;
+      controlDef.valueFlag = entryData.value + entryData.flag;
 
     });
     //--------------------------------
@@ -98,8 +104,8 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
     let controlDefs: any[] = [];
     arr.forEach(element => {
       let controlDef: any = {};
-      controlDef['id'] = element[idPropertyName];
-      controlDef['label'] = element[labelPropertyName];
+      controlDef.id= element[idPropertyName];
+      controlDef.label = element[labelPropertyName];
       controlDefs.push(controlDef)
     });
     return controlDefs;
@@ -107,27 +113,18 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
 
 
   //todo. push to array util functions
-  private getElementFromArray(elements: any[],
-    elementPropertyNameToUseForSearchingElement: string,
-    elementValueToSearch: any,
-    defaultReturnValue: any): any {
-
-    let foundValue: any = defaultReturnValue;
-    elements.forEach(element => {
-      if (element[elementPropertyNameToUseForSearchingElement] == elementValueToSearch) {
-        foundValue = element;
-        return;
-      }
-    });
-
-    return foundValue;
-
+  private getElementFromArray(elements: any[], elementPropertyNameToUseForSearchingElement: string, elementValueToSearch: any, defaultReturnValue: any): any {
+    return elements.find(element => element[elementPropertyNameToUseForSearchingElement] === elementValueToSearch) || defaultReturnValue;
   }
+  
 
-  onInputEntry(controlEntryData: any, controlNewValue: any): void {
+  onInputEntry(controlEntryData: EntryData, controlNewValueFlag: any): void {
+
+    //todo. remove flag from the value
+    //todo. do validations of the new value
    
     //set the value field from the control new value
-    controlEntryData['value'] = controlNewValue;
+    controlEntryData.value = controlNewValueFlag;
 
     console.log('new data', controlEntryData);
 

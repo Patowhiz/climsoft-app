@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { EntryForm } from '../models/entryform.model';
 import { EntryDataSource } from '../models/entrydatasource.model';
+import { EntryData } from '../models/entrydata.model';
+import { ENTRYDATASAMPLE } from '../../webentry/mockdata/mockdata-list.mock';
+import { EntrySelectorsValues } from '../../webentry/form-entry/form-entry.component';
+import { Element } from '../models/element.model';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +97,82 @@ export class RepoService {
     });
 
     return dataSource;
+  }
+
+
+  
+
+  public getEntryDataItems(stationdId: string, dataSourceId: number, entrySelectorValues: EntrySelectorsValues): EntryData[] {
+
+    let entryDataItems: EntryData[] = [];
+
+    //todo. the below filter will happen at the server level
+    for (const entryData of ENTRYDATASAMPLE) {
+
+      if (entryData.stationId !== stationdId) {
+        continue;
+      }
+
+      if (entryData.dataSourceId !== dataSourceId) {
+        continue;
+      }
+
+      if (entrySelectorValues.elementId > 0 && entryData.elementId !== entrySelectorValues.elementId) {
+        continue;
+      }
+
+      if (entrySelectorValues.year > 0 && entryData.year !== entrySelectorValues.year) {
+        continue;
+      }
+
+      if (entrySelectorValues.month > 0 && entryData.month !== entrySelectorValues.month) {
+        continue;
+      }
+
+      if (entrySelectorValues.day > 0 && entryData.day !== entrySelectorValues.day) {
+        continue;
+      }
+
+      if (entrySelectorValues.hour > -1 && entryData.hour !== entrySelectorValues.hour) {
+        continue;
+      }
+
+      entryDataItems.push(entryData);
+
+    }
+
+    return entryDataItems;
+
+  }
+
+  private getSavedEntryDataItems(): EntryData[] {
+    let entryDataItems: EntryData[] = []
+    let str: any = this.localStorage.getItem("entry_data_items");
+    if (str) {
+      entryDataItems = JSON.parse(str)
+    }
+    return entryDataItems;
+  }
+
+  public saveEntryData(entryData: EntryData[]): boolean {
+    //todo. this will also be done at the server level
+    let entryDataItems: EntryData[] = this.getSavedEntryDataItems();
+    //let entryDataItems: EntryDataSource[] =[];
+
+    //todo. check for uniqueness from the local data as well
+    entryDataItems.push(...entryData);
+    this.localStorage.setItem("entry_data_items", JSON.stringify(entryDataItems));
+    return true;
+
+  }
+
+  public getAllElements(): Element[] {
+    return [
+      { id: 1, name: 'Minimum Temperature' },
+      { id: 2, name: 'Maximum Temperature' },
+      { id: 3, name: 'Rainfall' },
+      { id: 4, name: 'Humidity' }
+    ];
   }
 
 

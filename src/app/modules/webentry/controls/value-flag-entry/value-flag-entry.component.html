@@ -1,11 +1,9 @@
-
-  <div class="row g-2">
-    <div class="col-auto mb-3" *ngFor="let item of entryControlsDefs">
-      <div class="form-floating">
-        <input #newInput type="text" class="form-control" [id]="item.label" placeholder="value" (change)="onInputEntry(item.entryData, newInput.value)" [value]="item.value">
-        <label [for]="item.label">{{item.label}}</label>
-      </div>
-    </div>
+<div class="row g-2">
+  <div class="col-sm-auto mb-3" *ngFor="let item of entryControlsDefs">
+    <app-text-input
+      [controlLabel]="item.label"
+      [value]="item.valueFlag"
+      (change)="onInputEntry(item.entryData, $any($event.target).value)"
+    ></app-text-input>
   </div>
-
-
+</div>
