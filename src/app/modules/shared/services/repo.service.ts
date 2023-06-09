@@ -1,4 +1,3 @@
-import { DataSource } from '@angular/cdk/collections';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
 import { EntryForm } from '../models/entryform.model';
