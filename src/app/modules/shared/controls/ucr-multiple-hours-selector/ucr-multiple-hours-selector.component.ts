@@ -56,7 +56,7 @@ export class UcrMultipleHoursSelectorComponent implements OnInit, OnChanges {
 
 
   onChange(change: MatSelectionListChange) {
-    let selectedItems: number[] = change.source.selectedOptions.selected.map(item => item.value);
+    let selectedItems: number[] = change.source.selectedOptions.selected.map(item => item.value.id);
     this.selectionChange.emit(selectedItems);
   }
 

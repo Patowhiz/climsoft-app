@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, OnInit, OnChanges, SimpleChanges } from '@
 //import { AgGridAngular } from 'ag-grid-angular';
 
 //import { CellValueChangedEvent, ColDef } from 'ag-grid-community';
-import { DAYSLIST, ELEMENTSLIST } from '../../mockdata/mockdata-list.mock';
+
 import { EntryForm } from 'src/app/modules/shared/models/entryform.model';
 import { EntryData } from 'src/app/modules/shared/models/entrydata.model';
 import { Element } from 'src/app/modules/shared/models/element.model';
@@ -47,7 +47,8 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
     //todo. This should load data for the elements selected only
     //should also check that all element names are unique to prevent data entry errors
     if (this.entryForm.entryFields.includes("elementId")) {
-      this.elementsData = ELEMENTSLIST;
+      //todo
+      //this.elementsData = ELEMENTSLIST;
     }
 
     //get the row and column definitions from the entry fields
@@ -65,7 +66,7 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
       this.addToStringArray(rowNames, this.entryForm.elements);
     } else if (this.rowDefinition === "day") {
       this.columnNames.push("Days");
-      this.addToStringArray(rowNames, DAYSLIST);
+      //this.addToStringArray(rowNames, DAYSLIST);
     } else if (this.rowDefinition === "hour") {
       this.columnNames.push("Hours");
       this.addToStringArray(rowNames, this.entryForm.hours);
@@ -80,12 +81,11 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
     if (this.columnDefinition === "elementId") {
       this.addToStringArray(this.columnNames, this.entryForm.elements);
     } else if (this.columnDefinition === "day") {
-      this.addToStringArray(this.columnNames, DAYSLIST);
+      //todo
+      //this.addToStringArray(this.columnNames, DAYSLIST);
     } else if (this.columnDefinition === "hour") {
       this.addToStringArray(this.columnNames, this.entryForm.hours);
-    } else if (this.columnDefinition === "stationId") {
-      this.addToStringArray(this.columnNames, this.entryForm.stations);
-    }
+    } 
 
 
     //set column definition for the agrid. First column doesn't need a header name
@@ -161,12 +161,12 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
 
   private getElementName(elementId: number) {
     let elementName: string = "";
-    ELEMENTSLIST.forEach(element => {
-      if (element.id === elementId) {
-        elementName = element.name;
-        return;
-      }
-    });
+    // ELEMENTSLIST.forEach(element => {
+    //   if (element.id === elementId) {
+    //     elementName = element.name;
+    //     return;
+    //   }
+    // });
 
     return elementName;
 
@@ -174,12 +174,12 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
 
   private getElementId(elementId: number) {
     let elementName: string = "";
-    ELEMENTSLIST.forEach(element => {
-      if (element.id === elementId) {
-        elementName = element.name;
-        return;
-      }
-    });
+    // ELEMENTSLIST.forEach(element => {
+    //   if (element.id === elementId) {
+    //     elementName = element.name;
+    //     return;
+    //   }
+    // });
 
     return elementName;
 

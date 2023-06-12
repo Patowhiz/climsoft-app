@@ -4,7 +4,7 @@ import { EntryForm } from '../models/entryform.model';
 import { EntryDataSource } from '../models/entrydatasource.model';
 import { EntryData } from '../models/entrydata.model';
 import { ENTRYDATASAMPLE } from '../../dataentry/mockdata/mockdata-list.mock';
-import { EntrySelectorsValues } from '../../dataentry/form-entry/form-entry.component';
+import { DataSelectorsValues } from '../../dataentry/form-entry/form-entry.component';
 import { Element } from '../models/element.model';
 
 @Injectable({
@@ -99,40 +99,40 @@ export class RepoService {
   }
 
 
-  
 
-  public getEntryDataItems(stationdId: string, dataSourceId: number, entrySelectorValues: EntrySelectorsValues): EntryData[] {
+
+  public getEntryDataItems( dataSelectorValues: DataSelectorsValues): EntryData[] {
 
     let entryDataItems: EntryData[] = [];
 
     //todo. the below filter will happen at the server level
     for (const entryData of ENTRYDATASAMPLE) {
 
-      if (entryData.stationId !== stationdId) {
+      if (dataSelectorValues.dataSourceId > 0 && dataSelectorValues.dataSourceId !== entryData.dataSourceId) {
         continue;
       }
 
-      if (entryData.dataSourceId !== dataSourceId) {
+      if (dataSelectorValues.stationId != '0' && dataSelectorValues.stationId !== entryData.stationId) {
         continue;
       }
 
-      if (entrySelectorValues.elementId > 0 && entryData.elementId !== entrySelectorValues.elementId) {
+      if (dataSelectorValues.elementId > 0 && entryData.elementId !== dataSelectorValues.elementId) {
         continue;
       }
 
-      if (entrySelectorValues.year > 0 && entryData.year !== entrySelectorValues.year) {
+      if (dataSelectorValues.year > 0 && entryData.year !== dataSelectorValues.year) {
         continue;
       }
 
-      if (entrySelectorValues.month > 0 && entryData.month !== entrySelectorValues.month) {
+      if (dataSelectorValues.month > 0 && entryData.month !== dataSelectorValues.month) {
         continue;
       }
 
-      if (entrySelectorValues.day > 0 && entryData.day !== entrySelectorValues.day) {
+      if (dataSelectorValues.day > 0 && entryData.day !== dataSelectorValues.day) {
         continue;
       }
 
-      if (entrySelectorValues.hour > -1 && entryData.hour !== entrySelectorValues.hour) {
+      if (dataSelectorValues.hour > -1 && entryData.hour !== dataSelectorValues.hour) {
         continue;
       }
 
@@ -165,14 +165,18 @@ export class RepoService {
 
   }
 
-  public getAllElements(): Element[] {
-    return [
+  public getAllElements(elementIds?: number[]): Element[] {
+    const allElements: Element[] = [
       { id: 1, name: 'Minimum Temperature' },
       { id: 2, name: 'Maximum Temperature' },
       { id: 3, name: 'Rainfall' },
       { id: 4, name: 'Humidity' }
     ];
+  
+    const elements = elementIds ? allElements.filter(obj => elementIds.includes(obj.id)) : allElements;
+    return elements;
   }
+  
 
 
 }

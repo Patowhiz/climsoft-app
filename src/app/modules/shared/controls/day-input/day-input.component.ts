@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { DateUtils } from '../../utils/date-utils';
 
 @Component({
   selector: 'app-day-input',
@@ -6,14 +7,16 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
   styleUrls: ['./day-input.component.scss']
 })
 export class DayInputComponent implements OnInit, OnChanges {
+  @Input() year!: number;
+  //a 1 based month id
+  @Input() month!: number;
   @Input() value!: number;
   @Input() filter!: number[];
   @Output() valueChanged = new EventEmitter<any>();
-  days: any[];
-  selectedDayObject!: any[];
+  days!: any[];
 
   constructor() {
-    this.days = this.getAllDays();
+    
   }
 
   ngOnInit(): void {
@@ -21,16 +24,10 @@ export class DayInputComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(this.year && this.month){
+      this.days = DateUtils.getDaysInMonthList( this.year,this.month-1);
+    }   
   }
-
-  private getAllDays(): any[] {
-    const all: any[] = [];
-    for (let i = 1; i <= 31; i++) {
-      all.push({ id: i, name: `Day ${i.toString().padStart(2, '0')}` });
-    }
-    return all;
-  }
-
 
   onChange(change: any) {
     this.valueChanged.emit(change);

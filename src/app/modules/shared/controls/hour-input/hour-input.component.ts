@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
+import { DateUtils } from '../../utils/date-utils';
 
 @Component({
   selector: 'app-hour-input',
@@ -13,7 +14,7 @@ export class HourInputComponent implements OnInit, OnChanges {
 
 
   constructor() {
-    this.hours = this.getAllHours();
+    this.hours = DateUtils.getHoursList();
   }
 
   ngOnInit(): void {
@@ -23,16 +24,6 @@ export class HourInputComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
  
   }
-
-  private getAllHours(): any[] {
-    const all: any[] = [];
-    for (let i = 0; i <= 23; i++) {
-      const name = `Hour ${i.toString().padStart(2, '0')}`;
-      all.push({ id: i, name: name });
-    }
-    return all;
-  }
-
 
   onChange(change: any) {
     this.valueChanged.emit(change);

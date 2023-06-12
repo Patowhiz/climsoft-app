@@ -36,7 +36,7 @@ export class UcrMultipleElementsSelectorComponent implements OnInit, OnChanges {
   }
 
   onChange(change: MatSelectionListChange) {
-    let selectedItems: Element[] = change.source.selectedOptions.selected.map(item => item.value);
+    let selectedItems: Element[] = change.source.selectedOptions.selected.map(item => item.value.id);
     this.selectionChange.emit(selectedItems);
   }
 

@@ -119,6 +119,9 @@ const controlsComponents = [
     ...thirdPartyModules,
     ...materialModules,
   ],
+  providers: [
+    
+  ],
   exports: [
     ...angularModules,
     ...thirdPartyModules,

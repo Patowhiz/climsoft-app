@@ -3,7 +3,7 @@
     <app-text-input
       [controlLabel]="item.label"
       [value]="item.valueFlag"
-      (change)="onInputEntry(item.entryData, $any($event.target).value)"
+      (change)="onInputEntry(item, $any($event.target).value)"
     ></app-text-input>
   </div>
 </div>

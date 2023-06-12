@@ -39,7 +39,7 @@
                   "
                 >
                   <app-year-input
-                    [value]="entrySelectorsValues.year"
+                    [value]="dataSelectorsValues.year"
                     (valueChanged)="onYearChange($event)"
                   ></app-year-input>
                 </div>
@@ -52,7 +52,7 @@
                   "
                 >
                   <app-month-input
-                    [value]="entrySelectorsValues.month"
+                    [value]="dataSelectorsValues.month"
                     (valueChanged)="onMonthChange($event)"
                   ></app-month-input>
                 </div>
@@ -65,7 +65,9 @@
                   "
                 >
                   <app-day-input
-                    [value]="entrySelectorsValues.day"
+                    [year]="dataSelectorsValues.year"
+                    [month]="dataSelectorsValues.month"
+                    [value]="dataSelectorsValues.day"
                     (valueChanged)="onDayChange($event)"
                   ></app-day-input>
                 </div>
@@ -117,6 +119,7 @@
                     *ngIf="entryForm.entryControl === 'vf'"
                     [entryForm]="entryForm"
                     [entryDataItems]="entryDataItems"
+                    [dataSelectorsValues]="dataSelectorsValues"
                   >
                   </app-value-flag-entry>
                   <!-- ----------- -->
