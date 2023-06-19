@@ -10,7 +10,7 @@ export class DateInputComponent implements OnInit, OnChanges {
   @Input() controlLabel: string = "Select Date";
   //format expected is ISO 8601 date format (yyyy-MM-dd) 
   @Input() value!: string;
-  @Output() valueChanged = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<string>();
   maxDate: string = "";
 
   constructor() {
@@ -24,7 +24,7 @@ export class DateInputComponent implements OnInit, OnChanges {
   }
 
   onInputEntry(selectedDate: string) {
-    this.valueChanged.emit(selectedDate);
+    this.valueChange.emit(selectedDate);
   }
 
 }

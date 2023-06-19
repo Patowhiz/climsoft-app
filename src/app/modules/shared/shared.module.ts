@@ -37,10 +37,7 @@ import { PaginatorComponent } from './controls/paginator/paginator.component';
 
 //todo delete later
 import { UcrMultipleSelectorComponent } from './controls/ucr-multiple-selector/ucr-multiple-selector.component';
-import { UcrMultipleElementsSelectorComponent } from './controls/ucr-multiple-elements-selector/ucr-multiple-elements-selector.component';
-import { UcrMultipleStationsSelectorComponent } from './controls/ucr-multiple-stations-selector/ucr-multiple-stations-selector.component';
 import { UcrMultipleHoursSelectorComponent } from './controls/ucr-multiple-hours-selector/ucr-multiple-hours-selector.component';
-import { UcrMultipleDaysSelectorComponent } from './controls/ucr-multiple-days-selector/ucr-multiple-days-selector.component';
 
 //--------------------------------
 
@@ -102,10 +99,7 @@ const controlsComponents = [
   PaginatorComponent,
 
   UcrMultipleSelectorComponent,
-  UcrMultipleElementsSelectorComponent,
-  UcrMultipleStationsSelectorComponent,
   UcrMultipleHoursSelectorComponent,
-  UcrMultipleDaysSelectorComponent,
   
 
 ];

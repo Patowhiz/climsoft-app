@@ -1,12 +1,12 @@
 <!--uneditable selector-->
 <div *ngIf="!editable">
-  <!-- todo. What should be the bindLabel for data sorces like arrays, the value and display member doesn't have to be supplied -->
-  <label [for]="controlLabel">{{ controlLabel }}</label>
+  <label [htmlFor]="controlLabel">{{ controlLabel }}</label>
+  <!--value should be an array if multiple is true. value should be an object if mutliple is false-->
   <ng-select
     [id]="controlLabel"
-    [items]="dataSourceUsed"
-    [ngModel]="selectedObject"
-    [multiple]="false"
+    [items]="dataSource"
+    [ngModel]="value"
+    [multiple]="multiple"
     [closeOnSelect]="true"
     [searchable]="true"
     [clearable]="true"
@@ -17,8 +17,8 @@
 </div>
 
 <!--uneditable selector-->
-<div *ngIf="editable">
-  <label [for]="controlLabel">{{ controlLabel }}</label>
+<div *ngIf="editable && !multiple">
+  <label [htmlFor]="controlLabel">{{ controlLabel }}</label>
   <input
     class="form-control"
     list="datalistOptions"
@@ -26,7 +26,7 @@
     (input)="onChange($any($event.target).value)"
   />
   <datalist id="datalistOptions">
-    <option *ngFor="let data of dataSourceUsed" [value]="data" [selected] = "data === selectedObject">
+    <option *ngFor="let data of dataSource" [value]="data" [selected] = "value && data[valueMember] === value[valueMember]">
       {{ data[displayMember] }}
     </option>
   </datalist>

@@ -9,8 +9,8 @@ import { RepoService } from '../../services/repo.service';
 })
 export class ElementInputComponent   implements OnInit, OnChanges {
   @Input() filter!: number[];
-  @Input() value!: number;
-  @Output() valueChanged = new EventEmitter<any>();
+  @Input() value!: any;
+  @Output() valueChange = new EventEmitter<any>();
   elements: Element[];
 
 
@@ -26,7 +26,7 @@ export class ElementInputComponent   implements OnInit, OnChanges {
   }
 
   onChange(change: any) {
-    this.valueChanged.emit(change);
+    this.valueChange.emit(change);
   }
 
 }

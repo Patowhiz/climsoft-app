@@ -1,219 +1,149 @@
-<mat-card>
-    <mat-card-content>  
-      <!-- Entry selectors -->
-      <mat-stepper #stepper [linear]="true" labelPosition="bottom">
-        <mat-step [completed]="entrySelectorsCompleted()" [optional]="false">
-          <h6>Select Entry Selectors</h6>
-          <div>
-            <p>Minimum 3, maximum 4</p>
-            <app-ucr-multiple-selector
-              class="selection-container"
-              [dataSource]="allEntrySelectors"
-              [displayMember]="'name'"
-              (selectionChange)="onEntrySelectorsSelected($event)"
-            ></app-ucr-multiple-selector>
+<div class="container-fluid h-100 p-1">
+  <div class="card h-100">
+    <div class="card-header">Form Metadata</div>
+    <div class="card-body">
+      <!--entry selectors-->
+      <div class="card mb-2">
+        <div class="card-header">Select Entry Selectors</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-auto">
+              <app-selector-input
+                [controlLabel]="'Minimum of 3 and maximum 4'"
+                [dataSource]="allEntrySelectors"
+                [valueMember]="'id'"
+                [displayMember]="'name'"
+                [multiple]="true"
+                [value]="defaultSelectors"
+                (valueChange)="onEntrySelectorsSelected($any($event))"
+              ></app-selector-input>
+            </div>
           </div>
-  
-          <div>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
+        </div>
+      </div>
+      <!--------->
+      <!--entry fields-->
+      <div class="card mb-2">
+        <div class="card-header">Select Entry Fields</div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-auto">
+              <!-- <app-selector-input
+                [dataSource]="allEntryFields"
+                [valueMember]="'id'"
+                [displayMember]="'name'"
+                [multiple]="true"
+                [value]="defaultEntryFields"
+                (valueChange)="onEntryFieldsSelected($event)"
+              ></app-selector-input> -->
+            </div>
           </div>
-        </mat-step>
-        <!------------------------->
-        <!-- Entry fields -->
-        <mat-step [completed]="entryFieldsCompleted()" [optional]="false">
-          <h6>Select Entry Fields</h6>
-          <app-ucr-multiple-selector
+        </div>
+      </div>
+      <!--------->
+
+      <!--entry controls -->
+      <div class="card mb-2">
+        <div class="card-header">Select Entry Control</div>
+        <div class="card-body">
+          <mat-radio-group
             class="selection-container"
-            [dataSource]="allEntryFields"
-            [displayMember]="'name'"
-            (selectionChange)="onEntryFieldsSelected($event)"
-          ></app-ucr-multiple-selector>
-  
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <!------------------------->
-        <!-- Entry control -->
-        <mat-step [completed]="entryControlCompleted()" [optional]="false">
-          <h6>Select Entry Control</h6>
-          <div>
-            <mat-radio-group
-              class="selection-container"
-              [formControl]="formControlEntryControl"
+            [formControl]="formControlEntryControl"
+          >
+            <mat-radio-button
+              *ngIf="entryForm.entryFields.length === 1"
+              class="selection-radio-button"
+              value="vf"
             >
-              <mat-radio-button
-                *ngIf="entryForm.entryFields.length === 1"
-                class="selection-radio-button"
-                value="vf"
-              >
-                Value Flag
-              </mat-radio-button>
-              <mat-radio-button
-                *ngIf="entryForm.entryFields.length === 2"
-                class="selection-radio-button"
-                value="grid"
-              >
-                Grid
-              </mat-radio-button>
-              <!-- <mat-radio-button
-                *ngIf="entryForm.entryFields.length === 1"
-                class="selection-radio-button"
-                value="wsd"
-              >
-                Wind Speed and Direction
-              </mat-radio-button> -->
-            </mat-radio-group>
-          </div>
-  
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <!------------------------->
-  
-        <!-- Stations -->
-        <mat-step [completed]="entryStationsCompleted()" [optional]="false">
-          <h6>Select Stations</h6>
-          <div>
-            <mat-radio-group
-              class="selection-container"
-              [formControl]="formControlStationsControl"
+              Value Flag
+            </mat-radio-button>
+            <mat-radio-button
+              *ngIf="entryForm.entryFields.length === 2"
+              class="selection-radio-button"
+              value="grid"
             >
-              <mat-radio-button class="selection-radio-button" value="all">
-                All stations
-              </mat-radio-button>
-              <mat-radio-button class="selection-radio-button" value="selected">
-                Selected Stations
-              </mat-radio-button>
-              <app-ucr-multiple-stations-selector
-                [hidden]="formControlStationsControl.value !== 'selected'"
-                (selectionChange)="onStationsSelected($event)"
-              ></app-ucr-multiple-stations-selector>
-            </mat-radio-group>
-          </div>
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <!------------------------->
-  
-        <!-- Elements -->
-        <mat-step [completed]="entryElementsCompleted()" [optional]="false">
-          <h6>Select Elements</h6>
-          <div>
-            <mat-radio-group
-              class="selection-container"
-              [formControl]="formControlElementsControl"
-            >
-              <mat-radio-button class="selection-radio-button" value="all">
-                All elements
-              </mat-radio-button>
-              <mat-radio-button class="selection-radio-button" value="selected">
-                Selected elements
-              </mat-radio-button>
-              <app-ucr-multiple-elements-selector
-                [hidden]="formControlElementsControl.value !== 'selected'"
-                (selectionChange)="onElementsSelected($event)"
-              ></app-ucr-multiple-elements-selector>
-            </mat-radio-group>
-          </div>
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <!------------------------->
-  
-        <!-- Days -->
-        <!-- <mat-step [completed]="entryDaysCompleted()" [optional]="false">
-          <h6>Select Days</h6>
-          <div>
-            <mat-radio-group
-              class="selection-container"
-              [formControl]="formControlDaysControl"
-            >
-              <mat-radio-button class="selection-radio-button" value="all">
-                All days
-              </mat-radio-button>
-              <mat-radio-button
-                class="selection-radio-button"
-                checked
-                value="selected"
-              >
-                Selected days
-              </mat-radio-button>
-              <app-ucr-multiple-days-selector
-                [hidden]="formControlDaysControl.value !== 'selected'"
-                (selectionChange)="onDaysSelected($event)"
-              ></app-ucr-multiple-days-selector>
-            </mat-radio-group>
-          </div>
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step> -->
-        <!------------------------->
-  
-        <!-- Hours -->
-        <mat-step [completed]="entryHoursCompleted()" [optional]="false">
-          <h6>Select Hours</h6>
-          <div>
-            <mat-radio-group
-              class="selection-container"
-              [formControl]="formControlHoursControl"
-            >
-              <mat-radio-button class="selection-radio-button" value="all">
-                All hours
-              </mat-radio-button>
-              <mat-radio-button class="selection-radio-button" value="selected">
-                Selected hours
-              </mat-radio-button>
-              <app-ucr-multiple-hours-selector
-                [hidden]="formControlHoursControl.value !== 'selected'"
-                (selectionChange)="onHoursSelected($event)"
-              ></app-ucr-multiple-hours-selector>
-            </mat-radio-group>
-          </div>
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button mat-raised-button color="primary" matStepperNext>Next</button>
-          </div>
-        </mat-step>
-        <!------------------------->
-  
-        <!-------- Save -------->
-        <mat-step [optional]="false">
-          <div class="selection-container">
-            <mat-form-field class="input-field">
-              <mat-label>Enter Form Name</mat-label>
-              <input matInput [formControl]="formControlName" />
-            </mat-form-field>
-            <mat-form-field class="input-field">
-              <mat-label>Enter Form Description</mat-label>
-              <textarea
-                matInput
-                [formControl]="formControlDescription"
-              ></textarea>
-            </mat-form-field>
-          </div>
-          <div class="selection-button-row">
-            <button mat-raised-button matStepperPrevious>Back</button>
-            <button
-              mat-raised-button
-              color="primary"
-              (click)="onSaveFormSubmitted()"
-            >
-              Save
-            </button>
-          </div>
-        </mat-step>
-        <!------------------------->
-      </mat-stepper>
-    </mat-card-content>
-  </mat-card>
-  
+              Grid
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+      </div>
+      <!--------->
+
+      <!--select element-->
+      <div class="card mb-2">
+        <div class="card-header">Select Element</div>
+        <div class="card-body">
+          <mat-radio-group
+            class="selection-container"
+            [formControl]="formControlElementsControl"
+          >
+            
+            <mat-radio-button class="selection-radio-button" value="selected">
+              Selected elements
+            </mat-radio-button>
+            <!-- <app-ucr-multiple-elements-selector
+              [hidden]="formControlElementsControl.value !== 'selected'"
+              (selectionChange)="onElementsSelected($event)"
+            ></app-ucr-multiple-elements-selector> -->
+          </mat-radio-group>
+        </div>
+      </div>
+      <!--------->
+
+      <!--select hour-->
+      <div class="card mb-2">
+        <div class="card-header">Select Hours</div>
+        <div class="card-body">
+          <mat-radio-group
+            class="selection-container"
+            [formControl]="formControlHoursControl"
+          >
+            <mat-radio-button class="selection-radio-button" value="all">
+              All hours
+            </mat-radio-button>
+            <mat-radio-button class="selection-radio-button" value="selected">
+              Selected hours
+            </mat-radio-button>
+            <app-ucr-multiple-hours-selector
+              [hidden]="formControlHoursControl.value !== 'selected'"
+              (selectionChange)="onHoursSelected($event)"
+            ></app-ucr-multiple-hours-selector>
+          </mat-radio-group>
+        </div>
+      </div>
+      <!--------->
+
+      <!--form identifiers-->
+      <div class="card mb-2">
+        <div class="card-header">Enter Form Identifiers</div>
+        <div class="card-body">
+          <mat-form-field class="input-field">
+            <mat-label>Enter Form Name</mat-label>
+            <input matInput [formControl]="formControlName" />
+          </mat-form-field>
+          <mat-form-field class="input-field">
+            <mat-label>Enter Form Description</mat-label>
+            <textarea
+              matInput
+              [formControl]="formControlDescription"
+            ></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <!--------->
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-auto">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="onSaveFormSubmitted()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

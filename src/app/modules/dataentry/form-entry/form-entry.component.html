@@ -1,132 +1,116 @@
 <div class="container-fluid h-100 p-1">
   <div class="card h-100">
     <div class="card-body">
-      <!-- first row -->
-      <div class="row mb-2">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">Station</div>
-            <div class="card-body">{{ station.id }} - {{ station.name }}</div>
-          </div>
-        </div>
+      <!-- station -->
+      <div class="card mb-2">
+        <div class="card-header">Station</div>
+        <div class="card-body">{{ station.id }} - {{ station.name }}</div>
       </div>
 
-      <!-- entry selectors row -->
-      <div class="row mb-2">
-        <div class="col">
-          <div class="card">
-            <div class="card-header">Entry Selectors</div>
-            <div class="card-body">
-              <div class="row g-2">
-                <div
-                  class="col-sm-auto mb-2"
-                  *ngIf="entryForm.entrySelectors.includes('elementId')"
-                >
-                  <app-element-input
-                    [filter]="entryForm.elements"
-                    [value]="
-                      entryForm.elements.length > 0 ? entryForm.elements[0] : 0
-                    "
-                    (valueChanged)="onElementChange($event)"
-                  ></app-element-input>
-                </div>
+      <!-- entry selectors -->
+      <div class="card mb-2">
+        <div class="card-header">Entry Selectors</div>
+        <div class="card-body">
+          <div class="row g-2">
+            <div
+              class="col-sm-auto mb-2"
+              *ngIf="entryForm.entrySelectors.includes('elementId')"
+            >
+              <app-element-input
+                [filter]="entryForm.elements"
+                [value]="
+                  entryForm.elements.length > 0 ? entryForm.elements[0] : 0
+                "
+                (valueChange)="onElementChange($event)"
+              ></app-element-input>
+            </div>
 
-                <div
-                  class="col-sm-auto mb-2"
-                  *ngIf="
-                    !useDatePickerControl &&
-                    entryForm.entrySelectors.includes('year')
-                  "
-                >
-                  <app-year-input
-                    [value]="dataSelectorsValues.year"
-                    (valueChanged)="onYearChange($event)"
-                  ></app-year-input>
-                </div>
+            <div
+              class="col-sm-auto mb-2"
+              *ngIf="
+                !useDatePickerControl &&
+                entryForm.entrySelectors.includes('year')
+              "
+            >
+              <app-year-input
+                [value]="dataSelectorsValues.year"
+                (valueChange)="onYearChange($event)"
+              ></app-year-input>
+            </div>
 
-                <div
-                  class="col-sm-auto mb-2"
-                  *ngIf="
-                    !useDatePickerControl &&
-                    entryForm.entrySelectors.includes('month')
-                  "
-                >
-                  <app-month-input
-                    [value]="dataSelectorsValues.month"
-                    (valueChanged)="onMonthChange($event)"
-                  ></app-month-input>
-                </div>
+            <div
+              class="col-sm-auto mb-2"
+              *ngIf="
+                !useDatePickerControl &&
+                entryForm.entrySelectors.includes('month')
+              "
+            >
+              <app-month-input
+                [value]="dataSelectorsValues.month"
+                (valueChange)="onMonthChange($event)"
+              ></app-month-input>
+            </div>
 
-                <div
-                  class="col-sm-auto mb-2"
-                  *ngIf="
-                    !useDatePickerControl &&
-                    entryForm.entrySelectors.includes('day')
-                  "
-                >
-                  <app-day-input
-                    [year]="dataSelectorsValues.year"
-                    [month]="dataSelectorsValues.month"
-                    [value]="dataSelectorsValues.day"
-                    (valueChanged)="onDayChange($event)"
-                  ></app-day-input>
-                </div>
+            <div
+              class="col-sm-auto mb-2"
+              *ngIf="
+                !useDatePickerControl &&
+                entryForm.entrySelectors.includes('day')
+              "
+            >
+              <app-day-input
+                [year]="dataSelectorsValues.year"
+                [month]="dataSelectorsValues.month"
+                [value]="dataSelectorsValues.day"
+                (valueChange)="onDayChange($event)"
+              ></app-day-input>
+            </div>
 
-                <div class="col-sm-auto mb-2" *ngIf="useDatePickerControl">
-                  <app-date-input
-                    [value]="defaultDatePickerDate"
-                    (valueChanged)="onDateChange($event)"
-                  ></app-date-input>
-                </div>
+            <div class="col-sm-auto mb-2" *ngIf="useDatePickerControl">
+              <app-date-input
+                [value]="defaultDatePickerDate"
+                (valueChange)="onDateChange($event)"
+              ></app-date-input>
+            </div>
 
-                <div
-                  class="col-sm-auto mb-2"
-                  *ngIf="entryForm.entrySelectors.includes('hour')"
-                >
-                  <app-hour-input
-                    *ngIf="entryForm.entrySelectors.includes('hour')"
-                    [filter]="entryForm.hours"
-                    [value]="
-                      entryForm.hours.length > 0 ? entryForm.hours[0] : 0
-                    "
-                    (valueChanged)="onHourChange($event)"
-                  ></app-hour-input>
-                </div>
-              </div>
+            <div
+              class="col-sm-auto mb-2"
+              *ngIf="entryForm.entrySelectors.includes('hour')"
+            >
+              <app-hour-input
+                *ngIf="entryForm.entrySelectors.includes('hour')"
+                [filter]="entryForm.hours"
+                [value]="
+                  entryForm.hours.length > 0 ? entryForm.hours[0] : 0
+                "
+                (valueChange)="onHourChange($event)"
+              ></app-hour-input>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- entry field row -->
-      <div class="row mb-2">
-        <div class="col">
-          <div class="row">
-            <div class="col">
-              <div class="card">
-                <div class="card-header">Entry Fields</div>
-                <div class="card-body">
-                  <!-- grid entry -->
-                  <app-data-grid-entry
-                    *ngIf="entryForm.entryControl === 'grid'"
-                    [entryForm]="entryForm"
-                    [entryDataItems]="entryDataItems"
-                  >
-                  </app-data-grid-entry>
-                  <!-- ----------- -->
-                  <!-- value flag entry -->
-                  <app-value-flag-entry
-                    *ngIf="entryForm.entryControl === 'vf'"
-                    [entryForm]="entryForm"
-                    [entryDataItems]="entryDataItems"
-                    [dataSelectorsValues]="dataSelectorsValues"
-                  >
-                  </app-value-flag-entry>
-                  <!-- ----------- -->
-                </div>
-              </div>
-            </div>
-          </div>
+      <!-- forms -->
+      <div class="card mb-2">
+        <div class="card-header">Entry Fields</div>
+        <div class="card-body">
+          <!-- grid entry -->
+          <app-data-grid-entry
+            *ngIf="entryForm.entryControl === 'grid'"
+            [entryForm]="entryForm"
+            [entryDataItems]="entryDataItems"
+          >
+          </app-data-grid-entry>
+          <!-- ----------- -->
+          <!-- value flag entry -->
+          <app-value-flag-entry
+            *ngIf="entryForm.entryControl === 'vf'"
+            [entryForm]="entryForm"
+            [entryDataItems]="entryDataItems"
+            [dataSelectorsValues]="dataSelectorsValues"
+          >
+          </app-value-flag-entry>
+          <!-- ----------- -->
         </div>
       </div>
     </div>

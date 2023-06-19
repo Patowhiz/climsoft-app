@@ -7,9 +7,9 @@ import { DateUtils } from '../../utils/date-utils';
   styleUrls: ['./hour-input.component.scss']
 })
 export class HourInputComponent implements OnInit, OnChanges {
-  @Input() value!: number;
+  @Input() value!: any;
   @Input() filter!: number[];
-  @Output() valueChanged = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<any>();
   hours: any[];
 
 
@@ -26,7 +26,7 @@ export class HourInputComponent implements OnInit, OnChanges {
   }
 
   onChange(change: any) {
-    this.valueChanged.emit(change);
+    this.valueChange.emit(change);
   }
 
 }

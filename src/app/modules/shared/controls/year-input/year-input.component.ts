@@ -6,9 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
   styleUrls: ['./year-input.component.scss']
 })
 export class YearInputComponent implements OnInit, OnChanges {
-  @Input() value!: number;
-  @Input() filter!: number[];
-  @Output() valueChanged = new EventEmitter<any>();
+  @Input() value!: any;
+  @Output() valueChange = new EventEmitter<any>();
   years: any[];
 
 
@@ -32,7 +31,7 @@ export class YearInputComponent implements OnInit, OnChanges {
   }
   
   onChange(change: any) {
-    this.valueChanged.emit(change);
+    this.valueChange.emit(change);
   }
 
 }

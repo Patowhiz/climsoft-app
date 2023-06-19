@@ -10,9 +10,9 @@ export class DayInputComponent implements OnInit, OnChanges {
   @Input() year!: number;
   //a 1 based month id
   @Input() month!: number;
-  @Input() value!: number;
+  @Input() value!: any;
   @Input() filter!: number[];
-  @Output() valueChanged = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<any>();
   days!: any[];
 
   constructor() {
@@ -30,7 +30,7 @@ export class DayInputComponent implements OnInit, OnChanges {
   }
 
   onChange(change: any) {
-    this.valueChanged.emit(change);
+    this.valueChange.emit(change);
   }
 
 }

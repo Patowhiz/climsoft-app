@@ -6,9 +6,9 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
   styleUrls: ['./month-input.component.scss']
 })
 export class MonthInputComponent  implements OnInit, OnChanges {
-  @Input() value!: number;
+  @Input() value!: any;
   @Input() filter!: number[];
-  @Output() valueChanged = new EventEmitter<any>();
+  @Output() valueChange = new EventEmitter<any>();
   months: any[];
 
   constructor() {
@@ -32,7 +32,7 @@ export class MonthInputComponent  implements OnInit, OnChanges {
 
 
   onChange(change: any) {
-    this.valueChanged.emit(change);
+    this.valueChange.emit(change);
   }
 
 }

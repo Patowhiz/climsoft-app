@@ -10,7 +10,7 @@ export class TextInputComponent implements OnInit, OnChanges {
   @Input() controlLabel: string = "";
   //format expected is ISO 8601 date format (yyyy-MM-dd) 
   @Input() value!: string;
-  @Output() valueChanged = new EventEmitter<string>();
+  @Output() valueChange = new EventEmitter<string>();
 
 
   constructor() {
@@ -25,6 +25,6 @@ export class TextInputComponent implements OnInit, OnChanges {
 
   onInputChange(value: string) {
     console.log('Input Text:', value);
-    this.valueChanged.emit(value);
+    this.valueChange.emit(value);
   }
 }

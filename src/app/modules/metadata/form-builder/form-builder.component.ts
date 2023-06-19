@@ -1,8 +1,5 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-
-import { MatStepper } from '@angular/material/stepper';
 import { Location } from '@angular/common';
 import { RepoService } from '../../shared/services/repo.service';
 import { EntryForm } from '../../shared/models/entryform.model';
@@ -14,17 +11,15 @@ import { Element } from '../../shared/models/element.model';
   templateUrl: './form-builder.component.html',
   styleUrls: ['./form-builder.component.scss']
 })
-export class FormBuilderComponent implements OnInit,AfterViewInit {
-
-  @ViewChild(MatStepper) stepper!: MatStepper;
+export class FormBuilderComponent implements OnInit, OnChanges {
 
   entryForm: EntryForm;
-
-  visibleForm: string = "entrySelectors";
   subTitle: string = "";
-  allEntrySelectors: any[] = [{ id: 'elementId', name: 'Element' }, { id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }];
-  //determined by the entry selectors
-  allEntryFields: any[] = [];
+  allEntrySelectors: any[] = [{ id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }, { id: 'elementId', name: 'Element' }];
+  allEntryFields: any[] = []; //determined by the entry selectors
+  defaultSelectors:  { [key: string]: any }[] | any = this.allEntrySelectors.slice(0, 3);
+  defaultEntryFields: any[] = this.allEntrySelectors.slice(3, 6);
+
   formControlEntryControl: FormControl = new FormControl();
   formControlStationsControl: FormControl = new FormControl("all");
   formControlElementsControl: FormControl = new FormControl("all");
@@ -47,23 +42,26 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
       formValidations: '',
       samplePaperImage: '',
     };
+
+    //left here. find a way of initialising the selectors and manually tracking the selectors cha ges
+
+    this.onEntrySelectorsSelected(this.defaultSelectors);
+    this.onEntryFieldsSelected(this.defaultEntryFields);
   }
 
   ngOnInit(): void {
   }
 
-  ngAfterViewInit() {
-    //overides the stepper edit and done icon bug when using completed property
-    //see issues;
-    //https://github.com/angular/components/issues/7384
-    //https://github.com/angular/components/issues/10513
-    this.stepper._getIndicatorType = () => 'number';
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('form buidler changes', changes);
 
+
+  }
 
   //-----------------------------------------------
   //entry selectors
   onEntrySelectorsSelected(selectedItems: any[]) {
+
     //clear entry selectors
     this.entryForm.entrySelectors = [];
     //set possible entry fields to all
@@ -73,7 +71,7 @@ export class FormBuilderComponent implements OnInit,AfterViewInit {
     //add selected entry selectors while setting the allowed entry fields
     selectedItems.forEach(item => {
       //add to list of selectors
-      this.entryForm.entrySelectors.push(item.id);
+      this.entryForm.entrySelectors.push(item['id']);
 
       //remove from list of allowed fields
       let index = this.allEntryFields.indexOf(item, 0);
