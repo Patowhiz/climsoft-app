@@ -6,6 +6,8 @@ import { RepoService } from '../../shared/services/repo.service';
 import { Station } from '../../shared/models/station.model';
 import { EntryForm } from '../../shared/models/entryform.model';
 import { ViewsDataService } from '../../shared/services/views-data.service';
+import { EntryDataSource } from '../../shared/models/entrydatasource.model';
+import { DataClicked } from '../../shared/controls/data-list-view/data-list-view.component';
 
 @Component({
   selector: 'app-view-entry-forms',
@@ -14,46 +16,33 @@ import { ViewsDataService } from '../../shared/services/views-data.service';
 })
 export class ViewEntryFormsComponent implements OnInit {
 
-  mobileView: boolean = false;
-  displayedColumns: string[] = ['name', 'description'];
   station!: Station;
-  entryForms!: EntryForm[];
+  entrydataSources: EntryDataSource[];
 
   constructor(private viewPortService: ViewportService,
     private viewDataService: ViewsDataService,
     private repo: RepoService,
     private router: Router) {
 
-    this.viewPortService.viewPortSize.subscribe((viewPortSize) => {
-      this.mobileView = (viewPortSize === ViewPortSize.Small)
-    });
+
 
     this.station = this.viewDataService.getViewNavigationData()['stationData'];
 
-    //todo. forms shown here should be for the selected station only
-    //this.entryForms = this.repo.getEntryForms();
-
+    //todo. get forms  be for the selected station only
+    this.entrydataSources = this.repo.getDataSources(1);
 
   }
 
   ngOnInit(): void {
   }
 
-  //todo. temporary
-  public getDataSourceName(dataSourceId: number): string {
-    return this.repo.getDataSource(dataSourceId).name;
-  }
 
-  //todo. temporary
-  public getDataSourceDescription(dataSourceId: number): string {
-    return this.repo.getDataSource(dataSourceId).description;
-  }
 
-  public onFormClick(entryForm: any) {
+  public onFormClick(dataClicked: DataClicked) {
 
     this.router.navigate(
-      ['dataentry', 'formentry', entryForm.id],
-      { state: { viewTitle: "Enter Data", subView: true, stationData: this.station, formData: entryForm } });
+      ['dataentry', 'formentry'],
+      { state: { viewTitle: dataClicked.dataSourceItem['name'] + " Data Entry", subView: true, stationData: this.station, dataSourceData: dataClicked.dataSourceItem } });
   }
 
 

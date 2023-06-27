@@ -6,6 +6,7 @@ import { EntryData } from '../../shared/models/entrydata.model';
 import { RepoService } from '../../shared/services/repo.service';
 import { Element } from '../../shared/models/element.model';
 import { ViewsDataService } from '../../shared/services/views-data.service';
+import { EntryDataSource } from '../../shared/models/entrydatasource.model';
 
 export interface DataSelectorsValues {
   dataSourceId: number,
@@ -25,7 +26,8 @@ export interface DataSelectorsValues {
 })
 export class FormEntryComponent implements OnInit {
   station!: Station;
-  entryForm!: EntryForm;
+  entrydataSource: EntryDataSource;
+  entryForm: EntryForm;
   entryDataItems: EntryData[] = [];
   useDatePickerControl: boolean = false;
   defaultDatePickerDate!: string;
@@ -38,7 +40,8 @@ export class FormEntryComponent implements OnInit {
     //get form entry metadata
     const navData = this.viewDataService.getViewNavigationData();
     this.station = navData['stationData'];
-    this.entryForm = navData['formData'];
+    this.entrydataSource = navData['dataSourceData'];
+    this.entryForm = JSON.parse(this.entrydataSource.extraMetadata);
 
     //set up values used by the component and it's UI controls
     this.setInitialSelectorValues();
@@ -55,7 +58,7 @@ export class FormEntryComponent implements OnInit {
   }
 
   private setInitialSelectorValues(): void {
-   // this.dataSelectorsValues.dataSourceId = this.entryForm.dataSourceId;
+    // this.dataSelectorsValues.dataSourceId = this.entryForm.dataSourceId;
 
     this.dataSelectorsValues.stationId = this.station.id;
 

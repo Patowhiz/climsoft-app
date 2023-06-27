@@ -3,6 +3,7 @@ import { ViewportService, ViewPortSize } from '../../shared/services/viewport.se
 import { RepoService } from '../../shared/services/repo.service';
 import { Station } from '../../shared/models/station.model';
 import { Router } from '@angular/router';
+import { DataClicked } from '../../shared/controls/data-list-view/data-list-view.component';
 
 @Component({
   selector: 'app-view-entry-stations',
@@ -11,14 +12,9 @@ import { Router } from '@angular/router';
 })
 export class ViewEntryStationsComponent implements OnInit {
 
-  mobileView: boolean = false;
-  displayedColumns: string[] = ['id', 'name'];
   stations!: Station[];
 
-  constructor(private viewPort: ViewportService, private repo: RepoService, private router: Router) {
-    this.viewPort.viewPortSize.subscribe((viewPortSize) => {
-      this.mobileView = (viewPortSize === ViewPortSize.Small)
-    });
+  constructor(private repo: RepoService, private router: Router) {
 
     this.stations = [
       { id: '1', name: 'JKIA Airport' },
@@ -31,14 +27,16 @@ export class ViewEntryStationsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onStationClick(station: Station) {
-    this.router.navigate(
-      ['dataentry', 'forms'],
-      {
-        state: {
-          viewTitle: 'Select Form', subView: true, stationData: station
-        }
-      });
+  public onStationClick(dataClicked: DataClicked) {
+    if (dataClicked.actionName === 'Entry') {
+      this.router.navigate(
+        ['dataentry', 'forms'],
+        { state: { viewTitle: 'Form Entry', subView: true, stationData: dataClicked.dataSourceItem } });
+
+    } else if (dataClicked.actionName === 'View') {
+
+    }
+
   }
 
 }

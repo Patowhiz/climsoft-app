@@ -6,7 +6,7 @@
         <div class="col d-flex justify-content-end">
           <button
             type="button"
-            class="btn btn-primary btn-sm"
+            class="btn btn-outline-primary btn-sm"
             (click)="onNewForm()"
           >
             New Form
@@ -16,39 +16,25 @@
     </div>
 
     <div class="card-body">
-      <div class="list-group list-group-numbered">
-        <div
-          *ngFor="let dataSource of entryDataSources"
-          class="list-group-item list-group-item-action d-flex"
-        >
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-8">
-                <div class="fw-bold">{{ dataSource.name }}</div>
-                <div>{{ dataSource.description }}</div>
-              </div>
-              <div class="col mt-1">
-                <div class="d-flex justify-content-end">
-                  <button
-                    type="button"
-                    class="btn btn-outline-primary btn-sm me-2"
-                    (click)="onEditForm(dataSource)"
-                  >
-                    <i class="bi bi-pen"></i>Edit
-                  </button>
-                  <button
-                    type="button"
-                    class="btn btn-outline-danger btn-sm"
-                    (click)="onDeleteForm(dataSource)"
-                  >
-                    <i class="bi bi-trash"></i>Delete
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-data-list-view
+        [numbered]="true"
+        [dataSource]="entryDataSources"
+        [headerMembers]="['name']"
+        [bodyMembers]="['description']"
+        [actions]="[
+          {
+            actionName: 'Edit',
+            actionCssClassName: 'btn-outline-primary',
+            actionIconCssClassName: 'bi-pen'
+          },
+          {
+            actionName: 'Delete',
+            actionCssClassName: 'btn-outline-danger',
+            actionIconCssClassName: 'bi-trash'
+          }
+        ]"
+        (dataActionClicked)="onFormClicked($event)"
+      ></app-data-list-view>
     </div>
   </div>
 </div>

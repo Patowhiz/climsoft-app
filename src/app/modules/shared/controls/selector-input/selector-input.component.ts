@@ -31,13 +31,13 @@ export class SelectorInputComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log("selector ngOnChanges", changes);
+    //console.log("selector ngOnChanges", changes);
 
   }
 
   onChange(selectedObject: any) {
     //updated the value. Important for the editable selector
-    console.log("selector onChange",this.value);
+    //console.log("selector onChange",this.value);
     this.value = selectedObject;
     this.valueChange.emit(selectedObject);
   }

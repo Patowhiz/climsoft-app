@@ -32,7 +32,7 @@ const routes: Routes = [
         }
       }, 
       {
-        path: 'formentry/:formid',
+        path: 'formentry',
         component: FormEntryComponent,
         data: {
           subComponent: true
