@@ -7,8 +7,11 @@ import { DateUtils } from '../../utils/date-utils';
   styleUrls: ['./hour-input.component.scss']
 })
 export class HourInputComponent implements OnInit, OnChanges {
+
+  @Input() controlLabel: string ='Select Hour';
+  @Input() multiple: boolean = false;
   @Input() value!: any;
-  @Input() filter!: number[];
+
   @Output() valueChange = new EventEmitter<any>();
   hours: any[];
 

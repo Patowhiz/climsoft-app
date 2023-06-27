@@ -2,135 +2,90 @@
   <div class="card h-100">
     <div class="card-header">Form Metadata</div>
     <div class="card-body">
+      <!--form name -->
+      <div class="mb-3">
+        <app-text-input
+          [controlLabel]="'Form Name'"
+          [(value)]="formName"
+        >
+        </app-text-input>
+      </div>
+      <!--------->
+
+      <!--form description -->
+      <div class="mb-3">
+        <app-text-input
+          [controlLabel]="'Form Description'"
+          [(value)]="formDescription"
+        >
+        </app-text-input>
+      </div>
+      <!--------->
+
       <!--entry selectors-->
-      <div class="card mb-2">
-        <div class="card-header">Select Entry Selectors</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-auto">
-              <app-selector-input
-                [controlLabel]="'Minimum of 3 and maximum 4'"
-                [dataSource]="allEntrySelectors"
-                [valueMember]="'id'"
-                [displayMember]="'name'"
-                [multiple]="true"
-                [value]="defaultSelectors"
-                (valueChange)="onEntrySelectorsSelected($any($event))"
-              ></app-selector-input>
-            </div>
-          </div>
-        </div>
+      <div class="mb-3">
+        <app-selector-input
+          [controlLabel]="'Entry Selectors (Minimum 3 and maximum 4)'"
+          [dataSource]="allEntrySelectors"
+          [valueMember]="'id'"
+          [displayMember]="'name'"
+          [multiple]="true"
+          [(value)]="selectedEntrySelectors"
+          (valueChange)="setEntryFieldsAndControl()"
+        ></app-selector-input>
       </div>
       <!--------->
+
       <!--entry fields-->
-      <div class="card mb-2">
-        <div class="card-header">Select Entry Fields</div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-auto">
-              <!-- <app-selector-input
-                [dataSource]="allEntryFields"
-                [valueMember]="'id'"
-                [displayMember]="'name'"
-                [multiple]="true"
-                [value]="defaultEntryFields"
-                (valueChange)="onEntryFieldsSelected($event)"
-              ></app-selector-input> -->
-            </div>
-          </div>
-        </div>
+      <div class="mb-3">
+        <app-selector-input
+          [controlLabel]="'Entry Fields (Minimum 1 and maximum 2)'"
+          [dataSource]="allEntryFields"
+          [valueMember]="'id'"
+          [displayMember]="'name'"
+          [multiple]="true"
+          [(value)]="selectedEntryFields"
+          (valueChange)="setEntryControl()"
+        ></app-selector-input>
       </div>
       <!--------->
 
-      <!--entry controls -->
-      <div class="card mb-2">
-        <div class="card-header">Select Entry Control</div>
-        <div class="card-body">
-          <mat-radio-group
-            class="selection-container"
-            [formControl]="formControlEntryControl"
-          >
-            <mat-radio-button
-              *ngIf="entryForm.entryFields.length === 1"
-              class="selection-radio-button"
-              value="vf"
-            >
-              Value Flag
-            </mat-radio-button>
-            <mat-radio-button
-              *ngIf="entryForm.entryFields.length === 2"
-              class="selection-radio-button"
-              value="grid"
-            >
-              Grid
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
+      <!--entry control -->
+      <div class="mb-3">
+        <app-text-input
+          [controlLabel]="'Entry Control'"
+          [disabled]="true"
+          [value]="selectedEntryControl === 'vf' ? 'Value Flag' : 'Grid'"
+        >
+        </app-text-input>
       </div>
       <!--------->
 
-      <!--select element-->
-      <div class="card mb-2">
-        <div class="card-header">Select Element</div>
-        <div class="card-body">
-          <mat-radio-group
-            class="selection-container"
-            [formControl]="formControlElementsControl"
-          >
-            
-            <mat-radio-button class="selection-radio-button" value="selected">
-              Selected elements
-            </mat-radio-button>
-            <!-- <app-ucr-multiple-elements-selector
-              [hidden]="formControlElementsControl.value !== 'selected'"
-              (selectionChange)="onElementsSelected($event)"
-            ></app-ucr-multiple-elements-selector> -->
-          </mat-radio-group>
-        </div>
+      <!--elements-->
+      <div class="mb-3">
+        <app-element-input
+          [controlLabel]="'Elements'"
+          [multiple]="true"
+          [(value)]="selectedElements"
+        ></app-element-input>
       </div>
       <!--------->
 
-      <!--select hour-->
-      <div class="card mb-2">
-        <div class="card-header">Select Hours</div>
-        <div class="card-body">
-          <mat-radio-group
-            class="selection-container"
-            [formControl]="formControlHoursControl"
-          >
-            <mat-radio-button class="selection-radio-button" value="all">
-              All hours
-            </mat-radio-button>
-            <mat-radio-button class="selection-radio-button" value="selected">
-              Selected hours
-            </mat-radio-button>
-            <app-ucr-multiple-hours-selector
-              [hidden]="formControlHoursControl.value !== 'selected'"
-              (selectionChange)="onHoursSelected($event)"
-            ></app-ucr-multiple-hours-selector>
-          </mat-radio-group>
-        </div>
+      <!--hours-->
+      <div class="mb-3">
+        <app-hour-input
+          [controlLabel]="'Hours'"
+          [multiple]="true"
+          [(value)]="selectedHours"
+        ></app-hour-input>
       </div>
       <!--------->
 
-      <!--form identifiers-->
-      <div class="card mb-2">
-        <div class="card-header">Enter Form Identifiers</div>
-        <div class="card-body">
-          <mat-form-field class="input-field">
-            <mat-label>Enter Form Name</mat-label>
-            <input matInput [formControl]="formControlName" />
-          </mat-form-field>
-          <mat-form-field class="input-field">
-            <mat-label>Enter Form Description</mat-label>
-            <textarea
-              matInput
-              [formControl]="formControlDescription"
-            ></textarea>
-          </mat-form-field>
-        </div>
+      
+      <!-- todo. link the error to individual controls -->
+      <div class="mb-3" style="color: red;">
+        {{ errorMessage }}
       </div>
-      <!--------->
     </div>
     <div class="card-footer">
       <div class="row">
@@ -138,12 +93,21 @@
           <button
             type="button"
             class="btn btn-primary"
-            (click)="onSaveFormSubmitted()"
+            (click)="onSave()"
           >
             Save
           </button>
-        </div>
+         
       </div>
+      <div class="col-auto">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="onCancel()"
+        >
+          Cancel
+        </button>
+    </div>
     </div>
   </div>
 </div>

@@ -17,7 +17,7 @@
               *ngIf="entryForm.entrySelectors.includes('elementId')"
             >
               <app-element-input
-                [filter]="entryForm.elements"
+              
                 [value]="
                   entryForm.elements.length > 0 ? entryForm.elements[0] : 0
                 "
@@ -79,7 +79,7 @@
             >
               <app-hour-input
                 *ngIf="entryForm.entrySelectors.includes('hour')"
-                [filter]="entryForm.hours"
+               
                 [value]="
                   entryForm.hours.length > 0 ? entryForm.hours[0] : 0
                 "

@@ -14,75 +14,52 @@ export class RepoService {
 
   constructor(public localStorage: LocalStorageService) { }
 
-  public saveEntryForm(formName: string, formDescription: string, entryForm: EntryForm): boolean {
 
-    let dataSource: EntryDataSource = { id: 0, name: formName, description: formDescription };
-    this.saveDataSource(dataSource);
-
-    let entryForms: EntryForm[] = this.getEntryForms();
-    //let entryForms: EntryForm[] = [];
-
-    //set unique form id
-    if (entryForms.length > 0) {
-      entryForm.id = entryForms[entryForms.length - 1].id + 1
-    } else {
-      entryForm.id = 1;
-    }
-
-    entryForm.dataSourceId = dataSource.id;
-
-    entryForms.push(entryForm);
-    this.localStorage.setItem("entry_forms", JSON.stringify(entryForms));
-    return true;
-  }
-
-  private saveDataSource(dataSource: EntryDataSource): boolean {
-    let dataSources: EntryDataSource[] = this.getDataSources();
-
-    //let dataSources: EntryDataSource[] =[];
-
-    //set unique form id
-    if (dataSources.length > 0) {
-      dataSource.id = dataSources[dataSources.length - 1].id + 1
-    } else {
-      dataSource.id = 1;
-    }
-
-    dataSources.push(dataSource);
+  private saveDataSources(dataSources: EntryDataSource[]): boolean {
     this.localStorage.setItem("data_sources", JSON.stringify(dataSources));
     return true;
-
   }
 
-  private getDataSources(): EntryDataSource[] {
-    let dataSources: EntryDataSource[] = []
-    let str: any = this.localStorage.getItem("data_sources");
-    if (str) {
-      dataSources = JSON.parse(str)
+
+  //todo. this will be be done at the back end
+  public saveDataSource(newDataSource: EntryDataSource): boolean {
+    let dataSources: EntryDataSource[] = this.getDataSources();
+
+    if (newDataSource.id <= 0) {
+      const lastDataSource = dataSources[dataSources.length - 1];
+      newDataSource.id = lastDataSource ? lastDataSource.id + 1 : 1;
+      dataSources.push(newDataSource);
+    } else {
+      const index = dataSources.findIndex(source => source.id === newDataSource.id);
+      if (index !== -1) {
+        dataSources[index] = newDataSource;
+      }
+    }
+
+    return this.saveDataSources(dataSources);
+  }
+
+
+  public getDataSources(acquisitionTypeId?: number): EntryDataSource[] {
+    const str: string | null = this.localStorage.getItem("data_sources");
+    const dataSources: EntryDataSource[] = str ? JSON.parse(str) : [];
+
+    if (acquisitionTypeId) {
+      return dataSources.filter(dataSource => dataSource.acquisitionTypeId === acquisitionTypeId);
     }
     return dataSources;
   }
 
-  public getEntryForms(): EntryForm[] {
-    let entryForms: EntryForm[] = []
-    let str: any = this.localStorage.getItem("entry_forms");
-    if (str) {
-      entryForms = JSON.parse(str)
+  public deleteDataSource(dataSourceId: number): boolean {
+    const dataSources: EntryDataSource[] = this.getDataSources();
+    const index = dataSources.findIndex(dataSource => dataSource.id === dataSourceId);
+
+    if (index !== -1) {
+      dataSources.splice(index, 1);
+      return this.saveDataSources(dataSources);
     }
-    return entryForms;
-  }
 
-  public getEntryForm(id: number): EntryForm {
-    let entryForm!: EntryForm;
-    let entryForms: EntryForm[] = this.getEntryForms();
-    entryForms.forEach(element => {
-      if (element.id === id) {
-        entryForm = element;
-        return;
-      }
-    });
-
-    return entryForm;
+    return false;
   }
 
   public getDataSource(id: number): EntryDataSource {
@@ -101,7 +78,7 @@ export class RepoService {
 
 
 
-  public getEntryDataItems( dataSelectorValues: DataSelectorsValues): EntryData[] {
+  public getEntryDataItems(dataSelectorValues: DataSelectorsValues): EntryData[] {
 
     let entryDataItems: EntryData[] = [];
 
@@ -165,18 +142,18 @@ export class RepoService {
 
   }
 
-  public getAllElements(elementIds?: number[]): Element[] {
+  public getElements(elementIds?: number[]): Element[] {
     const allElements: Element[] = [
       { id: 1, name: 'Minimum Temperature' },
       { id: 2, name: 'Maximum Temperature' },
       { id: 3, name: 'Rainfall' },
       { id: 4, name: 'Humidity' }
     ];
-  
+
     const elements = elementIds ? allElements.filter(obj => elementIds.includes(obj.id)) : allElements;
     return elements;
   }
-  
+
 
 
 }

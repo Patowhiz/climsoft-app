@@ -8,6 +8,8 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
 export class TextInputComponent implements OnInit, OnChanges {
 
   @Input() controlLabel: string = "";
+  //@Input() multiple: boolean = false;  
+  @Input() disabled: boolean = false;
   //format expected is ISO 8601 date format (yyyy-MM-dd) 
   @Input() value!: string;
   @Output() valueChange = new EventEmitter<string>();

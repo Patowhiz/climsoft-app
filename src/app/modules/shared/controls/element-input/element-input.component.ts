@@ -8,14 +8,16 @@ import { RepoService } from '../../services/repo.service';
   styleUrls: ['./element-input.component.scss']
 })
 export class ElementInputComponent   implements OnInit, OnChanges {
-  @Input() filter!: number[];
+
+  @Input()  controlLabel: string = 'Select Element';
+  @Input() multiple: boolean = false;
   @Input() value!: any;
   @Output() valueChange = new EventEmitter<any>();
   elements: Element[];
 
 
   constructor(private repo: RepoService) {
-    this.elements = this.repo.getAllElements();
+    this.elements = this.repo.getElements();
   }
 
   ngOnInit(): void {

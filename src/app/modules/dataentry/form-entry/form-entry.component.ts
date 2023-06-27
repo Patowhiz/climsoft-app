@@ -36,8 +36,9 @@ export class FormEntryComponent implements OnInit {
   constructor(private viewDataService: ViewsDataService, private repo: RepoService, private router: Router) {
 
     //get form entry metadata
-    this.station = this.viewDataService.getViewNavigationData()['stationData'];
-    this.entryForm = this.viewDataService.getViewNavigationData()['formData'];
+    const navData = this.viewDataService.getViewNavigationData();
+    this.station = navData['stationData'];
+    this.entryForm = navData['formData'];
 
     //set up values used by the component and it's UI controls
     this.setInitialSelectorValues();
@@ -54,7 +55,7 @@ export class FormEntryComponent implements OnInit {
   }
 
   private setInitialSelectorValues(): void {
-    this.dataSelectorsValues.dataSourceId = this.entryForm.dataSourceId;
+   // this.dataSelectorsValues.dataSourceId = this.entryForm.dataSourceId;
 
     this.dataSelectorsValues.stationId = this.station.id;
 

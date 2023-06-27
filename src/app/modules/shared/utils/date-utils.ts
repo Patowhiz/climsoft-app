@@ -7,8 +7,8 @@ export class DateUtils {
     }
 
     //takes a 0 based index (month id) and returns the number of days in that month
-    static getDaysInMonthList(year: number, month: number): any[] {
-        const all: any[] = [];
+    static getDaysInMonthList(year: number, month: number): { [key: string]: any }[] {
+        const all: { [key: string]: any }[] = [];
         const lastDay: number = this.getDaysInMonth(year, month);
         for (let i = 1; i <= lastDay; i++) {
             all.push({ id: i, name: `Day ${i.toString().padStart(2, '0')}` });
@@ -16,8 +16,8 @@ export class DateUtils {
         return all;
     }
 
-    static getHoursList(hourIds?: number[]): any[] {
-        const all: any[] = [];
+    static getHoursList(hourIds?: number[]): { [key: string]: any }[] {
+        const all: { [key: string]: any }[] = [];
         for (let i = 0; i <= 23; i++) {
             if (hourIds) {
                 if (hourIds.includes(i)) {

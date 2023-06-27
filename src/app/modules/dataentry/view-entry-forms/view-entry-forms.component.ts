@@ -29,32 +29,32 @@ export class ViewEntryFormsComponent implements OnInit {
     });
 
     this.station = this.viewDataService.getViewNavigationData()['stationData'];
-  
+
     //todo. forms shown here should be for the selected station only
-    this.entryForms = this.repo.getEntryForms();
+    //this.entryForms = this.repo.getEntryForms();
 
 
   }
 
-ngOnInit(): void {
-}
+  ngOnInit(): void {
+  }
 
   //todo. temporary
   public getDataSourceName(dataSourceId: number): string {
-  return this.repo.getDataSource(dataSourceId).name;
-}
+    return this.repo.getDataSource(dataSourceId).name;
+  }
 
   //todo. temporary
   public getDataSourceDescription(dataSourceId: number): string {
-  return this.repo.getDataSource(dataSourceId).description;
-}
+    return this.repo.getDataSource(dataSourceId).description;
+  }
 
   public onFormClick(entryForm: any) {
 
-  this.router.navigate(
-    ['dataentry', 'formentry', entryForm.id],
-    { state: { viewTitle: "Enter Data", subView: true, stationData: this.station, formData: entryForm } });
-}
+    this.router.navigate(
+      ['dataentry', 'formentry', entryForm.id],
+      { state: { viewTitle: "Enter Data", subView: true, stationData: this.station, formData: entryForm } });
+  }
 
 
 }

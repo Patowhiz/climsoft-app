@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { EntryForm } from '../../shared/models/entryform.model';
 import { RepoService } from '../../shared/services/repo.service';
+import { EntryDataSource } from '../../shared/models/entrydatasource.model';
 
 @Component({
   selector: 'app-forms',
@@ -10,35 +11,35 @@ import { RepoService } from '../../shared/services/repo.service';
 })
 export class FormsComponent implements OnInit {
 
-  displayedColumns: string[] = ['name', 'description'];
-  entryForms: EntryForm[];
+  entryDataSources: EntryDataSource[] = [];
 
-  constructor( private repo: RepoService, private router: Router) { 
-    //todo. forms shown here should be for the selected station only
-    this.entryForms = this.repo.getEntryForms();
+  constructor(private repo: RepoService, private router: Router) {
+    //get data sources of  acquisition type forms
+    this.entryDataSources = this.repo.getDataSources(1);
   }
 
   ngOnInit(): void {
   }
 
-  
-  //todo. temporary
-  public getDataSourceName(dataSourceId: number): string {
-    return this.repo.getDataSource(dataSourceId).name;
+  onNewForm() {
+    this.router.navigate(
+      ['metadata', 'formbuilder'],
+      { state: { viewTitle: "New Form", subView: true } });
   }
 
-    //todo. temporary
-  public getDataSourceDescription(dataSourceId: number): string {
-    return this.repo.getDataSource(dataSourceId).description;
+  onEditForm(dataSource: EntryDataSource) {
+    this.router.navigate(
+      ['metadata', 'formbuilder'],
+      { state: { viewTitle: "Edit Form", subView: true, dataSourceData: dataSource } });
   }
 
-  public onFormClick(entryForm: any) {
-    console.log("edit form clicked");
-    //todo
-    
-    // this.router.navigate(
-    //   ['forms', 'formbuilder', entryForm.id],
-    //   { state: { title: entryForm.name, subComponent: true } });
+  onDeleteForm(dataSource: EntryDataSource): void {
+    //todo. prompt for confirmation first
+    this.repo.deleteDataSource(dataSource.id);
+
+    //refresh
+    this.entryDataSources = this.repo.getDataSources(1);
   }
+
 
 }

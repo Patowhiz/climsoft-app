@@ -52,7 +52,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
       //note, its not expected that all elements in the database will be set as entry fields. 
       //That should be regarded as an error in form builder design.
       //So always assume that elements selected are provided
-      entryControlsDefs = this.getControlDefs(this.repo.getAllElements(this.entryForm.elements), "id", "name")
+      entryControlsDefs = this.getControlDefs(this.repo.getElements(this.entryForm.elements), "id", "name")
     } else if (entryField === "day") {
       //create controls definitions days of the month only
       //note, there is no days selection in the form builder

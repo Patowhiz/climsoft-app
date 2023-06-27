@@ -3,6 +3,7 @@
   type="text"
   class="form-control"
   [id]="controlLabel"
+  [disabled]="disabled"
   placeholder=""
   (input)="onInputChange($any($event.target).value)"
   [value]="value"

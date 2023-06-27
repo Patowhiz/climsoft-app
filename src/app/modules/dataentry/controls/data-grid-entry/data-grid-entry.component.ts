@@ -70,10 +70,7 @@ export class DataGridEntryComponent implements OnInit, OnChanges {
     } else if (this.rowDefinition === "hour") {
       this.columnNames.push("Hours");
       this.addToStringArray(rowNames, this.entryForm.hours);
-    } else if (this.rowDefinition === "stationId") {
-      this.columnNames.push("Stations");
-      this.addToStringArray(rowNames, this.entryForm.stations);
-    }
+    } 
 
     //Based on the column definition
     //1. the rest of the column names
