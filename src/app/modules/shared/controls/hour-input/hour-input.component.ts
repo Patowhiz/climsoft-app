@@ -8,7 +8,7 @@ import { DateUtils } from '../../utils/date-utils';
 })
 export class HourInputComponent implements OnInit, OnChanges {
 
-  @Input() controlLabel: string ='Select Hour';
+  @Input() controlLabel: string ='Hour';
   @Input() multiple: boolean = false;
   @Input() value!: any;
 

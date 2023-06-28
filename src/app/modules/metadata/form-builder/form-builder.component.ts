@@ -5,7 +5,7 @@ import { EntryForm } from '../../shared/models/entryform.model';
 import { Element } from '../../shared/models/element.model';
 import { DateUtils } from '../../shared/utils/date-utils';
 import { EntryDataSource } from '../../shared/models/entrydatasource.model';
-import { ViewsDataService } from '../../shared/services/views-data.service';
+import { PagesDataService } from '../../shared/services/pages-data.service';
 
 @Component({
   selector: 'app-form-builder',
@@ -26,7 +26,7 @@ export class FormBuilderComponent implements OnInit {
   formDescription: string = '';
   errorMessage: string = '';
 
-  constructor(private viewDataService: ViewsDataService, public repo: RepoService, private location: Location) {
+  constructor(private viewDataService: PagesDataService, public repo: RepoService, private location: Location) {
 
     this.entryDataSource = this.viewDataService.getViewNavigationData()['dataSourceData'];
 

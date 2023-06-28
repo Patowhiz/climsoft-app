@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class ViewsDataService {
+export class PagesDataService {
 
 
   //stores navigation state which is object type {[k: string]: any;}

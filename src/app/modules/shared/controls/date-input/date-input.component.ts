@@ -7,7 +7,7 @@ import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChange
 })
 export class DateInputComponent implements OnInit, OnChanges {
 
-  @Input() controlLabel: string = "Select Date";
+  @Input() controlLabel: string = "Date";
   //format expected is ISO 8601 date format (yyyy-MM-dd) 
   @Input() value!: string;
   @Output() valueChange = new EventEmitter<string>();

@@ -4,7 +4,7 @@ import { Router, NavigationEnd, NavigationExtras, Navigation } from '@angular/ro
 import { Location } from '@angular/common';
 import { filter } from "rxjs/operators";
 import { ViewPortSize, ViewportService } from '../modules/shared/services/viewport.service';
-import { ViewsDataService } from '../modules/shared/services/views-data.service';
+import { PagesDataService } from '../modules/shared/services/pages-data.service';
 
 @Component({
   selector: 'app-home',
@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
       children: [
         {
           name: 'Forms',
-          url: '/dataentry/stations',
-          featureTitle: 'Select Stations'
+          url: '/dataentry/formentry',
+          featureTitle: 'Data Entry'
         },
         {
           name: 'Import',
@@ -66,7 +66,7 @@ export class HomeComponent implements OnInit {
 
   ]
 
-  constructor(private viewPort: ViewportService,private viewDataService: ViewsDataService, private router: Router, private location: Location) {
+  constructor(private viewPort: ViewportService,private viewDataService: PagesDataService, private router: Router, private location: Location) {
 
     this.viewDataService.loadedViewNavigationData.subscribe( (state)=>{
       if (state['viewTitle']) {

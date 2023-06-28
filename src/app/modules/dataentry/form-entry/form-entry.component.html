@@ -1,12 +1,19 @@
-<div class="container-fluid h-100 p-1">
-  <div class="card h-100">
-    <div class="card-body">
-      <!-- station -->
-      <div class="card mb-2">
-        <div class="card-header">Station</div>
-        <div class="card-body">{{ station.id }} - {{ station.name }}</div>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">Data Entry</div>
+    <div class="card-header">
+      <div class="row g-2">
+        <!-- station -->
+        <div class="col-sm-auto">
+          <app-station-input [controlLabel]="'Station'"></app-station-input>
+        </div>
+        <!-- form -->
+        <div class="col-sm-auto">
+          <app-forms-input [controlLabel]="'Form'"> </app-forms-input>
+        </div>
       </div>
-
+    </div>
+    <div class="card-body">
       <!-- entry selectors -->
       <div class="card mb-2">
         <div class="card-header">Entry Selectors</div>
@@ -14,49 +21,34 @@
           <div class="row g-2">
             <div
               class="col-sm-auto mb-2"
-              *ngIf="entryForm.entrySelectors.includes('elementId')"
+              *ngIf="dataSelectorsValues.elementId > -1"
             >
               <app-element-input
-              
-                [value]="
-                  entryForm.elements.length > 0 ? entryForm.elements[0] : 0
-                "
                 (valueChange)="onElementChange($event)"
               ></app-element-input>
             </div>
 
             <div
               class="col-sm-auto mb-2"
-              *ngIf="
-                !useDatePickerControl &&
-                entryForm.entrySelectors.includes('year')
-              "
+              *ngIf="!useDatePickerControl && dataSelectorsValues.year > -1"
             >
               <app-year-input
-                [value]="dataSelectorsValues.year"
                 (valueChange)="onYearChange($event)"
               ></app-year-input>
             </div>
 
             <div
               class="col-sm-auto mb-2"
-              *ngIf="
-                !useDatePickerControl &&
-                entryForm.entrySelectors.includes('month')
-              "
+              *ngIf="!useDatePickerControl && dataSelectorsValues.month > -1"
             >
               <app-month-input
-                [value]="dataSelectorsValues.month"
                 (valueChange)="onMonthChange($event)"
               ></app-month-input>
             </div>
 
             <div
               class="col-sm-auto mb-2"
-              *ngIf="
-                !useDatePickerControl &&
-                entryForm.entrySelectors.includes('day')
-              "
+              *ngIf="!useDatePickerControl && dataSelectorsValues.day > -1"
             >
               <app-day-input
                 [year]="dataSelectorsValues.year"
@@ -75,14 +67,9 @@
 
             <div
               class="col-sm-auto mb-2"
-              *ngIf="entryForm.entrySelectors.includes('hour')"
+              *ngIf="this.dataSelectorsValues.hour > -1"
             >
               <app-hour-input
-                *ngIf="entryForm.entrySelectors.includes('hour')"
-               
-                [value]="
-                  entryForm.hours.length > 0 ? entryForm.hours[0] : 0
-                "
                 (valueChange)="onHourChange($event)"
               ></app-hour-input>
             </div>
@@ -96,16 +83,14 @@
         <div class="card-body">
           <!-- grid entry -->
           <app-data-grid-entry
-            *ngIf="entryForm.entryControl === 'grid'"
-            [entryForm]="entryForm"
+            *ngIf="entryControl === 'grid'"
             [entryDataItems]="entryDataItems"
           >
           </app-data-grid-entry>
           <!-- ----------- -->
           <!-- value flag entry -->
           <app-value-flag-entry
-            *ngIf="entryForm.entryControl === 'vf'"
-            [entryForm]="entryForm"
+            *ngIf="entryControl === 'vf'"
             [entryDataItems]="entryDataItems"
             [dataSelectorsValues]="dataSelectorsValues"
           >
@@ -123,10 +108,10 @@
           </button>
         </div>
         <div class="col-auto">
-          <button type="button" class="btn btn-primary">Delete</button>
+          <button type="button" class="btn btn-danger">Delete</button>
         </div>
         <div class="col-auto">
-          <button type="button" class="btn btn-primary">Clear</button>
+          <button type="button" class="btn btn-outline-secondary">Clear</button>
         </div>
       </div>
     </div>

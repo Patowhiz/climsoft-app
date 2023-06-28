@@ -6,6 +6,7 @@ import { EntryData } from '../models/entrydata.model';
 import { ENTRYDATASAMPLE } from '../../dataentry/mockdata/mockdata-list.mock';
 import { DataSelectorsValues } from '../../dataentry/form-entry/form-entry.component';
 import { Element } from '../models/element.model';
+import { Station } from '../models/station.model';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,17 @@ export class RepoService {
     return dataSource;
   }
 
+  //todo
+  // public getEntryForms(stationId: number): EntryForm[] {
+  //   const dataSources: EntryDataSource[] = this.getDataSources(1);
+  //   const entryForms: EntryForm[] = [];
+
+  //   for (const dataSource of dataSources) {
+  //     const entryForm: EntryForm = JSON.parse(dataSource.extraMetadata);
+  //     entryForms.push(entryForm);
+  //   }
+  //   return entryForms;
+  // }
 
 
 
@@ -85,7 +97,7 @@ export class RepoService {
     //todo. the below filter will happen at the server level
     for (const entryData of ENTRYDATASAMPLE) {
 
-      if (dataSelectorValues.dataSourceId > 0 && dataSelectorValues.dataSourceId !== entryData.dataSourceId) {
+      if (dataSelectorValues.dataSource.id > 0 && dataSelectorValues.dataSource.id !== entryData.dataSourceId) {
         continue;
       }
 
@@ -152,6 +164,16 @@ export class RepoService {
 
     const elements = elementIds ? allElements.filter(obj => elementIds.includes(obj.id)) : allElements;
     return elements;
+  }
+
+  public getStations(stationIds?: string[]): Station[] {
+    const allStations: Station[] = [
+      { id: '1', name: 'JKIA Airport' },
+      { id: '2', name: 'KMD Headquarters' },
+      { id: '3', name: 'ICPAC Main' },
+      { id: '4', name: 'KALRO Machakos' }];
+      const stations = stationIds ? allStations.filter(obj => stationIds.includes(obj.id)) : allStations;
+    return stations;
   }
 
 

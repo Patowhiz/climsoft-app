@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewportService, ViewPortSize } from '../../shared/services/viewport.service';
 import { RepoService } from '../../shared/services/repo.service';
 import { Station } from '../../shared/models/station.model';
 import { Router } from '@angular/router';
 import { DataClicked } from '../../shared/controls/data-list-view/data-list-view.component';
 
 @Component({
-  selector: 'app-view-entry-stations',
-  templateUrl: './view-entry-stations.component.html',
-  styleUrls: ['./view-entry-stations.component.scss']
+  selector: 'app-stations',
+  templateUrl: './stations.component.html',
+  styleUrls: ['./stations.component.scss']
 })
-export class ViewEntryStationsComponent implements OnInit {
+export class StationsComponent implements OnInit {
 
   stations!: Station[];
 

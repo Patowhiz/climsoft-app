@@ -7,9 +7,9 @@ import { RepoService } from '../../services/repo.service';
   templateUrl: './element-input.component.html',
   styleUrls: ['./element-input.component.scss']
 })
-export class ElementInputComponent   implements OnInit, OnChanges {
+export class ElementInputComponent implements OnInit, OnChanges {
 
-  @Input()  controlLabel: string = 'Select Element';
+  @Input() controlLabel: string = 'Element';
   @Input() multiple: boolean = false;
   @Input() value!: any;
   @Output() valueChange = new EventEmitter<any>();
@@ -24,7 +24,7 @@ export class ElementInputComponent   implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
- 
+
   }
 
   onChange(change: any) {

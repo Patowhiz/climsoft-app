@@ -9,24 +9,22 @@ import { SharedModule } from '../shared/shared.module';
 
 //------- app forms components -------
 import { DataGridEntryComponent } from './controls/data-grid-entry/data-grid-entry.component';
-import { ViewEntryFormsComponent } from './view-entry-forms/view-entry-forms.component';
 import { FormEntryComponent } from './form-entry/form-entry.component';
 import { ImportEntryComponent } from './import-entry/import-entry.component';
 import { ValueFlagEntryComponent } from './controls/value-flag-entry/value-flag-entry.component';
-import { ViewEntryStationsComponent } from './view-entry-stations/view-entry-stations.component';
-//------------------------------------
 
+import { FormsInputComponent } from './controls/forms-input/forms-input.component';
+//------------------------------------
 
 
 @NgModule({
 
   declarations: [
     DataGridEntryComponent,
-    ViewEntryFormsComponent,
     FormEntryComponent,
     ValueFlagEntryComponent,
     ImportEntryComponent,
-    ViewEntryStationsComponent
+    FormsInputComponent
   ],
   imports: [
     DataEntryRoutingModule,

@@ -5,11 +5,11 @@ import { EntryForm } from '../../shared/models/entryform.model';
 import { EntryData } from '../../shared/models/entrydata.model';
 import { RepoService } from '../../shared/services/repo.service';
 import { Element } from '../../shared/models/element.model';
-import { ViewsDataService } from '../../shared/services/views-data.service';
+import { PagesDataService } from '../../shared/services/pages-data.service';
 import { EntryDataSource } from '../../shared/models/entrydatasource.model';
 
 export interface DataSelectorsValues {
-  dataSourceId: number,
+  dataSource: EntryDataSource,
   stationId: string,
   elementId: number;
   year: number;
@@ -25,32 +25,35 @@ export interface DataSelectorsValues {
   styleUrls: ['./form-entry.component.scss']
 })
 export class FormEntryComponent implements OnInit {
-  station!: Station;
-  entrydataSource: EntryDataSource;
-  entryForm: EntryForm;
+  //station!: Station;
+  //entrydataSource: EntryDataSource;
   entryDataItems: EntryData[] = [];
   useDatePickerControl: boolean = false;
   defaultDatePickerDate!: string;
 
   //initial selector values should be -1 because we don't know what selectors are in the form metadata
-  public dataSelectorsValues: DataSelectorsValues = { dataSourceId: -1, stationId: '-1', elementId: -1, year: -1, month: -1, day: -1, hour: -1 };
+   dataSelectorsValues!: DataSelectorsValues ;
 
-  constructor(private viewDataService: ViewsDataService, private repo: RepoService, private router: Router) {
+  entryControl : string ='';
+
+
+  constructor(private viewDataService: PagesDataService, private repo: RepoService, private router: Router) {
+
+
+    //this.entryForms = this.repo.getEntryForms(1);
+
 
     //get form entry metadata
-    const navData = this.viewDataService.getViewNavigationData();
-    this.station = navData['stationData'];
-    this.entrydataSource = navData['dataSourceData'];
-    this.entryForm = JSON.parse(this.entrydataSource.extraMetadata);
+    //const navData = this.viewDataService.getViewNavigationData();
+    //this.station = navData['stationData'];
+    //this.entrydataSource = navData['dataSourceData'];
 
     //set up values used by the component and it's UI controls
     this.setInitialSelectorValues();
-    this.useDatePickerControl = this.entryForm.entrySelectors.includes('year') &&
-      this.entryForm.entrySelectors.includes('month') &&
-      this.entryForm.entrySelectors.includes('day');
+
 
     //get the data based on the initial selector values
-    this.getEntryData();
+    //this.getEntryData();
 
   }
 
@@ -58,34 +61,58 @@ export class FormEntryComponent implements OnInit {
   }
 
   private setInitialSelectorValues(): void {
-    // this.dataSelectorsValues.dataSourceId = this.entryForm.dataSourceId;
+   const dataSelectorsValues: DataSelectorsValues = {
+      dataSource: { id: 0, name: '', description: '', acquisitionTypeId: 0, extraMetadata: '' },
+      stationId: '-1', elementId: -1, year: -1, month: -1, day: -1, hour: -1
+    };
 
-    this.dataSelectorsValues.stationId = this.station.id;
+    dataSelectorsValues.stationId = '1';
+    dataSelectorsValues.dataSource = this.repo.getDataSource(5);
 
-    if (this.entryForm.entrySelectors.includes('elementId')) {
-      this.dataSelectorsValues.elementId = this.entryForm.elements[0];
+   
+
+    const entryForm: EntryForm = JSON.parse(dataSelectorsValues.dataSource.extraMetadata);
+
+    if (entryForm.entrySelectors.includes('elementId')) {
+      dataSelectorsValues.elementId = entryForm.elements[0];
     }
 
     const todayDate = new Date();
 
-    if (this.entryForm.entrySelectors.includes('year')) {
-      this.dataSelectorsValues.year = todayDate.getFullYear();
+    if (entryForm.entrySelectors.includes('year')) {
+      dataSelectorsValues.year = todayDate.getFullYear();
     }
 
-    if (this.entryForm.entrySelectors.includes('month')) {
-      this.dataSelectorsValues.month = todayDate.getMonth() + 1;
+    if (entryForm.entrySelectors.includes('month')) {
+      dataSelectorsValues.month = todayDate.getMonth() + 1;
     }
 
-    if (this.entryForm.entrySelectors.includes('day')) {
-      this.dataSelectorsValues.day = todayDate.getDate();
+    if (entryForm.entrySelectors.includes('day')) {
+      dataSelectorsValues.day = todayDate.getDate();
     }
 
-    if (this.entryForm.entrySelectors.includes('hour')) {
-      this.dataSelectorsValues.hour = this.entryForm.hours.length > 0 ? this.entryForm.hours[0] : 0;
+    if (entryForm.entrySelectors.includes('hour')) {
+      dataSelectorsValues.hour = entryForm.hours.length > 0 ? entryForm.hours[0] : 0;
     }
 
-    this.defaultDatePickerDate = todayDate.toISOString().slice(0, 10)
+    this.useDatePickerControl = entryForm.entrySelectors.includes('year') &&
+      entryForm.entrySelectors.includes('month') &&
+      entryForm.entrySelectors.includes('day');
 
+    if (this.useDatePickerControl) {
+      this.defaultDatePickerDate = todayDate.toISOString().slice(0, 10);
+    }
+
+    this.entryControl = entryForm.entryControl;
+
+    this.dataSelectorsValues = dataSelectorsValues;
+
+    console.log('selectors',dataSelectorsValues);
+
+  }
+
+  public getStation(): Station[] {
+    return this.repo.getStations([this.dataSelectorsValues.stationId]);
   }
 
   private getEntryData(): void {

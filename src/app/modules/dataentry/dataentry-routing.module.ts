@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormEntryComponent } from './form-entry/form-entry.component';
-import { ViewEntryFormsComponent } from './view-entry-forms/view-entry-forms.component';
 import { ImportEntryComponent } from './import-entry/import-entry.component';
-import { ViewEntryStationsComponent } from './view-entry-stations/view-entry-stations.component';
+
 
 const routes: Routes = [
   {
@@ -14,23 +13,9 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'stations',
+        redirectTo: 'formentry',
         pathMatch: 'full',
       },      
-      {
-        path: 'stations',
-        component: ViewEntryStationsComponent,
-        data: {
-          title: 'Entry Stations'
-        }
-      },
-      {
-        path: 'forms',
-        component: ViewEntryFormsComponent,
-        data: {
-          title: 'Entry Forms'
-        }
-      }, 
       {
         path: 'formentry',
         component: FormEntryComponent,
