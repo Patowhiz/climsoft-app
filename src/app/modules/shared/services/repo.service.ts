@@ -97,7 +97,7 @@ export class RepoService {
     //todo. the below filter will happen at the server level
     for (const entryData of ENTRYDATASAMPLE) {
 
-      if (dataSelectorValues.dataSource.id > 0 && dataSelectorValues.dataSource.id !== entryData.dataSourceId) {
+      if (dataSelectorValues.dataSourceId > 0 && dataSelectorValues.dataSourceId !== entryData.dataSourceId) {
         continue;
       }
 

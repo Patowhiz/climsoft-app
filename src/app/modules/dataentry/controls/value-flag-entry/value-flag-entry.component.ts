@@ -25,7 +25,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
 
   @Input() entryDataItems!: EntryData[];
   @Input() dataSelectorsValues!: DataSelectorsValues;
-   @Input()entryForm!: EntryForm;
+    entryForm!: EntryForm;
 
   //entry controls definitions
   entryControlsDefs: ControlDefinition[] = [];
@@ -36,8 +36,8 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.entryForm = JSON.parse(this.dataSelectorsValues.dataSource.extraMetadata);
-
+ 
+    this.entryForm = this.dataSelectorsValues.entryForm;
     this.entryControlsDefs = this.getValueFlagControls(this.entryForm, this.entryDataItems);
   }
 
@@ -148,7 +148,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
     };
 
     //set its data source
-    entryData.dataSourceId = this.dataSelectorsValues.dataSource.id;
+    entryData.dataSourceId = this.dataSelectorsValues.dataSourceId;
     entryData.stationId = this.dataSelectorsValues.stationId;
     entryData.elementId = this.dataSelectorsValues.elementId;
 

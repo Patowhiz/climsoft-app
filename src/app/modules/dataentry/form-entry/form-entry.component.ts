@@ -9,7 +9,8 @@ import { PagesDataService } from '../../shared/services/pages-data.service';
 import { EntryDataSource } from '../../shared/models/entrydatasource.model';
 
 export interface DataSelectorsValues {
-  dataSource: EntryDataSource,
+  dataSourceId: number,
+  entryForm: EntryForm,
   stationId: string,
   elementId: number;
   year: number;
@@ -62,16 +63,18 @@ export class FormEntryComponent implements OnInit {
 
   private setInitialSelectorValues(): void {
    const dataSelectorsValues: DataSelectorsValues = {
-      dataSource: { id: 0, name: '', description: '', acquisitionTypeId: 0, extraMetadata: '' },
+      dataSourceId: -1,
+      entryForm: {entrySelectors: [], entryFields: [], entryControl: '', elements:[], hours: [], scale: 0, formValidations: '', samplePaperImage: ''},
       stationId: '-1', elementId: -1, year: -1, month: -1, day: -1, hour: -1
     };
 
+
+
+    dataSelectorsValues.dataSourceId = 5;
+    dataSelectorsValues.entryForm = JSON.parse(this.repo.getDataSource(5).extraMetadata);
+    let entryForm =  dataSelectorsValues.entryForm;
+
     dataSelectorsValues.stationId = '1';
-    dataSelectorsValues.dataSource = this.repo.getDataSource(5);
-
-   
-
-    const entryForm: EntryForm = JSON.parse(dataSelectorsValues.dataSource.extraMetadata);
 
     if (entryForm.entrySelectors.includes('elementId')) {
       dataSelectorsValues.elementId = entryForm.elements[0];
