@@ -9,9 +9,9 @@ import { PagesDataService } from '../../shared/services/pages-data.service';
 import { EntryDataSource } from '../../shared/models/entrydatasource.model';
 
 export interface DataSelectorsValues {
+  stationId: string,
   dataSourceId: number,
   entryForm: EntryForm,
-  stationId: string,
   elementId: number;
   year: number;
   month: number;
@@ -33,28 +33,18 @@ export class FormEntryComponent implements OnInit {
   defaultDatePickerDate!: string;
 
   //initial selector values should be -1 because we don't know what selectors are in the form metadata
-   dataSelectorsValues!: DataSelectorsValues ;
+  dataSelectorsValues!: DataSelectorsValues;
 
-  entryControl : string ='';
+  entryControl: string = '';
 
 
   constructor(private viewDataService: PagesDataService, private repo: RepoService, private router: Router) {
 
-
-    //this.entryForms = this.repo.getEntryForms(1);
-
-
-    //get form entry metadata
-    //const navData = this.viewDataService.getViewNavigationData();
-    //this.station = navData['stationData'];
-    //this.entrydataSource = navData['dataSourceData'];
-
     //set up values used by the component and it's UI controls
     this.setInitialSelectorValues();
 
-
     //get the data based on the initial selector values
-    //this.getEntryData();
+    this.getEntryData();
 
   }
 
@@ -62,19 +52,32 @@ export class FormEntryComponent implements OnInit {
   }
 
   private setInitialSelectorValues(): void {
-   const dataSelectorsValues: DataSelectorsValues = {
+    const dataSelectorsValues: DataSelectorsValues = {
+      stationId: '-1',
       dataSourceId: -1,
-      entryForm: {entrySelectors: [], entryFields: [], entryControl: '', elements:[], hours: [], scale: 0, formValidations: '', samplePaperImage: ''},
-      stationId: '-1', elementId: -1, year: -1, month: -1, day: -1, hour: -1
+      entryForm: { entrySelectors: [], entryFields: [], entryControl: '', elements: [], hours: [], scale: 0, formValidations: '', samplePaperImage: '' },
+      elementId: -1, year: -1, month: -1, day: -1, hour: -1
     };
 
 
+    //stodo. stations should be loaded based on user permisions
+    dataSelectorsValues.stationId = this.repo.getStations()[0].id;
+    //todo. data source should be loaded based on station metadata
+    const dataSource = this.repo.getDataSources(1)[0]
+    dataSelectorsValues.dataSourceId = dataSource.id;
+    dataSelectorsValues.entryForm = JSON.parse(dataSource.extraMetadata);
+  
 
-    dataSelectorsValues.dataSourceId = 5;
-    dataSelectorsValues.entryForm = JSON.parse(this.repo.getDataSource(5).extraMetadata);
-    let entryForm =  dataSelectorsValues.entryForm;
+    this.dataSelectorsValues = dataSelectorsValues;
+    this.resetForm(this.dataSelectorsValues)
 
-    dataSelectorsValues.stationId = '1';
+    //console.log('selectors', dataSelectorsValues);
+
+  }
+
+  private resetForm(dataSelectorsValues: DataSelectorsValues) {
+
+    const entryForm = dataSelectorsValues.entryForm;
 
     if (entryForm.entrySelectors.includes('elementId')) {
       dataSelectorsValues.elementId = entryForm.elements[0];
@@ -108,23 +111,28 @@ export class FormEntryComponent implements OnInit {
 
     this.entryControl = entryForm.entryControl;
 
-    this.dataSelectorsValues = dataSelectorsValues;
-
-    console.log('selectors',dataSelectorsValues);
-
   }
 
-  public getStation(): Station[] {
-    return this.repo.getStations([this.dataSelectorsValues.stationId]);
-  }
 
   private getEntryData(): void {
     //get the data based on the station, data source and selectors
     this.entryDataItems = this.repo.getEntryDataItems(this.dataSelectorsValues);;
   }
 
-  public onElementChange(element: Element): void {
-    this.dataSelectorsValues.elementId = element.id;
+  public onStationChange(stationId: string): void {
+    this.dataSelectorsValues.stationId = stationId;
+
+    //todo. left here. reset the form
+    this.getEntryData();
+  }
+
+  public onFormChange(dataSourceId: number): void {
+    this.dataSelectorsValues.entryForm = JSON.parse(this.repo.getDataSource(dataSourceId).extraMetadata);
+    this.getEntryData();
+  }
+
+  public onElementChange(elementId: number): void {
+    this.dataSelectorsValues.elementId = elementId;
     this.getEntryData();
   }
 
@@ -151,8 +159,8 @@ export class FormEntryComponent implements OnInit {
     this.getEntryData();
   }
 
-  public onHourChange(hourInput: any): void {
-    this.dataSelectorsValues.hour = hourInput.id;
+  public onHourChange(hourInput: number): void {
+    this.dataSelectorsValues.hour = hourInput;
     this.getEntryData();
   }
 

@@ -5,11 +5,20 @@
       <div class="row g-2">
         <!-- station -->
         <div class="col-sm-auto">
-          <app-station-input [controlLabel]="'Station'"></app-station-input>
+          <app-station-input
+            [controlLabel]="'Station'"
+            [value]="dataSelectorsValues.stationId"
+            (valueChange)="onStationChange($event)"
+          ></app-station-input>
         </div>
         <!-- form -->
         <div class="col-sm-auto">
-          <app-forms-input [controlLabel]="'Form'"> </app-forms-input>
+          <app-forms-input
+            [controlLabel]="'Form'"
+            [value]="dataSelectorsValues.dataSourceId"
+            (valueChange)="onFormChange($event)"
+          >
+          </app-forms-input>
         </div>
       </div>
     </div>
@@ -24,6 +33,8 @@
               *ngIf="dataSelectorsValues.elementId > -1"
             >
               <app-element-input
+                [controlLabel]="'Element'"
+                [value]="dataSelectorsValues.elementId"
                 (valueChange)="onElementChange($event)"
               ></app-element-input>
             </div>
@@ -33,6 +44,7 @@
               *ngIf="!useDatePickerControl && dataSelectorsValues.year > -1"
             >
               <app-year-input
+                [value]="dataSelectorsValues.year"
                 (valueChange)="onYearChange($event)"
               ></app-year-input>
             </div>
@@ -42,6 +54,7 @@
               *ngIf="!useDatePickerControl && dataSelectorsValues.month > -1"
             >
               <app-month-input
+                [value]="dataSelectorsValues.month"
                 (valueChange)="onMonthChange($event)"
               ></app-month-input>
             </div>
@@ -60,6 +73,7 @@
 
             <div class="col-sm-auto mb-2" *ngIf="useDatePickerControl">
               <app-date-input
+                [controlLabel]="'Date'"
                 [value]="defaultDatePickerDate"
                 (valueChange)="onDateChange($event)"
               ></app-date-input>
@@ -70,6 +84,8 @@
               *ngIf="this.dataSelectorsValues.hour > -1"
             >
               <app-hour-input
+                [controlLabel]="'Hour'"
+                [value]="dataSelectorsValues.hour"
                 (valueChange)="onHourChange($event)"
               ></app-hour-input>
             </div>

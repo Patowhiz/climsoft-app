@@ -26,7 +26,7 @@ export class StationInputComponent implements OnInit, OnChanges {
   }
 
   onChange(change: any) {
-    this.valueChange.emit(change);
+    this.valueChange.emit(this.value);
   }
 
 }

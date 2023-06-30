@@ -8,12 +8,12 @@ import { DateUtils } from '../../utils/date-utils';
 })
 export class HourInputComponent implements OnInit, OnChanges {
 
-  @Input() controlLabel: string ='Hour';
+  @Input() controlLabel: string = 'Hour';
   @Input() multiple: boolean = false;
   @Input() value!: any;
 
   @Output() valueChange = new EventEmitter<any>();
-  hours: any[];
+  hours: { [key: string]: any }[];
 
 
   constructor() {
@@ -25,7 +25,7 @@ export class HourInputComponent implements OnInit, OnChanges {
 
 
   ngOnChanges(changes: SimpleChanges): void {
- 
+
   }
 
   onChange(change: any) {
