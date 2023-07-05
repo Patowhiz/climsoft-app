@@ -17,11 +17,11 @@ export class FormBuilderComponent implements OnInit {
 
   allEntrySelectors: { [key: string]: any }[] = [{ id: 'year', name: 'Year' }, { id: "month", name: 'Month' }, { id: 'day', name: 'Day' }, { id: 'hour', name: 'Hour' }, { id: 'elementId', name: 'Element' }];;
   allEntryFields: { [key: string]: any }[] = [];
-  selectedEntrySelectors: { [key: string]: any }[] = [];
-  selectedEntryFields: { [key: string]: any }[] = [];
-  selectedEntryControl: string = '';
-  selectedElements: Element[] = [];
-  selectedHours: { [key: string]: any }[] = [];
+  selectedEntrySelectorIds: string[] = [];
+  selectedEntryFieldIds: string[] = [];
+  selectedEntryControlId: string = '';
+  selectedElementIds: number[] = [];
+  selectedHourIds: number[] = [];
   formName: string = '';
   formDescription: string = '';
   errorMessage: string = '';
@@ -31,36 +31,22 @@ export class FormBuilderComponent implements OnInit {
     this.entryDataSource = this.viewDataService.getViewNavigationData()['dataSourceData'];
 
     if (this.entryDataSource) {
-
+      //get selection from data source
       this.formName = this.entryDataSource.name;
       this.formDescription = this.entryDataSource.description;
-
       const entryForm: EntryForm = this.getEntryForm(this.entryDataSource.extraMetadata);
-
-      //get entry selectors from the form
-      for (const entrySelectorId of entryForm.entrySelectors) {
-        const selectedEntrySelector = this.allEntrySelectors.find(selector => selector['id'] === entrySelectorId);
-        if (selectedEntrySelector) {
-          this.selectedEntrySelectors.push(selectedEntrySelector);
-        }
-      }
-      
-      //get elements and hours from the form
-      this.selectedElements = this.repo.getElements( entryForm.elements);
-      this.selectedHours =  DateUtils.getHoursList(entryForm.hours);
-
+      this.selectedEntrySelectorIds = entryForm.entrySelectors;
+      this.selectedElementIds = entryForm.elements;
+      this.selectedHourIds = entryForm.hours;
     } else {
-
       //create new entry data source
       this.entryDataSource = { id: 0, name: '', description: '', acquisitionTypeId: 1, extraMetadata: '' }
-
       //set entry selectors initial defaults
-      this.selectedEntrySelectors = this.allEntrySelectors.slice(0, 4);
-      this.selectedHours = DateUtils.getHoursList();
-
+      this.selectedEntrySelectorIds = this.allEntrySelectors.slice(0, 4).map(item => item['id']);
+      this.selectedHourIds = DateUtils.getHours().map(item => item['id']);
     }
 
-    //set the control and the fields from the selectors
+    //set the control and the fields
     this.setEntryFieldsAndControl();
 
   }
@@ -91,47 +77,31 @@ export class FormBuilderComponent implements OnInit {
   //changes the possible selection of entry fields and entry control
   setEntryFieldsAndControl(): void {
 
-    // Reset the possible entry fields to all entry selectors
+    //reset the possible entry fields to all entry selectors
     this.allEntryFields = [...this.allEntrySelectors];
 
-    // Remove selected entry selectors from the list of selectable entry fields
-    this.allEntryFields = this.allEntryFields.filter(item => !this.selectedEntrySelectors.includes(item));
+    //remove selected entry selectors from the list of selectable entry fields
+    this.allEntryFields = this.allEntryFields.filter(item => !this.selectedEntrySelectorIds.includes(item['id']));
 
-    // Set the new entry fields as the selected ones
-    this.selectedEntryFields = [...this.allEntryFields];
+    //set the new entry fields as the selected ones
+    this.selectedEntryFieldIds =this.allEntryFields.map(item => item['id']);
+
+    //set entry control
     this.setEntryControl();
 
   }
 
   setEntryControl(): void {
-    if (this.selectedEntryFields.length === 1) {
-      this.selectedEntryControl = 'vf';
-    } else if (this.selectedEntryFields.length === 2) {
-      this.selectedEntryControl = 'grid';
+    if (this.selectedEntryFieldIds.length === 1) {
+      this.selectedEntryControlId = 'vf';
+    } else if (this.selectedEntryFieldIds.length === 2) {
+      this.selectedEntryControlId = 'grid';
     } else {
-      this.selectedEntryControl = '';
+      this.selectedEntryControlId = '';
     }
   }
 
   onSave(): void {
-
-    if (!this.entrySelectorsValid()) {
-      this.errorMessage = 'Select valid entry selectors';
-      return;
-    }
-
-    if (!this.entryFieldsValid()) {
-      this.errorMessage = 'Select valid entry fields';
-      return;
-    }
-
-    if (this.selectedElements.length === 0) {
-      this.errorMessage = 'Select elements';
-    }
-
-    if (this.selectedHours.length === 0) {
-      this.errorMessage = 'Select hours';
-    }
 
     if (!this.formName) {
       this.errorMessage = 'Enter form name';
@@ -143,16 +113,35 @@ export class FormBuilderComponent implements OnInit {
       return;
     }
 
-    const entryForm: EntryForm = this.getEntryForm('');
-    entryForm.entrySelectors.push(...this.selectedEntrySelectors.map(item => item['id']));
-    entryForm.entryFields.push(...this.selectedEntryFields.map(item => item['id']));
-    entryForm.entryControl = this.selectedEntryControl;
-    entryForm.elements.push(...this.selectedElements.map(item => item.id));
-    entryForm.hours.push(...this.selectedHours.map(item => item['id']));
+    if (!this.entrySelectorsValid()) {
+      this.errorMessage = 'Select valid entry selectors';
+      return;
+    }
+
+    if (!this.entryFieldsValid()) {
+      this.errorMessage = 'Select valid entry fields';
+      return;
+    }
+
+    if (this.selectedElementIds.length === 0) {
+      this.errorMessage = 'Select elements';
+    }
+
+    if (this.selectedHourIds.length === 0) {
+      this.errorMessage = 'Select hours';
+    }
 
     this.entryDataSource.acquisitionTypeId = 1;
     this.entryDataSource.name = this.formName;
     this.entryDataSource.description = this.formDescription;
+    
+    const entryForm: EntryForm = this.getEntryForm('');
+    entryForm.entrySelectors = this.selectedEntrySelectorIds;
+    entryForm.entryFields = this.selectedEntryFieldIds;
+    entryForm.entryControl = this.selectedEntryControlId;
+    entryForm.elements = this.selectedElementIds;
+    entryForm.hours = this.selectedHourIds;
+    
     this.entryDataSource.extraMetadata = JSON.stringify(entryForm);
 
     //console.log("data source: ", this.entryDataSource);
@@ -172,15 +161,15 @@ export class FormBuilderComponent implements OnInit {
 
   entrySelectorsValid(): boolean {
     //must be a minimum of 4 and maximum of 5
-    return this.selectedEntrySelectors.length >= 3 && this.selectedEntrySelectors.length <= 4;
+    return this.selectedEntrySelectorIds.length >= 3 && this.selectedEntrySelectorIds.length <= 4;
   }
 
   entryFieldsValid(): boolean {
     //must be a minimum of 1 or maximum of 2 depending on the selectors
-    if (this.selectedEntrySelectors.length === 4) {
-      return this.selectedEntryFields.length === 1;
-    } else if (this.selectedEntrySelectors.length === 3) {
-      return this.selectedEntryFields.length === 2;
+    if (this.selectedEntrySelectorIds.length === 4) {
+      return this.selectedEntryFieldIds.length === 1;
+    } else if (this.selectedEntrySelectorIds.length === 3) {
+      return this.selectedEntryFieldIds.length === 2;
     } else {
       return false;
     }

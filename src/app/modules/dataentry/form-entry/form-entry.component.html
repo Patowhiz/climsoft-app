@@ -86,6 +86,7 @@
               <app-hour-input
                 [controlLabel]="'Hour'"
                 [value]="dataSelectorsValues.hour"
+                [onlyIncludeIds]="dataSelectorsValues.entryForm.hours"
                 (valueChange)="onHourChange($event)"
               ></app-hour-input>
             </div>

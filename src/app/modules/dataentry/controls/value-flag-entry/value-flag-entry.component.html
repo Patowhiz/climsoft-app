@@ -2,7 +2,12 @@
   <div class="col-sm-auto mb-3" *ngFor="let item of entryControlsDefs">
     <app-text-input
       [controlLabel]="item.label"
-      [value]="item.valueFlag"
+      [value]="
+        item.entryData
+          ? (item.entryData.value !== null ? item.entryData.value : '') +
+            (item.entryData.flag !== null ? item.entryData.flag : '')
+          : ''
+      "
       (valueChange)="onInputEntry(item, $event)"
     ></app-text-input>
   </div>

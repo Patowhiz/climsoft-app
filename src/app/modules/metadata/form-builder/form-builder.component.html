@@ -30,7 +30,7 @@
           [valueMember]="'id'"
           [displayMember]="'name'"
           [multiple]="true"
-          [(value)]="selectedEntrySelectors"
+          [(value)]="selectedEntrySelectorIds"
           (valueChange)="setEntryFieldsAndControl()"
         ></app-selector-input>
       </div>
@@ -44,7 +44,7 @@
           [valueMember]="'id'"
           [displayMember]="'name'"
           [multiple]="true"
-          [(value)]="selectedEntryFields"
+          [(value)]="selectedEntryFieldIds"
           (valueChange)="setEntryControl()"
         ></app-selector-input>
       </div>
@@ -55,7 +55,7 @@
         <app-text-input
           [controlLabel]="'Entry Control'"
           [disabled]="true"
-          [value]="selectedEntryControl === 'vf' ? 'Value Flag' : 'Grid'"
+          [value]="selectedEntryControlId === 'vf' ? 'Value Flag' : 'Grid'"
         >
         </app-text-input>
       </div>
@@ -66,7 +66,7 @@
         <app-element-input
           [controlLabel]="'Elements'"
           [multiple]="true"
-          [(value)]="selectedElements"
+          [(value)]="selectedElementIds"
         ></app-element-input>
       </div>
       <!--------->
@@ -76,7 +76,7 @@
         <app-hour-input
           [controlLabel]="'Hours'"
           [multiple]="true"
-          [(value)]="selectedHours"
+          [(value)]="selectedHourIds"
         ></app-hour-input>
       </div>
       <!--------->

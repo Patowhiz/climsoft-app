@@ -2,29 +2,13 @@ export interface EntryData {
     stationId: string;
     elementId: number;
     dataSourceId: number;
-    //dateTime: string
-
-    //level of observation
     level: string;
-
-    //todo. string date??
-    year: number;
-    month: number;
-    day: number;
-    hour: number;
-
-
-    //stored as a number in the database
-    //can be empty due to nulls
-    value: string;
-    flag: string;
-
-    //image file name
-    paperImage: string;
-
-    //status if quality check.
-    //0 is no QC. >0 if QC has been done.
-    qcStatus: number;
+    datetime: string;
+    value: number | null; 
+    flag: string | null;    
+    //status of quality check.
+    //0 is no QC. If QC > 0 if QC has been done.
+    qcStatus: number| null;
 
     //json array string.
     //sample structure.
@@ -44,7 +28,7 @@ export interface EntryData {
     //     } 
     // ]  
 
-    changesLog: string;
+    changesLog: string; //json string
 
 
 

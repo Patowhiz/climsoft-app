@@ -11,21 +11,27 @@ export class HourInputComponent implements OnInit, OnChanges {
   @Input() controlLabel: string = 'Hour';
   @Input() multiple: boolean = false;
   @Input() value!: any;
-
   @Output() valueChange = new EventEmitter<any>();
-  hours: { [key: string]: any }[];
+  @Input() onlyIncludeIds!: number[];
+
+  hours!: { [key: string]: any }[];
 
 
   constructor() {
-    this.hours = DateUtils.getHoursList();
   }
 
   ngOnInit(): void {
+    //if no hours to display passed, then just display all the hours
+    if (!this.hours || this.hours.length === 0) {
+      this.hours = DateUtils.getHours();
+    }
   }
 
 
   ngOnChanges(changes: SimpleChanges): void {
-
+    if (this.onlyIncludeIds && this.onlyIncludeIds.length > 0) {
+      this.hours = DateUtils.getHours(this.onlyIncludeIds);
+    }
   }
 
   onChange(change: any) {

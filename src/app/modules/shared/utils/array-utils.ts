@@ -9,10 +9,10 @@ export class ArrayUtils {
       //dataItem should NOT be an array
       //returns found value or undefined 
       static findDataItem(dataItems: { [key: string]: any }[], dataItem: any, property: string): any {
-        if (typeof dataItem !== 'object') {
-          return dataItems.find((fetchedItem) => fetchedItem[property] === dataItem);
-        } else {
+        if (typeof dataItem === 'object') {
           return dataItems.find((fetchedItem) => fetchedItem[property] === dataItem[property]);
+        } else {
+          return dataItems.find((fetchedItem) => fetchedItem[property] === dataItem);
         }
       }
 

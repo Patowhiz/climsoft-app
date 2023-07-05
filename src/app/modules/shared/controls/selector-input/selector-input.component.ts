@@ -69,7 +69,7 @@ export class SelectorInputComponent implements OnInit, OnChanges {
     }
 
     this.valueChange.emit(this.value);
-    console.log("selector value", this.value);
+    //console.log("selector value", this.value);
   }
 
 

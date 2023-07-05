@@ -3,7 +3,6 @@ import { LocalStorageService } from './local-storage.service';
 import { EntryForm } from '../models/entryform.model';
 import { EntryDataSource } from '../models/entrydatasource.model';
 import { EntryData } from '../models/entrydata.model';
-import { ENTRYDATASAMPLE } from '../../dataentry/mockdata/mockdata-list.mock';
 import { DataSelectorsValues } from '../../dataentry/form-entry/form-entry.component';
 import { Element } from '../models/element.model';
 import { Station } from '../models/station.model';
@@ -25,6 +24,7 @@ export class RepoService {
   //todo. this will be be done at the back end
   public saveDataSource(newDataSource: EntryDataSource): boolean {
     let dataSources: EntryDataSource[] = this.getDataSources();
+    //let dataSources: EntryDataSource[] = [];
 
     if (newDataSource.id <= 0) {
       const lastDataSource = dataSources[dataSources.length - 1];
@@ -92,10 +92,11 @@ export class RepoService {
 
   public getEntryDataItems(dataSelectorValues: DataSelectorsValues): EntryData[] {
 
+    let allEntryDataItems: EntryData[] = this.getSavedEntryDataItems();
     let entryDataItems: EntryData[] = [];
 
     //todo. the below filter will happen at the server level
-    for (const entryData of ENTRYDATASAMPLE) {
+    for (const entryData of allEntryDataItems) {
 
       if (dataSelectorValues.dataSourceId > 0 && dataSelectorValues.dataSourceId !== entryData.dataSourceId) {
         continue;
@@ -109,19 +110,20 @@ export class RepoService {
         continue;
       }
 
-      if (dataSelectorValues.year > 0 && entryData.year !== dataSelectorValues.year) {
+      const date: Date = new Date(entryData.datetime);
+      if (dataSelectorValues.year > 0 && date.getFullYear() !== dataSelectorValues.year) {
         continue;
       }
 
-      if (dataSelectorValues.month > 0 && entryData.month !== dataSelectorValues.month) {
+      if (dataSelectorValues.month > 0 && date.getMonth() !== dataSelectorValues.month) {
         continue;
       }
 
-      if (dataSelectorValues.day > 0 && entryData.day !== dataSelectorValues.day) {
+      if (dataSelectorValues.day > 0 && date.getDate() !== dataSelectorValues.day) {
         continue;
       }
 
-      if (dataSelectorValues.hour > -1 && entryData.hour !== dataSelectorValues.hour) {
+      if (dataSelectorValues.hour > -1 && date.getHours() !== dataSelectorValues.hour) {
         continue;
       }
 
@@ -144,8 +146,8 @@ export class RepoService {
 
   public saveEntryData(entryData: EntryData[]): boolean {
     //todo. this will also be done at the server level
-    let entryDataItems: EntryData[] = this.getSavedEntryDataItems();
-    //let entryDataItems: EntryDataSource[] =[];
+    //let entryDataItems: EntryData[] = this.getSavedEntryDataItems();
+    let entryDataItems: EntryData[] = [];
 
     //todo. check for uniqueness from the local data as well
     entryDataItems.push(...entryData);
@@ -172,7 +174,7 @@ export class RepoService {
       { id: '2', name: 'KMD Headquarters' },
       { id: '3', name: 'ICPAC Main' },
       { id: '4', name: 'KALRO Machakos' }];
-      const stations = stationIds ? allStations.filter(obj => stationIds.includes(obj.id)) : allStations;
+    const stations = stationIds ? allStations.filter(obj => stationIds.includes(obj.id)) : allStations;
     return stations;
   }
 

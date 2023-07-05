@@ -7,6 +7,7 @@ import { RepoService } from '../../shared/services/repo.service';
 import { Element } from '../../shared/models/element.model';
 import { PagesDataService } from '../../shared/services/pages-data.service';
 import { EntryDataSource } from '../../shared/models/entrydatasource.model';
+import { DateUtils } from '../../shared/utils/date-utils';
 
 export interface DataSelectorsValues {
   stationId: string,
@@ -26,24 +27,19 @@ export interface DataSelectorsValues {
   styleUrls: ['./form-entry.component.scss']
 })
 export class FormEntryComponent implements OnInit {
-  //station!: Station;
-  //entrydataSource: EntryDataSource;
-  entryDataItems: EntryData[] = [];
+  dataSelectorsValues!: DataSelectorsValues;
   useDatePickerControl: boolean = false;
   defaultDatePickerDate!: string;
-
-  //initial selector values should be -1 because we don't know what selectors are in the form metadata
-  dataSelectorsValues!: DataSelectorsValues;
-
   entryControl: string = '';
+  entryDataItems: EntryData[] = [];
 
 
   constructor(private viewDataService: PagesDataService, private repo: RepoService, private router: Router) {
-
-    //set up values used by the component and it's UI controls
-    this.setInitialSelectorValues();
-
-    //get the data based on the initial selector values
+    this.dataSelectorsValues = this.getNewInitialDataSelector();
+    //todo. stations should be loaded based on user permisions
+    this.dataSelectorsValues.stationId = this.repo.getStations()[0].id;
+    //todo. data source should be loaded based on station metadata
+    this.setFormSelectorsAndControl(this.repo.getDataSources(1)[0].id)
     this.getEntryData();
 
   }
@@ -51,54 +47,42 @@ export class FormEntryComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private setInitialSelectorValues(): void {
-    const dataSelectorsValues: DataSelectorsValues = {
+  private getNewInitialDataSelector(): DataSelectorsValues {
+    return {
       stationId: '-1',
       dataSourceId: -1,
       entryForm: { entrySelectors: [], entryFields: [], entryControl: '', elements: [], hours: [], scale: 0, formValidations: '', samplePaperImage: '' },
       elementId: -1, year: -1, month: -1, day: -1, hour: -1
     };
-
-
-    //stodo. stations should be loaded based on user permisions
-    dataSelectorsValues.stationId = this.repo.getStations()[0].id;
-    //todo. data source should be loaded based on station metadata
-    const dataSource = this.repo.getDataSources(1)[0]
-    dataSelectorsValues.dataSourceId = dataSource.id;
-    dataSelectorsValues.entryForm = JSON.parse(dataSource.extraMetadata);
-  
-
-    this.dataSelectorsValues = dataSelectorsValues;
-    this.resetForm(this.dataSelectorsValues)
-
-    //console.log('selectors', dataSelectorsValues);
-
   }
 
-  private resetForm(dataSelectorsValues: DataSelectorsValues) {
+  private setFormSelectorsAndControl(dataSourceId: number) {
+    const dataSource = this.repo.getDataSource(dataSourceId)
+    this.dataSelectorsValues.dataSourceId = dataSource.id;
+    this.dataSelectorsValues.entryForm = JSON.parse(dataSource.extraMetadata);
 
-    const entryForm = dataSelectorsValues.entryForm;
+    const entryForm = this.dataSelectorsValues.entryForm;
 
     if (entryForm.entrySelectors.includes('elementId')) {
-      dataSelectorsValues.elementId = entryForm.elements[0];
+      this.dataSelectorsValues.elementId = entryForm.elements[0];
     }
 
     const todayDate = new Date();
 
     if (entryForm.entrySelectors.includes('year')) {
-      dataSelectorsValues.year = todayDate.getFullYear();
+      this.dataSelectorsValues.year = todayDate.getFullYear();
     }
 
     if (entryForm.entrySelectors.includes('month')) {
-      dataSelectorsValues.month = todayDate.getMonth() + 1;
+      this.dataSelectorsValues.month = todayDate.getMonth() + 1;
     }
 
     if (entryForm.entrySelectors.includes('day')) {
-      dataSelectorsValues.day = todayDate.getDate();
+      this.dataSelectorsValues.day = todayDate.getDate();
     }
 
     if (entryForm.entrySelectors.includes('hour')) {
-      dataSelectorsValues.hour = entryForm.hours.length > 0 ? entryForm.hours[0] : 0;
+      this.dataSelectorsValues.hour = entryForm.hours.length > 0 ? entryForm.hours[0] : 0;
     }
 
     this.useDatePickerControl = entryForm.entrySelectors.includes('year') &&
@@ -110,8 +94,9 @@ export class FormEntryComponent implements OnInit {
     }
 
     this.entryControl = entryForm.entryControl;
-
   }
+
+
 
 
   private getEntryData(): void {
@@ -120,14 +105,18 @@ export class FormEntryComponent implements OnInit {
   }
 
   public onStationChange(stationId: string): void {
+
+    this.dataSelectorsValues = this.getNewInitialDataSelector();
     this.dataSelectorsValues.stationId = stationId;
 
-    //todo. left here. reset the form
+    //todo. data source should be loaded based on station metadata
+    this.setFormSelectorsAndControl(this.repo.getDataSources(1)[0].id)
     this.getEntryData();
   }
 
   public onFormChange(dataSourceId: number): void {
-    this.dataSelectorsValues.entryForm = JSON.parse(this.repo.getDataSource(dataSourceId).extraMetadata);
+    this.dataSelectorsValues = this.getNewInitialDataSelector();
+    this.setFormSelectorsAndControl(dataSourceId)
     this.getEntryData();
   }
 
