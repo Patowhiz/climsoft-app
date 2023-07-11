@@ -4,7 +4,7 @@
   class="form-control"
   [id]="controlLabel"
   [disabled]="disabled"
-  placeholder=""
   (input)="onInputChange($any($event.target).value)"
   [value]="value"
 />
+<div class="form-text"  [class.text-danger] = "errorMessage" >{{ errorMessage ? errorMessage : hintMessage }}</div>

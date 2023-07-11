@@ -115,7 +115,7 @@ export class RepoService {
         continue;
       }
 
-      if (dataSelectorValues.month > 0 && date.getMonth() !== dataSelectorValues.month) {
+      if (dataSelectorValues.month > 0 && date.getMonth() + 1 !== dataSelectorValues.month) {
         continue;
       }
 

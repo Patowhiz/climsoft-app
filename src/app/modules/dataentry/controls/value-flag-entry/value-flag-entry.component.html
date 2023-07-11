@@ -2,6 +2,7 @@
   <div class="col-sm-auto mb-3" *ngFor="let item of entryControlsDefs">
     <app-text-input
       [controlLabel]="item.label"
+      [errorMessage]="item.errorMessage"
       [value]="
         item.entryData
           ? (item.entryData.value !== null ? item.entryData.value : '') +

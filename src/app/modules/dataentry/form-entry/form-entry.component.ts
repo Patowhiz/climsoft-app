@@ -39,7 +39,9 @@ export class FormEntryComponent implements OnInit {
     //todo. stations should be loaded based on user permisions
     this.dataSelectorsValues.stationId = this.repo.getStations()[0].id;
     //todo. data source should be loaded based on station metadata
-    this.setFormSelectorsAndControl(this.repo.getDataSources(1)[0].id)
+    const dataSource = this.repo.getDataSource(this.repo.getDataSources(1)[0].id)
+    this.dataSelectorsValues.dataSourceId = dataSource.id;
+    this.setFormSelectorsAndControl( JSON.parse(dataSource.extraMetadata))
     this.getEntryData();
 
   }
@@ -56,12 +58,9 @@ export class FormEntryComponent implements OnInit {
     };
   }
 
-  private setFormSelectorsAndControl(dataSourceId: number) {
-    const dataSource = this.repo.getDataSource(dataSourceId)
-    this.dataSelectorsValues.dataSourceId = dataSource.id;
-    this.dataSelectorsValues.entryForm = JSON.parse(dataSource.extraMetadata);
-
-    const entryForm = this.dataSelectorsValues.entryForm;
+  private setFormSelectorsAndControl(entryForm: EntryForm) {
+  
+    this.dataSelectorsValues.entryForm = entryForm;
 
     if (entryForm.entrySelectors.includes('elementId')) {
       this.dataSelectorsValues.elementId = entryForm.elements[0];
@@ -109,14 +108,32 @@ export class FormEntryComponent implements OnInit {
     this.dataSelectorsValues = this.getNewInitialDataSelector();
     this.dataSelectorsValues.stationId = stationId;
 
-    //todo. data source should be loaded based on station metadata
-    this.setFormSelectorsAndControl(this.repo.getDataSources(1)[0].id)
+      //todo. data source should be loaded based on station metadata
+    const dataSource = this.repo.getDataSource(this.repo.getDataSources(1)[0].id)
+    this.dataSelectorsValues.dataSourceId = dataSource.id;
+
+  
+    this.setFormSelectorsAndControl(JSON.parse(dataSource.extraMetadata))
     this.getEntryData();
   }
 
   public onFormChange(dataSourceId: number): void {
+
+    //store old station id
+    const stationId : string = this.dataSelectorsValues.stationId;
+
+    //reset the data selector values 
     this.dataSelectorsValues = this.getNewInitialDataSelector();
-    this.setFormSelectorsAndControl(dataSourceId)
+
+    //restore the station id
+    this.dataSelectorsValues.stationId = stationId;
+
+    //set new data source id
+    this.dataSelectorsValues.dataSourceId = dataSourceId;
+
+    //set the form selectors and control
+    this.setFormSelectorsAndControl(JSON.parse(this.repo.getDataSource(dataSourceId).extraMetadata))
+
     this.getEntryData();
   }
 
@@ -155,7 +172,7 @@ export class FormEntryComponent implements OnInit {
 
   public onSave(): void {
     console.log("new values", this.entryDataItems)
-    //this.repo.saveEntryData(this.entryDataItems);
+    this.repo.saveEntryData(this.entryDataItems);
   }
 
   public onDelete(): void {

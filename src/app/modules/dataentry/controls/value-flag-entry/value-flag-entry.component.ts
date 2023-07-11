@@ -11,6 +11,7 @@ export interface ControlDefinition {
   id: number;
   label: string;
   entryData?: EntryData;
+  errorMessage: string;
 }
 
 // This component expects form metadata and an empty or filled array of entry data items
@@ -68,7 +69,7 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
   private getNewControlDefs(entryFieldItems: any[], valueProperty: string, displayProperty: string): ControlDefinition[] {
     let controlDefs: ControlDefinition[] = [];
     for (const item of entryFieldItems) {
-      controlDefs.push({ id: item[valueProperty], label: item[displayProperty], entryData: undefined })
+      controlDefs.push({ id: item[valueProperty], label: item[displayProperty], entryData: undefined, errorMessage: '' })
     }
     return controlDefs;
   }
@@ -86,7 +87,34 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
   }
 
 
-  onInputEntry(controlDef: ControlDefinition, controlNewValueFlag: any): void {
+  onInputEntry(controlDef: ControlDefinition, controlNewValueFlag: string): void {
+
+    //clear any existing error message
+    controlDef.errorMessage = '';
+
+    //check for white spaces. By default they are always not allowed
+    if (controlNewValueFlag.length > 0 && controlNewValueFlag.trim().length === 0) {
+      controlDef.errorMessage = 'Empty spaces not allowed';
+      return;
+    }
+
+   //extract the value from the flag and nullify any empty flag entry
+    const numberPatternRegExp: RegExp = /[+-]?\d+(\.\d+)?/; // Regular expression to match numbers with optional decimal points
+    const matches: RegExpMatchArray | null = controlNewValueFlag.match(numberPatternRegExp);
+    let extractedNumber: number | null = matches ? Number(matches[0]) : null;
+    let extractedString: string | null = controlNewValueFlag.replace(numberPatternRegExp, "").trim();
+    extractedString = extractedString !== null && extractedString.length === 0 ? null: extractedString
+
+    //if number input then validate
+    if (extractedNumber !== null) {
+      //todo. validate the number
+    }
+
+    //if flag input then validate
+    if (extractedString !== null) {
+      //todo. validate the flag
+    }
+
 
     //if there was no existing data then create new entry data and push it to the entry data arrays 
     if (!controlDef.entryData) {
@@ -95,13 +123,11 @@ export class ValueFlagEntryComponent implements OnInit, OnChanges {
       this.entryDataItems.push(controlDef.entryData);
     }
 
-    //set the value field from the control new value
-    controlDef.entryData.value = controlNewValueFlag;
-    controlDef.entryData.flag = ''
+    //set the value and flag
+    controlDef.entryData.value = extractedNumber;
+    controlDef.entryData.flag = extractedString;
 
-    console.log('new data', controlDef);
-
-
+    //console.log('new data', controlDef);
 
   }
 
